@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/reset"
+        android:textSize="25px" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="108dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:textSize="30px"
+        android:text="@string/check" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="48dp"
+        android:digits="1234567890xX"
+        android:ems="9" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="72dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:digits="1234567890"
+        android:ems="9" />
+
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText2"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignRight="@+id/textView1"
+        android:text="@string/cardnumber"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText1"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignLeft="@+id/TextView01"
+        android:text="@string/identificationnumber"
+        android:textSize="30px" />
+    
+    <ProgressBar
+        android:id="@+id/ProgressBar"
+    	android:layout_width="100dp"
+    	android:layout_height="100dp"
+	    android:layout_below="@+id/editText2"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="20dp"
+	    android:visibility="invisible" />
+
+</RelativeLayout>

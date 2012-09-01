@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmprice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:text="@string/price" />
+
+    <Button
+        android:id="@+id/confirm4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/confirmprice"
+        android:layout_below="@+id/price"
+        android:layout_marginTop="40dp"
+        android:text="@string/confirm4" />
+
+    <TextView
+        android:id="@+id/confirmprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="104dp"
+        android:text="@string/confirmprice" />
+
+    <TextView
+        android:id="@+id/receivername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="@string/receiver" />
+
+</RelativeLayout>

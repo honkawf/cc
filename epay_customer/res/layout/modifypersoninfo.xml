@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_x="66dp"
+        android:layout_y="31dp"
+        android:textSize="15dp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="212dp"
+        android:layout_y="31dp"
+        android:text="验证" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_x="66dp"
+        android:layout_y="118dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="70dp"
+        android:layout_y="98dp"
+        android:text="新密码"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="68dp"
+        android:layout_y="10dp"
+        android:text="当前密码" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_x="66dp"
+        android:layout_y="200dp"
+        android:ems="10"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="212dp"
+        android:layout_y="200dp"
+        android:text="修改"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="212dp"
+        android:layout_y="118dp"
+        android:text="修改"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="72dp"
+        android:layout_y="180dp"
+        android:text="手机号码"
+        android:visibility="invisible" />
+
+</AbsoluteLayout>

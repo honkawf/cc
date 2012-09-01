@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">1.jiugong_jiesuo</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="login">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;登录</string>
+	<string name="login_button">登录</string>
+	<string name="username">用户名：</string>
+	<string name="password">密码：</string>
+	<string name="relogin">请重新登录！</string>
+	<string name="reset">请输入验证信息</string>
+	<string name="cardnumber">银行卡号：</string>
+	<string name="identificationnumber">身份证号：</string>
+	<string name="check">验证</string>
+	<string name="register">注册</string>
+     <!-- Accessibility description sent when user starts drawing a lock pattern. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_start">Pattern started</string>
+    <!-- Accessibility description sent when the pattern times out and is cleared. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_cleared">Pattern cleared</string>
+    <!-- Accessibility description sent when user adds a cell to the pattern. [CHAR LIMIT=NONE]  -->
+    <string name="lockscreen_access_pattern_cell_added">Cell added</string>
+    <!-- Accessibility description sent when user completes drawing a pattern. [CHAR LIMIT=NONE] -->
+    <string name="lockscreen_access_pattern_detected">Pattern completed</string>
+
+    <string name="action_settings">Settings</string> 
+    <string name="Open_camera">Open camera</string>
+    <string name="Scan_result">Scan result</string>
+    <string name="Input_the_text">Input the text</string>
+    <string name="Generate_QRcode">Generate QRcode</string>
+    <string name="Scan_Barcode">请扫码</string>
+    <string name="Cancel">返回</string>
+    <string name="confirm2">提交订单</string>
+    <string name="goon">开始购物</string>
+    <string name="confirm1">确认</string>
+    <string name="storeInfo">商家信息</string>
+    <string name="confirm3">确认付款</string>
+    <string name="total">共计</string>
+    <string name="pay">我要付款</string>
+    <string name="closePair">断开配对</string>
+    <string name="exit">退出</string>
+    <string name="transfer">我要转账</string> 
+    <string name="receiverInfo">收款方信息</string>
+    <string name="checklist">我的支票</string>
+    <string name="confirmprice">请确认价格和收款方</string>
+    <string name="price">元</string>
+    <string name="confirm4">确认付款</string>
+    <string name="receiver">收款方</string>
+</resources>

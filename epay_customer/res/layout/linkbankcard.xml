@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title_linkbankcard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="绑定银行卡"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/link1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/link2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="要绑定的银行卡号"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/cardNum"
+        android:layout_width="252dp"
+        android:layout_height="34dp"
+        android:ems="10"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/cardNum_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textColor="#FF0000"  />
+
+    <TextView
+        android:id="@+id/link3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="银行卡密码"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/cardPwd"
+        android:layout_width="256dp"
+        android:layout_height="31dp"
+        android:ems="10"
+        android:inputType="numberPassword" />
+
+    <TextView
+        android:id="@+id/cardPwd_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textColor="#FF0000" />
+
+
+    <TextView
+        android:id="@+id/link4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您的手机号"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/phoneNum"
+        android:layout_width="257dp"
+        android:layout_height="30dp"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/phoneNum_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#FF0000"  />
+
+    <TextView
+        android:id="@+id/link5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您的身份证号"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/idCardNum"
+        android:layout_width="256dp"
+        android:layout_height="32dp"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/idCardNum_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="#FF0000"/>
+
+    <RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <Button
+        android:id="@+id/btn_link_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确认输入" />
+
+    <TextView
+        android:id="@+id/btn_link_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/link_submit"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FF0000" />
+    
+    </RelativeLayout>
+
+</LinearLayout>

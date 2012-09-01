@@ -1,0 +1,168 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.edu.seu.main"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" /> 
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar"
+        android:allowBackup="true" >
+        <activity
+            android:name="cn.edu.seu.login.LoginActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.edu.seu.gesturepassword.LockActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.gesturepassword.SetFirstActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.login.ReloginActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+         <activity
+            android:name="cn.edu.seu.login.FunctionActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.gesturepassword.SetSecondActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.login.RecordActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.login.DetailActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.login.ResetActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.personinfomodify.ModifyActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.personinfomodify.ModifyPersonInfoActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.financing.FinancingActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.financing.DepositFirstActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.financing.DepositSecondActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.financing.DepositThirdActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.financing.InterestFirstActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.cose.register.SetGestureFirstActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        
+        <activity
+            android:name="cn.edu.seu.cose.register.SetGestureSecondActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        
+        <activity
+            android:name="cn.edu.seu.cose.register.RegisterActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        
+         <activity
+            android:name="cn.edu.seu.cose.register.LinkBankCardActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        
+        <activity
+            android:name="cn.edu.seu.main.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="cn.edu.seu.check.CheckActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.pay.ConfirmPriceActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.pay.StoreInfoActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.check.DetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="cn.edu.seu.transfer.TransferActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="cn.edu.seu.transfer.TransferPriceActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="cn.edu.seu.transfer.ReceiverInfoActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:name="com.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            
+        </activity>
+         <activity
+            android:name="cn.edu.seu.pay.GoodsListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.pay.ConfirmListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <receiver android:name="cn.edu.seu.datatransportation.PairingRequest">
+                  <intent-filter>
+                    <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
+                  </intent-filter>
+                </receiver>
+    </application>
+
+</manifest>

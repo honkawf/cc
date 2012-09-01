@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请再次设置密码"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <cn.edu.seu.gesturepassword.LockPatternView
+         xmlns:app="http://schemas.android.com/apk/res/com.wgs.jiesuo"
+         android:id="@+id/lpv_lock_second"
+         android:background="#334455"
+         android:layout_width="300dp"
+         android:layout_height="300dp"
+        />
+    
+  
+</LinearLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#ff0000" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:background="#990000" />
+
+    <TextView
+        android:id="@+id/TextView04"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#990000" />
+
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TextView04"
+        android:layout_alignParentLeft="true"
+        android:background="#ff0000" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="140px"
+        android:layout_height="100px"
+        android:layout_above="@+id/TextView03"
+        android:layout_alignRight="@+id/button1"
+        android:layout_marginBottom="108dp"
+        android:text="@string/pay" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="140px"
+        android:layout_height="100px"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp"
+        android:text="@string/transfer" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TextView03"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:text="修改" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button3"
+        android:layout_toRightOf="@+id/button2"
+        android:text="理财" />
+
+</RelativeLayout>

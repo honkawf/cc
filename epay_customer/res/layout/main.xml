@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnTran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnClo"
+        android:layout_alignBottom="@+id/btnClo"
+        android:layout_alignLeft="@+id/btnExit"
+        android:layout_alignParentRight="true"
+        android:text="@string/transfer" />
+
+    <Button
+        android:id="@+id/btnSta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="58dp"
+        android:text="@string/pay" />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="101dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/btnSta"
+        android:text="@string/exit" />
+
+    <Button
+        android:id="@+id/btnClo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/btnSta"
+        android:layout_below="@+id/btnExit"
+        android:layout_marginTop="104dp"
+        android:text="@string/closePair" />
+
+    <Button
+        android:id="@+id/btnCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:layout_toRightOf="@+id/btnClo"
+        android:text="@string/checklist" />
+
+</RelativeLayout>
