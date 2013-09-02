@@ -20,6 +20,7 @@ public class BluetoothDataTransportation implements IDataTransportation{
 	private  int receiveConnection=0;
 	private  String msg=null;
 	private InputStream is;
+	private static final String TAG="BluetoothDataTransportation";
 	private  BluetoothServerSocket mserverSocket;
 	private  BluetoothAdapter btAdapt=BluetoothAdapter.getDefaultAdapter();
 	public void createSocket()
@@ -41,11 +42,13 @@ public class BluetoothDataTransportation implements IDataTransportation{
 		bst.start();
 		try {
 			bst.join();
+			Log.i(TAG,"8");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		socket=bst.getSocket();
+		Log.i(TAG,"9");
 	}
 	public boolean isAlive()
 	{

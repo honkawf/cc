@@ -18,6 +18,9 @@ import cn.edu.seu.datatransportation.BluetoothReadThread;
 import cn.edu.seu.datatransportation.BluetoothServerThread;
 import cn.edu.seu.datatransportation.BluetoothWriteThread;
 import cn.edu.seu.datatransportation.ClsUtils;
+import cn.edu.seu.datatransportation.LocalInfo;
+import cn.edu.seu.datatransportation.LocalInfoIO;
+import cn.edu.seu.gesturepassword.LockActivity;
 import cn.edu.seu.pay.StoreInfoActivity;
 import cn.edu.seu.transfer.TransferActivity;
 import cn.edu.seu.transfer.TransferWaitingThread;
@@ -25,6 +28,7 @@ import cn.edu.seu.xml.PersonInfo;
 import cn.edu.seu.xml.Transfer;
 import cn.edu.seu.xml.XML;
 
+import cn.edu.seu.login.FunctionActivity;
 import cn.edu.seu.main.R;
 import com.zxing.activity.CaptureActivity;
 
@@ -44,6 +48,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -63,6 +68,17 @@ public class MainActivity extends Activity {
     public static boolean s = true;
 	public static BluetoothDataTransportation bdt=new BluetoothDataTransportation();
 	private String mac;
+	private BroadcastReceiver receiver = new BroadcastReceiver(){
+
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			if(s){
+				Intent it = new Intent(MainActivity.this , LockActivity.class);
+				startActivity(it);
+				s = false;
+			}
+		}	
+	};
 	private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -96,13 +112,19 @@ public class MainActivity extends Activity {
      @Override 
      public void onCreate(Bundle savedInstanceState) { 
          super.onCreate(savedInstanceState); 
-         setContentView(R.layout.main); 
+         setContentView(R.layout.main);
+         LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+         LocalInfo x = lio.readfile();
          {
-     		person.setUsername("honka");
-     		person.setCustomername("付款方");
-     		person.setCardnum("4816057396530741749");
-     		person.setImei("12313156664");
+     		person.setUsername(x.getUserName());
+     		person.setCustomername(x.getCustomerName());
+     		person.setCardnum(x.getCardnum());
+     		person.setImei(((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
+					.getDeviceId());
      	}//载入person
+         final IntentFilter filter = new IntentFilter();
+ 		filter.addAction(Intent.ACTION_SCREEN_OFF);
+ 		registerReceiver(receiver,filter);
          btAdapt = BluetoothAdapter.getDefaultAdapter();// 初始化本机蓝牙功能 
          // Button 设置 
          btnSta=(Button)findViewById(R.id.btnSta);

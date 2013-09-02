@@ -40,6 +40,7 @@ public class BluetoothServerThread extends Thread{
 			UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));		
 			Log.d("server", "wait cilent connect...");
 			socket = mserverSocket.accept();
+			Log.d("server", socket.toString());
 			isConnected=true;
 			Log.d("server", "accept success !");
 			//启动接受数据

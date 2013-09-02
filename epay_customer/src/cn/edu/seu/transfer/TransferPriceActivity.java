@@ -4,9 +4,13 @@ package cn.edu.seu.transfer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
 
 import cn.edu.seu.main.R;
+import cn.edu.seu.check.Check;
+import cn.edu.seu.check.CheckActivity;
+import cn.edu.seu.check.Checkdh;
 import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
@@ -182,6 +186,18 @@ public class TransferPriceActivity extends Activity {
 				double limitpertime=Double.parseDouble(properties.getProperty("limitpertime","2000"));
 				double limitperday=Double.parseDouble(properties.getProperty("limitperday","10000"));
 				boolean condition1=(Double.parseDouble(editText1.getText().toString())<limitpertime);//单笔限额
+				Recorddh rdh= new Recorddh(TransferPriceActivity.this, "recorddb" , null, 1);
+				Record [] list = rdh.query();
+				long currenttime = System.currentTimeMillis();
+				long date = currenttime/3600/24/1000;
+				long begin = date*3600*24*1000;
+				long end = (date+1)*3600*24*1000;
+				double sum = 0;
+				for(int i = 0 ; i < list.length ; i++ ){
+			        if(Long.parseLong(list[i].getTradeTime()) >= begin && Long.parseLong(list[i].getTradeTime()) <= end && list[i].getTradeType().equals("转出")){
+			        	sum += list[i].getPrice();
+			        }
+			    }
 				boolean condition2=true;
 				/*!!!!!此处加入计算当前交易额*/
 				if(condition1&&condition2)
@@ -257,7 +273,7 @@ public class TransferPriceActivity extends Activity {
 										lio.modifyAvailableBalance(String.valueOf(avaliblebalance));
 										
 										//生成转账记录
-										Record record = new Record( 0 ,transfer.getPayerName(),transfer.getPayerDevice(),transfer.getPayerIMEI(),transfer.getReceiverName(),transfer.getReceiverDevice(),transfer.getReceiverIMEI(),Double.parseDouble(transfer.getTotalPrice()),"收款", transfer.getTradeTime());
+										Record record = new Record( 0 ,transfer.getPayerName(),transfer.getPayerDevice(),transfer.getPayerIMEI(),transfer.getReceiverName(),transfer.getReceiverDevice(),transfer.getReceiverIMEI(),Double.parseDouble(transfer.getTotalPrice()),"转出", transfer.getTradeTime());
 										Recorddh rdh = new Recorddh(TransferPriceActivity.this , "recorddb" , null , 1);
 										rdh.insert(record);
 										
