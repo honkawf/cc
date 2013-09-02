@@ -54,7 +54,6 @@ public class GoodsListActivity extends Activity{
     private TimeOutProgressDialog pd;
     private String totalprice;
     public static int flag=0;
-    private int loaded=0;
     private String scanResult;
     private Thread sendAndReceiveThread;
 	private ArrayList<String> barcodeset=new ArrayList<String>();

@@ -17,8 +17,8 @@ import cn.edu.seu.xml.XML;
 public class TransferWaitingThread extends Thread{
 
 	private Transfer transfer;
-	private boolean isReceived=false;
 	private Handler handler;
+	private static final String TAG="TransferWaitingThread";
 	public TransferWaitingThread(Handler handler)
 	{
 		this.handler=handler;
@@ -43,6 +43,14 @@ public class TransferWaitingThread extends Thread{
              	msg.what=1;
              	msg.obj=receive;
              	msg.sendToTarget();
+             	try
+             	{
+             		TransferActivity.bdt.close();
+             	}
+             	catch(Exception e)
+             	{
+             		Log.i(TAG,"已关闭连接");
+             	}
            
     		}
     		catch(Exception e)
