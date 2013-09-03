@@ -216,7 +216,7 @@ public class TransferPriceActivity extends Activity {
 							String totalprice=editText1.getText().toString();
 							Date dt=new Date();
 							String cardnumber=MainActivity.person.getCardnum();
-							String username=MainActivity.person.getCustomername();
+							String username=MainActivity.person.getUsername();
 							String imei=MainActivity.person.getImei();
 							String transfertime=String.valueOf(dt.getTime()/1000);
 							String payerdevice=BluetoothDataTransportation.getLocalMac().replaceAll(":","");

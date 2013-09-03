@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
 	private Transfer transfer;
 	public static PersonInfo person=new PersonInfo();;//这里写person的初始化
     public static boolean s = true;
+    private static final String TAG="MainActivity";
 	public static BluetoothDataTransportation bdt=new BluetoothDataTransportation();
 	private String mac;
 	private BroadcastReceiver receiver = new BroadcastReceiver(){
@@ -121,6 +122,7 @@ public class MainActivity extends Activity {
      		person.setCardnum(x.getCardnum());
      		person.setImei(((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
 					.getDeviceId());
+     		person.setCardnum(x.getCardnum());
      	}//载入person
          final IntentFilter filter = new IntentFilter();
  		filter.addAction(Intent.ACTION_SCREEN_OFF);

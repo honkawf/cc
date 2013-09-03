@@ -26,7 +26,6 @@ public class CashActivity extends Activity{
   		try
 		 {
 			 XML cash=new XML();
-			 MainActivity.person.setCardnum("1234567890123456789");
 			 Transfer transfer=new Transfer();
 			 transfer.setReceiverDevice( MainActivity.person.getBluetoothmac());
 			 transfer.setReceiverName(MainActivity.person.getUsername());
