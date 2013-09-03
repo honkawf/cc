@@ -37,6 +37,7 @@ public class Checkdh extends SQLiteOpenHelper {
     }
     
 	public void insert(Check check){
+    	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)"); 
     	String sql = "insert into checklist(payername,payercardnum,payerimei,totalprice,transfertime,xml) values('" +check.getPayerName()+ "' , '" +check.getPayerCardnum()+ "' , '" +check.getPayerImei()+ "' , " +check.getTotalPrice() + " , '" +check.getTransferTime() + "','" +check.getXml().getBytes()+ "')";
     	getWritableDatabase().execSQL(sql);
     }
