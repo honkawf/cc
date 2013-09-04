@@ -19,7 +19,7 @@ public class PropertyInfo {
 			System.out.println(" Config load success!");
 			config= new Properties();
 			System.out.println(" Config load success!");
-			InputStream in=PropertyInfo.class.getClassLoader().getResourceAsStream("server.properties");
+			InputStream in=PropertyInfo.class.getClassLoader().getResourceAsStream("epay.properties");
 		    try {
 		    	System.out.println(" Config load success!");
 				config.load(in);

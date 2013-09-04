@@ -58,7 +58,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/cardnum"
+        android:layout_marginRight="58dp"
         android:text="兑现" />
+
+    <Button
+        android:id="@+id/transmitbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="96dp"
+        android:text="转发" />
 
 </RelativeLayout>

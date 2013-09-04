@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import cn.edu.seu.ciphertext.RSA;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.main.MainActivity;
@@ -187,8 +188,8 @@ public class ConfirmListActivity extends Activity{
 							String salerfill=String.format("%05d",salerdevicefill);
 							String words=tradetime+buyerfill+salerfill+pricefill;
 							Log.d("words",words);
-							RSA rsa=new RSA();
-							String cipher=rsa.setRSA(words);
+							RSA rsa=new RSA(MainActivity.person.getPrivatekey(),"0");
+							String cipher=rsa.setRSA(words);							
 							XML confirmTrade=new XML();
 							for(Map<String, Object> map :goodslist)
 							{

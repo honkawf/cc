@@ -46,7 +46,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 	private String first_pattern;
 	private String userName;
 	private String password;
-	private String customerName, publickeyn, privatekey;
+	private String customerName, publickeyn, privatekey, localBalance;
 	
 	private static final String CARDNUM_PATTERN = "^[0-9]{19,19}$";
 	private static final String CARDPWD_PATTERN = "^[0-9]{6,6}$";
@@ -125,9 +125,9 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 			case 0:
 				LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
 		    	LocalInfo li = new LocalInfo();
-		    	li.setAvailableBalance("0");
+		    	li.setAvailableBalance(localBalance);
 		    	Log.i("linkBankCard", "0");
-		    	li.setBalance("0");
+		    	li.setBalance(localBalance);
 		    	Log.i("linkBankCard", "0");
 		    	li.setCardnum(cardNum_content);
 		    	Log.i("linkBankCard", cardNum_content);
@@ -292,84 +292,44 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 								
 								new Thread() {
 									public void run() {
-										Log.i("button","1");
-/*										try {
-											String localUserName  =PersonInfo.localPersonInfo.getUserName();
-											String event = "linkBankCard";
-											XML_Person xmlp = new XML_Person();
-											xmlp.addPersonLinkBankCard(localUserName, cardNum_content,  phoneNum_content, idCardNum_content);
-											String resultXML = xmlp.produceLinkBankCardXML(event);
-											cli_Soc = new Socket("honka.xicp.net", 30145);
-											OutputStream out = cli_Soc.getOutputStream();
-											out.write(plusHead(resultXML.length()));
-											out.write(resultXML.getBytes());
-											
-											byte[] buffer = new byte[16];
-											InputStream in = cli_Soc.getInputStream();
-											in.read(buffer);
-											int XML_length = readHead(buffer);
-											byte[] info = new byte[XML_length];
-											in.read(info);
-											String checkResult = new String(info);
-											checkResult = XML_Person.parseSentenceXML(new ByteArrayInputStream(info));
-											
-											
-											if (checkResult.equals("绑定成功")) {
-											
-												Log.i("chris", "注册成功");
-												handler.sendEmptyMessage(0);
-											} else {
-												Log.i("chris", "绑定失败");
-												handler.sendEmptyMessage(1);
-											}
-											cli_Soc.close();
-										} catch (UnknownHostException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										} catch (IOException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-*/										
-										
-
-										Log.i("button","12");
+										Log.i("linkcardrun","12");
 										String event = "linkBankCard";
-										Log.i("button","13");
+										Log.i("linkcardrun","13");
 										XML_Person xmlp = new XML_Person();
-										Log.i("button","14");
+										Log.i("linkcardrun","14");
 										xmlp.addPersonLinkBankCard(userName, cardNum_content, cardPwd_content, phoneNum_content, idCardNum_content, customerName);
-										Log.i("button","15");
+										Log.i("linkcardrun","15");
 										String resultXML = xmlp.produceLinkBankCardXML(event);
-										Log.i("button","16");
+										Log.i("linkcardrun","16");
 										
 										Properties config =PropertyInfo.getProperties();
-										Log.i("button","17");
+										Log.i("linkcardrun","17");
 										String serverAddress=config.getProperty("serverAddress");
-										Log.i("button","18");
+										Log.i("linkcardrun","18");
 										String serverPort=config.getProperty("serverPort" );
-										Log.i("button","19");
+										Log.i("linkcardrun","19");
 										cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
-										Log.i("button","20");
+										Log.i("linkcardrun","20");
 										write(resultXML);
-										Log.i("button","21");
+										Log.i("linkcardrun","21");
 										byte[] info = read();
-										Log.i("button","22");
+										Log.i("linkcardrun","22");
 										String checkResult = new String(info);
-										Log.i("button","23");
+										Log.i("linkcardrun","23");
 										checkResult = XML_Person.parseSentenceXML(new ByteArrayInputStream(info));
 										Log.i("linkBankCard!!!!!!!", new String(info));
 										Log.i("linkBankCard!!!!!!!", checkResult);
 										Log.i("linkBankCard!!!!!!!", checkResult);
 										if(checkResult.equals("")){
-											Log.i("button","24");
+											Log.i("linkcardrun","24");
 											XML_Person infoReceived = new XML_Person();
-											Log.i("button","25");
+											Log.i("linkcardrun","25");
 											PersonInfo personReceived = infoReceived.parsePersonXML(new ByteArrayInputStream(info));
 											Log.i("linkCardBankprivate", personReceived.getPrivatekey());
 											Log.i("linkbankCardpublic", personReceived.getPublickeyn());
 											privatekey = personReceived.getPrivatekey();
 											publickeyn = personReceived.getPublickeyn();
+											localBalance = personReceived.getBalance();
 									
 											Log.i("chris", "绑定成功");
 											handler.sendEmptyMessage(0);

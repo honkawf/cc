@@ -286,41 +286,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 										account_correct = false;
 										handler.sendEmptyMessage(1);
 									}
-									close();	
-									
-	/*								try {
-										cli_Soc = new Socket("honka.xicp.net",30145);
-										OutputStream out = cli_Soc.getOutputStream();
-										out.write(plusHead(resultXML.length()));
-										out.write(resultXML.getBytes());
-										
-										byte[] buffer = new byte[16];
-										InputStream in = cli_Soc.getInputStream();
-										in.read(buffer);
-										XML_length1 = readHead(buffer);
-										byte[] info = new byte[XML_length1];
-										in.read(info);
-										String checkResult = new String(info);
-										checkResult = XML_Person.parseSentenceXML(new ByteArrayInputStream(info));
-										
-										if (checkResult.equals("可以使用")) {
-											Log.i("chris", "keyi");
-											handler.sendEmptyMessage(0);
-										} else {
-											Log.i("chris", "bukeyi");
-											handler.sendEmptyMessage(1);
-										}
-										Log.i("chris", checkResult);
-
-										cli_Soc.close();
-									} catch (UnknownHostException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-*/																
+									close();																
 								}
 							}.start();
 						} else{
@@ -438,22 +404,36 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 								public void run() {
 									
 									String event = "register";
+									Log.i("register", "1");
 									XML_Person xmlp = new XML_Person();
+									Log.i("register", "2");
 									MD5 md5 = new MD5();
+									Log.i("register", "3");
 									pwd1_content = md5.encrypt(pwd1_content);
+									Log.i("register", "4");
 									xmlp.addPersonRegister(account_content,pwd1_content, realName_content,bluetoothMac);
+									Log.i("register", "5");
 									String resultXML = xmlp.produceRegisterXML(event);
+									Log.i("register", "6");
 									
 									Properties config =PropertyInfo.getProperties();
+									Log.i("register", "7");
 									String serverAddress=config.getProperty("serverAddress");
+									Log.i("register", "8");
 									String serverPort=config.getProperty("serverPort" );
+									Log.i("register", "9");
 									cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
+									Log.i("register", "10");
 									
 									write(resultXML);
+									Log.i("register", "11");
 									byte[] info = read();
+									Log.i("register", "12");
 									String checkResult = new String(info);
+									Log.i("register", "13");
 									checkResult = XML_Person.parseSentenceXML(new ByteArrayInputStream(info));
-								
+									Log.i("register", "14");
+									
 									if (checkResult.equals("注册成功")) {
 										Log.i("chris", "注册成功");
 										handler.sendEmptyMessage(2);

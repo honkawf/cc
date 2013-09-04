@@ -114,20 +114,35 @@ public class MainActivity extends Activity {
      public void onCreate(Bundle savedInstanceState) { 
          super.onCreate(savedInstanceState); 
          setContentView(R.layout.main);
+         btAdapt = BluetoothAdapter.getDefaultAdapter();// 初始化本机蓝牙功能 
          LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
          LocalInfo x = lio.readfile();
          {
+        	try
+        	{
+        		if(!btAdapt.isEnabled())
+            	 {
+            		 btAdapt.enable();
+            	 }
+        		person.setBluetoothmac(BluetoothDataTransportation.getLocalMac().replace(":", ""));
+        	}
+        	catch(Exception e)
+        	{
+        		Log.i(TAG,"未打开蓝牙");
+        	}
+        	person.setPrivatekey(x.getPrivateKey());
+        	person.setPublickeyn(x.getPublicKeyn());
      		person.setUsername(x.getUserName());
      		person.setCustomername(x.getCustomerName());
      		person.setCardnum(x.getCardnum());
      		person.setImei(((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
 					.getDeviceId());
-     		person.setCardnum(x.getCardnum());
+     		person.setBalance(x.getBalance());
      	}//载入person
          final IntentFilter filter = new IntentFilter();
  		filter.addAction(Intent.ACTION_SCREEN_OFF);
  		registerReceiver(receiver,filter);
-         btAdapt = BluetoothAdapter.getDefaultAdapter();// 初始化本机蓝牙功能 
+       
          // Button 设置 
          btnSta=(Button)findViewById(R.id.btnSta);
          btnTran=(Button)findViewById(R.id.btnTran);
@@ -230,6 +245,7 @@ public class MainActivity extends Activity {
             else if(v==btnTran)
             {
             	Intent intent = new Intent(MainActivity.this,TransferActivity.class);
+            	intent.putExtra("flag", "transfer");
 				startActivity(intent);
             }
             else if(v==btnCheck)

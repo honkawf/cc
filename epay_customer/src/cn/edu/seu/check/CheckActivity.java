@@ -47,8 +47,9 @@ public class CheckActivity extends Activity{
 		        map.put("name", list[i].getPayerName());
 		        map.put("cardnum", list[i].getPayerCardnum());
 		        map.put("price", list[i].getTotalPrice().toString());
-		        map.put("time", "2011");
+		        map.put("time", list[i].getTransferTime());
 		        map.put("cash", "是");
+		        map.put("xml",list[i].getXml());
 		        ca.addData(map);  
 		    }
 			listView.setAdapter(ca);
@@ -66,6 +67,7 @@ public class CheckActivity extends Activity{
 				it.putExtra("time", (String)tmap.get("time"));
 				it.putExtra("price", (String)tmap.get("price"));
 				it.putExtra("cash", (String)tmap.get("cash"));
+				it.putExtra("xml", (String)tmap.get("xml"));
 				startActivity(it);
 			}
 		});

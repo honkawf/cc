@@ -1,10 +1,12 @@
 package cn.edu.seu.pay;
 
 import java.io.ByteArrayInputStream;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Map;
 
 import cn.edu.seu.main.R;
+import cn.edu.seu.ciphertext.RSA;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.main.MainActivity;
@@ -144,7 +146,7 @@ public class ConfirmPriceActivity extends Activity{
 				String salerfill=String.format("%05d",salerdevicefill);
 				String words=tradetime+buyerfill+salerfill+pricefill;
 				Log.d("words",words);
-				RSA rsa=new RSA();
+				RSA rsa=new RSA(MainActivity.person.getPrivatekey(),"0");
 				String cipher=rsa.setRSA(words);
 				XML confirmTrade=new XML();
 				trade.setPayerDevice(buyerdevice);

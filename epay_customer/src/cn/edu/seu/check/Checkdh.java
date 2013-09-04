@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
 
 public class Checkdh extends SQLiteOpenHelper {
 	private static final int VERSION = 1;
@@ -37,12 +38,21 @@ public class Checkdh extends SQLiteOpenHelper {
     }
     
 	public void insert(Check check){
-    	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)"); 
-    	String sql = "insert into checklist(payername,payercardnum,payerimei,totalprice,transfertime,xml) values('" +check.getPayerName()+ "' , '" +check.getPayerCardnum()+ "' , '" +check.getPayerImei()+ "' , " +check.getTotalPrice() + " , '" +check.getTransferTime() + "','" +check.getXml().getBytes()+ "')";
-    	getWritableDatabase().execSQL(sql);
+		try
+		{
+			getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)"); 
+	    	String sql = "insert into checklist(payername,payercardnum,payerimei,totalprice,transfertime,xml) values(?,?,?,?,?,?)";
+	    	Object [] args={check.getPayerName(),check.getPayerCardnum(),check.getPayerImei(),check.getTotalPrice(),check.getTransferTime(),check.getXml().getBytes()};
+	    	getWritableDatabase().execSQL(sql,args);
+		}
+		catch(Exception e)
+		{
+			Log.i("Checkdh", e.getMessage());
+		}
     }
     
     public Check [] query(){
+    	//getWritableDatabase().execSQL("drop table checklist");
     	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)"); 
     	Cursor c = getReadableDatabase().query("checklist", new String[] { "checkid" ,"payername",  
         "payercardnum", "payerimei", "totalprice" , "transfertime" , "xml" }, null , null , null, null, null);

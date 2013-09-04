@@ -12,9 +12,18 @@ import java.util.UUID;
 
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.ClsUtils;
+import cn.edu.seu.datatransportation.LocalInfo;
+import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.xml.XML;
 
+import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.main.R;
+import cn.edu.seu.pay.GoodsListActivity;
+import cn.edu.seu.pay.TimeOutProgressDialog;
+import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+import cn.edu.seu.record.Record;
+import cn.edu.seu.record.Recorddh;
+
 import com.zxing.activity.CaptureActivity;
 
 import android.app.Activity;
@@ -54,7 +63,94 @@ public class TransferActivity extends Activity {
 	private List<String> lstDevices = new ArrayList<String>(); 
 	private BluetoothAdapter btAdapt; 
 	private final static String TAG="TransferActivity";
+	private TimeOutProgressDialog pd;
+	private Thread sendAndReceiveThread;
+	private String xml;
 	public static BluetoothDataTransportation bdt=new BluetoothDataTransportation();
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+		         case 1:
+		        	 pd=TimeOutProgressDialog.createProgressDialog(TransferActivity.this,50000,new OnTimeOutListener(){
+
+							public void onTimeOut(TimeOutProgressDialog dialog) {
+								// TODO Auto-generated method stub
+								AlertDialog.Builder builder = new Builder(TransferActivity.this);
+						    	builder.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+									public void onClick(DialogInterface arg0, int arg1) {
+										// TODO Auto-generated method stub
+										Intent intent=new Intent(TransferActivity.this,MainActivity.class);
+										startActivity(intent);
+										TransferActivity.this.finish();
+										try{
+											TransferActivity.bdt.close();
+										}
+										catch(Exception e)
+										{
+											Log.i(TAG,"连接已经关闭");
+										}
+										
+									}
+						    		
+						    	});
+						    	builder.show();
+							}
+		            		
+		            	});
+						pd.setProgressStyle(TimeOutProgressDialog.STYLE_SPINNER);
+						pd.setCancelable(false);
+						pd.setMessage((String)msg.obj); 
+						pd.show();
+						
+		                break;
+		         case 2:
+		        	 pd.dismiss();
+		        	 AlertDialog.Builder alertDialog = new Builder(TransferActivity.this);
+		        	 alertDialog.setTitle("转账结果").setMessage((String)msg.obj).setCancelable(false);
+		        	 alertDialog.setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+							public void onClick(DialogInterface arg0, int arg1) {
+								// TODO Auto-generated method stub
+								TransferActivity.this.finish();
+								Intent intent=new Intent(TransferActivity.this,MainActivity.class);
+								startActivity(intent);
+								TransferActivity.bdt.close();
+								
+							}
+				    		
+				    	});
+						alertDialog.show();
+						break;
+		         case 3:
+		            	pd.dismiss();
+		            	AlertDialog.Builder builder1 = new Builder(TransferActivity.this);
+				    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+							public void onClick(DialogInterface arg0, int arg1) {
+								// TODO Auto-generated method stub
+								Intent intent=new Intent(TransferActivity.this,MainActivity.class);
+								startActivity(intent);
+								TransferActivity.this.finish();
+								try{
+									TransferActivity.bdt.close();
+								}
+								catch(Exception e)
+								{
+									Log.i(TAG,"连接已经关闭");
+								}
+								
+							}
+				    		
+				    	});
+				    	builder1.show();
+				    	break;
+		     }
+		     super.handleMessage(msg);
+		  }
+		};
+
      @Override 
      public void onCreate(Bundle savedInstanceState) { 
          super.onCreate(savedInstanceState); 
@@ -91,12 +187,71 @@ public class TransferActivity extends Activity {
                	mac= values[1];
                 bdt.connect(mac);
                 Log.i(TAG, name);
-                Intent intent= new Intent(TransferActivity.this,ReceiverInfoActivity.class);
-                intent.putExtra("name",name);
-                intent.putExtra("mac",mac);
-                startActivity(intent);
-                Log.i(TAG, name);
-                TransferActivity.this.finish();
+                Intent flagIntent=getIntent();
+                Intent intent;
+                if(flagIntent.getStringExtra("flag").equals("transfer"))
+                {
+                	intent=new Intent(TransferActivity.this,ReceiverInfoActivity.class);
+                	intent.putExtra("name",name);
+                    intent.putExtra("mac",mac);
+                    startActivity(intent);
+                    Log.i(TAG, name);
+                    TransferActivity.bdt.connect(mac);
+                }
+                else if(flagIntent.getStringExtra("flag").equals("transmit"))
+                {
+                	//转发电子支票
+                     xml=flagIntent.getStringExtra("xml");
+                     Log.i(TAG,xml);
+                	 Message msg=handler.obtainMessage();
+                	 msg.what=1;
+                	 msg.sendToTarget();
+                	 sendAndReceiveThread=new Thread(){
+                		 public void run()
+                		 {
+                			
+                			 try
+                			 {
+                				 TransferActivity.bdt.connect(mac);
+                            	 TransferActivity.bdt.createSocket();
+                            	 TransferActivity.bdt.write(xml);
+                            	 byte []receive=TransferActivity.bdt.read();
+                            	 if(receive!=null)
+            						{
+                            		 	XML info=new XML(); 
+            							String sentence=info.parseSentenceXML(new ByteArrayInputStream(receive));
+            							Message msg=handler.obtainMessage();
+            							msg.what=2;
+            							if(sentence.equals("转账成功"))
+            							{
+            								msg.obj="转账成功";
+            								msg.sendToTarget();
+            							}
+            							else
+            							{
+
+            								msg.obj="转账失败";
+            								msg.sendToTarget();
+            							}
+            						}
+            						try{
+            							TransferActivity.bdt.close();
+            						}
+            						catch(Exception e)
+            						{
+            							Log.i(TAG,"关闭socket失败");
+            						}
+                			 }catch(Exception e)
+                			 {
+                				 Message msg=handler.obtainMessage();
+                				 msg.what=3;
+                				 msg.sendToTarget();
+                			 }
+                			 
+                		 }
+                	 };
+                	 sendAndReceiveThread.start();
+                }
 			} 	
 		});
    

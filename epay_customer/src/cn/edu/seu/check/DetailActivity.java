@@ -4,16 +4,27 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Properties;
 
 import cn.edu.seu.main.R;
 
 import cn.edu.seu.datadeal.DataDeal;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
+import cn.edu.seu.datatransportation.NetDataTransportation;
 import cn.edu.seu.main.MainActivity;
+import cn.edu.seu.pay.TimeOutProgressDialog;
+import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+import cn.edu.seu.transfer.TransferActivity;
+import cn.edu.seu.transfer.TransferPriceActivity;
 import cn.edu.seu.xml.Transfer;
 import cn.edu.seu.xml.XML;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,24 +41,93 @@ public class DetailActivity extends Activity{
 	private TextView time;
 	private TextView cash;
 	private TextView cardnum;
-	private Button cashbtn;
+	private Button cashbtn,transmitbtn;
+	private String xml;
+	private static final String TAG="DetailActivity";
+	private TimeOutProgressDialog pd;
+	private Thread sendAndReceiveThread;
 	private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-            case 0:
-				 Toast.makeText(DetailActivity.this, "兑现失败", 2000).show();
-				 break;
-            case 1:
-				 Toast.makeText(DetailActivity.this, "兑现成功", 5000).show();
-				 break;
-            case 2:
-            	 Toast.makeText(DetailActivity.this, "连接服务器失败", 2000).show();
-				 break;
-            }
-            super.handleMessage(msg);
-        }
-    };
+	@Override
+	public void handleMessage(Message msg) {
+		switch (msg.what) {
+	         case 1:
+	        	 pd=TimeOutProgressDialog.createProgressDialog(DetailActivity.this,50000,new OnTimeOutListener(){
+
+						public void onTimeOut(TimeOutProgressDialog dialog) {
+							// TODO Auto-generated method stub
+							AlertDialog.Builder builder = new Builder(DetailActivity.this);
+					    	builder.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+								public void onClick(DialogInterface arg0, int arg1) {
+									// TODO Auto-generated method stub
+									Intent intent=new Intent(DetailActivity.this,MainActivity.class);
+									startActivity(intent);
+									DetailActivity.this.finish();
+									try{
+										TransferActivity.bdt.close();
+									}
+									catch(Exception e)
+									{
+										Log.i(TAG,"连接已经关闭");
+									}
+									
+								}
+					    		
+					    	});
+					    	builder.show();
+						}
+	            		
+	            	});
+					pd.setProgressStyle(TimeOutProgressDialog.STYLE_SPINNER);
+					pd.setCancelable(false);
+					pd.setMessage((String)msg.obj); 
+					pd.show();
+	                break;
+	         case 2:
+	        	 pd.dismiss();
+	        	 AlertDialog.Builder alertDialog = new Builder(DetailActivity.this);
+	        	 alertDialog.setTitle("兑现结果").setMessage((String)msg.obj).setCancelable(false);
+	        	 alertDialog.setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							DetailActivity.this.finish();
+							Intent intent=new Intent(DetailActivity.this,MainActivity.class);
+							startActivity(intent);
+							TransferActivity.bdt.close();
+							
+						}
+			    		
+			    	});
+					alertDialog.show();
+					break;
+	         case 3:
+	            	pd.dismiss();
+	            	AlertDialog.Builder builder1 = new Builder(DetailActivity.this);
+			    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							Intent intent=new Intent(DetailActivity.this,MainActivity.class);
+							startActivity(intent);
+							DetailActivity.this.finish();
+							try{
+								TransferActivity.bdt.close();
+							}
+							catch(Exception e)
+							{
+								Log.i(TAG,"连接已经关闭");
+							}
+							
+						}
+			    		
+			    	});
+			    	builder1.show();
+			    	break;
+	     }
+	     super.handleMessage(msg);
+	  }
+	};
     @Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -59,58 +139,69 @@ public class DetailActivity extends Activity{
 		cash = (TextView)findViewById(R.id.cash);
 		cardnum = (TextView)findViewById(R.id.cardnum);
 		cashbtn=(Button)findViewById(R.id.cashbtn);
+		transmitbtn=(Button)findViewById(R.id.transmitbtn);
 		
 		name.setText(this.getIntent().getStringExtra("name"));
 		price.setText(this.getIntent().getStringExtra("price"));
 		time.setText(this.getIntent().getStringExtra("time"));
 		cash.setText(this.getIntent().getStringExtra("cash"));
 		cardnum.setText(this.getIntent().getStringExtra("cardnum"));
+		xml=this.getIntent().getStringExtra("xml");
 		cashbtn.setOnClickListener(new Button.OnClickListener(){
-
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Message msg=handler.obtainMessage();
 				try
         		 {
-					Transfer transfer=new Transfer();
-        			XML cash=new XML();
-        			MainActivity.person.setCardnum("1234567890123456789");
-        			transfer.setReceiverDevice( MainActivity.person.getBluetoothmac());
-        			transfer.setReceiverName(MainActivity.person.getUsername());
-        			transfer.setReceiverCardNumber(MainActivity.person.getCardnum());
-        			cash.setTransfer(transfer);
-        			String cashxml=cash.produceTransferXML("transfer");
-        			Socket clientsocket=new Socket("honka.xicp.net",30145);
-           		 	InputStream in=clientsocket.getInputStream();
-           		 	OutputStream out=clientsocket.getOutputStream();
-           		 	out.write(DataDeal.plusHead(cashxml.getBytes().length));
-           		 	Log.i("发送到银行长度",String.valueOf(cashxml.getBytes().length));
-           		 	out.write(cashxml.getBytes());
-           		 	Log.i("发送到银行",cashxml);
-           		 	byte [] buffer=new byte[16];
-           		 	in.read(buffer);
-           		 	int length=DataDeal.readHead(buffer);
-           		 	byte [] result=new byte [length];
-           		 	in.read(result);
-           		 	Log.d("收到",new String(result));
-           		 	String parsedresult=cash.parseSentenceXML(new ByteArrayInputStream(result));
-           		 	clientsocket.close();
-           		 	if(parsedresult.equals("兑现成功"))
-           		 	{
-           		 		msg.what=1;
-           		 	}
-           		 	else
-           		 	{
-           		 		msg.what=0;
-           		 	}
-           		 	msg.sendToTarget();
+					Message msg=handler.obtainMessage();
+					msg.what=1;
+					msg.obj="正在兑现";
+					msg.sendToTarget();
+        			sendAndReceiveThread=new Thread()
+        			{
+        				public void run(){
+        					Message msg=handler.obtainMessage();
+        					XML cash=new XML();
+                			Transfer transfer=cash.parseTransferXML(new ByteArrayInputStream(xml.getBytes()));
+                			transfer.setReceiverDevice(MainActivity.person.getBluetoothmac());
+                			transfer.setReceiverName(MainActivity.person.getUsername());
+                			transfer.setReceiverCardNumber(MainActivity.person.getCardnum());
+                			cash.setTransfer(transfer);
+                			String cashxml=cash.produceTransferXML("transfer");
+                			NetDataTransportation ndt=new NetDataTransportation();
+                			Properties property =PropertyInfo.getProperties();
+                			ndt.connect(property.getProperty("serverAdress","honka.xicp.net"), Integer.parseInt(property.getProperty("serverPort","30145")));
+                			ndt.write(cashxml);
+                   		 	Log.i("发送到银行长度",String.valueOf(cashxml.getBytes().length));
+                   		 	Log.i("发送到银行",cashxml);
+                   		 	byte [] result=ndt.read();
+                   		 	Log.d("收到",new String(result));
+                   		 	String parsedresult=cash.parseSentenceXML(new ByteArrayInputStream(result));
+                   		 	msg.what=2;
+                   		 	msg.obj=parsedresult;
+                   		 	msg.sendToTarget();
+                   		 	ndt.close();
+        				}
+        			};
+        			sendAndReceiveThread.start();
         		 }
         		 catch(Exception e)
         		 {
+        			 Message msg=handler.obtainMessage();
         			 msg=handler.obtainMessage();
-        			 msg.what=2;
+        			 msg.what=3;
         			 msg.sendToTarget();
         		 }
+			}
+			
+		});
+		transmitbtn.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(DetailActivity.this,TransferActivity.class);
+				intent.putExtra("flag", "transmit");
+				intent.putExtra("xml", xml);
+				startActivity(intent);
 			}
 			
 		});

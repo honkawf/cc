@@ -11,6 +11,7 @@ import cn.edu.seu.main.R;
 import cn.edu.seu.check.Check;
 import cn.edu.seu.check.CheckActivity;
 import cn.edu.seu.check.Checkdh;
+import cn.edu.seu.ciphertext.RSA;
 import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
@@ -18,7 +19,6 @@ import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.pay.ConfirmPriceActivity;
 import cn.edu.seu.pay.GoodsListActivity;
-import cn.edu.seu.pay.RSA;
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
 import cn.edu.seu.record.Record;
@@ -106,7 +106,6 @@ public class TransferPriceActivity extends Activity {
 							TransferPriceActivity.this.finish();
 							Intent intent=new Intent(TransferPriceActivity.this,MainActivity.class);
 							startActivity(intent);
-							GoodsListActivity.flag=1;
 							TransferActivity.bdt.close();
 							
 						}
@@ -186,21 +185,32 @@ public class TransferPriceActivity extends Activity {
 				double limitpertime=Double.parseDouble(properties.getProperty("limitpertime","2000"));
 				double limitperday=Double.parseDouble(properties.getProperty("limitperday","10000"));
 				boolean condition1=(Double.parseDouble(editText1.getText().toString())<limitpertime);//单笔限额
-				Recorddh rdh= new Recorddh(TransferPriceActivity.this, "recorddb" , null, 1);
-				Record [] list = rdh.query();
-				long currenttime = System.currentTimeMillis();
-				long date = currenttime/3600/24/1000;
-				long begin = date*3600*24*1000;
-				long end = (date+1)*3600*24*1000;
-				double sum = 0;
-				for(int i = 0 ; i < list.length ; i++ ){
-			        if(Long.parseLong(list[i].getTradeTime()) >= begin && Long.parseLong(list[i].getTradeTime()) <= end && list[i].getTradeType().equals("转出")){
-			        	sum += list[i].getPrice();
-			        }
-			    }
-				boolean condition2=true;
+				double sum=0;
+				try
+				{
+					Recorddh rdh= new Recorddh(TransferPriceActivity.this, "recorddb" , null, 1);
+					Record [] list = rdh.query();
+					long currenttime = System.currentTimeMillis();
+					long date = currenttime/3600/24/1000;
+					long begin = date*3600*24*1000;
+					long end = (date+1)*3600*24*1000;
+					sum = 0;
+					for(int i = 0 ; i < list.length ; i++ ){
+				        if(Long.parseLong(list[i].getTradeTime()) >= begin && Long.parseLong(list[i].getTradeTime()) <= end && list[i].getTradeType().equals("转出")){
+				        	sum += list[i].getPrice();
+				        }
+				    }
+				}
+				catch(Exception e)
+				{
+					Log.i(TAG,"数据不存在");
+				}
+				boolean condition2=(Double.parseDouble(editText1.getText().toString())+sum<limitperday);
 				/*!!!!!此处加入计算当前交易额*/
-				if(condition1&&condition2)
+				LocalInfoIO localinfoio=new LocalInfoIO(properties.getProperty("path","sdcard/data") , properties.getProperty("filename","local.dat"));
+				LocalInfo local=localinfoio.readfile();
+				boolean condition3=Double.parseDouble(editText1.getText().toString())<Double.parseDouble(local.getAvailableBalance());
+				if(condition1&&condition2&&condition3)
 				{
 					Message msg=handler.obtainMessage();
 					msg.what=1;
@@ -227,7 +237,7 @@ public class TransferPriceActivity extends Activity {
 							int payerdevicefill=Integer.parseInt(payerdevicesub,16);
 							String payerfill=String.format("%05d",payerdevicefill);
 							String words=transfertime+payerfill+pricefill;
-							RSA rsa=new RSA();
+							RSA rsa=new RSA(MainActivity.person.getPrivatekey(),"0");
 							String cipher=rsa.setRSA(words);
 							transfer=new Transfer();
 							transfer.setPayerName(username);
