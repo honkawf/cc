@@ -31,10 +31,8 @@ public class InterestFirstActivity extends Activity {
     private MyAdapter adapter;
 	private Button button;
 	private PersonInterestInfo interestInfo;
-	
 	private String produce;
-	byte [] parse;
-	
+	private byte [] parse;
 	private ProgressDialog pd;
 	private Looper looper = Looper.myLooper();
 	private MyHandler myHandler = new MyHandler(looper);

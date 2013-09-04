@@ -76,7 +76,7 @@ public class CheckActivity extends Activity{
 			public void onClick(View arg0) {
 				DateFormat f = new SimpleDateFormat("yyyyMMddhhmmss");
 		        String time = f.format(new Date());
-		        Check mycheck=new Check(1,"test","test","test",0.0,"test","test");
+		        Check mycheck=new Check(1,"test","test","test",0.0,"test","否", "test");
 				cdh.insert(mycheck);
 			}
 		});

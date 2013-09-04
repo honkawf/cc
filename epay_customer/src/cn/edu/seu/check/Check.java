@@ -10,18 +10,20 @@ public class Check {
 	private String payerImei;
 	private Double totalPrice;
 	private String transferTime;
+	private String isCashed;
 	private String xml;
 	
 	public Check(){
 		
 	}
-	public Check(int checkId , String payerName , String payerCardnum , String payerImei , Double totalPrice , String transferTime , String xml){
+	public Check(int checkId , String payerName , String payerCardnum , String payerImei , Double totalPrice , String transferTime , String isCashed, String xml){
 		setCheckId(checkId);
 		setPayerName(payerName);
 		setPayerCardnum(payerCardnum);
 		setPayerImei(payerImei);
 		setTotalPrice(totalPrice);
 		setTransferTime(transferTime);
+		setIsCashed(isCashed);
 		setXml(xml);
 	}
 	public void setCheckId(int checkId){
@@ -59,6 +61,12 @@ public class Check {
 	}
 	public String getTransferTime(){
 		return transferTime;
+	}
+	public void setIsCashed(String isCashed){
+		this.isCashed = isCashed;
+	}
+	public String getIsCashed(){
+		return isCashed;
 	}
 	public void setXml(String xml){
 		this.xml = xml;

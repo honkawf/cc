@@ -29,7 +29,7 @@ public class Checkdh extends SQLiteOpenHelper {
     @Override  
     public void onCreate(SQLiteDatabase db) { 
         //execSQL用于执行SQL语句  
-        db.execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)");  
+        db.execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null ,iscashed varchar not null,xml blob not null)");  
     }
   
     @Override  
@@ -40,9 +40,9 @@ public class Checkdh extends SQLiteOpenHelper {
 	public void insert(Check check){
 		try
 		{
-			getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)"); 
-	    	String sql = "insert into checklist(payername,payercardnum,payerimei,totalprice,transfertime,xml) values(?,?,?,?,?,?)";
-	    	Object [] args={check.getPayerName(),check.getPayerCardnum(),check.getPayerImei(),check.getTotalPrice(),check.getTransferTime(),check.getXml().getBytes()};
+			getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null ,iscashed varchar not null, xml blob not null)"); 
+	    	String sql = "insert into checklist(payername,payercardnum,payerimei,totalprice,transfertime,iscashed,xml) values(?,?,?,?,?,?,?)";
+	    	Object [] args={check.getPayerName(),check.getPayerCardnum(),check.getPayerImei(),check.getTotalPrice(),check.getTransferTime(), check.getIsCashed(), check.getXml().getBytes()};
 	    	getWritableDatabase().execSQL(sql,args);
 		}
 		catch(Exception e)
@@ -52,14 +52,14 @@ public class Checkdh extends SQLiteOpenHelper {
     }
     
     public Check [] query(){
-    	//getWritableDatabase().execSQL("drop table checklist");
-    	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , xml blob not null)"); 
+    	getWritableDatabase().execSQL("drop table checklist");
+    	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , iscashed varchar not null, xml blob not null)"); 
     	Cursor c = getReadableDatabase().query("checklist", new String[] { "checkid" ,"payername",  
-        "payercardnum", "payerimei", "totalprice" , "transfertime" , "xml" }, null , null , null, null, null);
+        "payercardnum", "payerimei", "totalprice" , "transfertime" ,"iscashed" ,  "xml" }, null , null , null, null, null);
     	Check [] list = new Check[c.getCount()];
     	if(c != null &&c.moveToFirst()){
     		for(int i = 0 ; i < c.getCount(); i++){
-				list[i] = new Check(c.getInt(0) , c.getString(1) , c.getString(2) , c.getString(3) , c.getDouble(4) , c.getString(5) , new String(c.getBlob(6)));
+				list[i] = new Check(c.getInt(0) , c.getString(1) , c.getString(2) , c.getString(3) , c.getDouble(4) , c.getString(5) , c.getString(6) , new String(c.getBlob(7)));
     			c.moveToNext();
     		}
     		c.close();

@@ -3,6 +3,7 @@ package cn.edu.seu.login;
 
 import java.io.File;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.MD5;
 import cn.edu.seu.datatransportation.LocalInfo;
@@ -76,19 +77,22 @@ public class LoginActivity extends Activity {
 					intent.setClass(LoginActivity.this, ResetActivity.class);
 					startActivity(intent);
 				}
-				else{
-					LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
-					LocalInfo x = lio.readfile();
-					String u = username.getText().toString();
-					String p = password.getText().toString();
-					Toast.makeText(LoginActivity.this, u+md5.encrypt(p), Toast.LENGTH_LONG)
-					.show();
-					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
-						Intent it = new Intent(LoginActivity.this , MainActivity.class);
-						startActivity(it);
-						finish();
-					}
-				}
+//				else{
+//					LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+//					LocalInfo x = lio.readfile();
+//					String u = username.getText().toString();
+//					String p = password.getText().toString();
+//					Toast.makeText(LoginActivity.this, u+md5.encrypt(p), Toast.LENGTH_LONG)
+//					.show();
+//					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
+//						Intent it = new Intent(LoginActivity.this , MainActivity.class);
+//						startActivity(it);
+//						finish();
+//					}
+//				}
+				Intent it = new Intent(LoginActivity.this , FlipActivity.class);
+				startActivity(it);
+				finish();
 			}
 			
 		});

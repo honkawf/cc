@@ -11,10 +11,14 @@ import cn.edu.seu.main.R;
 import cn.edu.seu.datadeal.DataDeal;
 import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
+import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.datatransportation.NetDataTransportation;
 import cn.edu.seu.main.MainActivity;
+import cn.edu.seu.pay.ConfirmPriceActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+import cn.edu.seu.record.Record;
+import cn.edu.seu.record.Recorddh;
 import cn.edu.seu.transfer.TransferActivity;
 import cn.edu.seu.transfer.TransferPriceActivity;
 import cn.edu.seu.xml.Transfer;
@@ -176,9 +180,25 @@ public class DetailActivity extends Activity{
                    		 	byte [] result=ndt.read();
                    		 	Log.d("收到",new String(result));
                    		 	String parsedresult=cash.parseSentenceXML(new ByteArrayInputStream(result));
-                   		 	msg.what=2;
-                   		 	msg.obj=parsedresult;
-                   		 	msg.sendToTarget();
+                   		 	if(parsedresult.equals(""))
+                   		 	{
+                   		 		parsedresult=cash.parseBalanceXML(new ByteArrayInputStream(result));
+                   		 		msg.what=2;
+                   		 		msg.obj="兑现成功";
+                   		 		msg.sendToTarget();
+	                   		 	LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+								lio.modifyBalance(parsedresult);
+								//给交易记录赋值
+								Record record = new Record( 0 ,transfer.getPayerName(),transfer.getPayerDevice(),transfer.getPayerIMEI(),transfer.getReceiverName(),transfer.getReceiverDevice(),transfer.getReceiverIMEI(),Double.parseDouble(transfer.getTotalPrice()),"收款", transfer.getTradeTime());
+								Recorddh rdh = new Recorddh(DetailActivity.this , "recorddb" , null , 1);
+								rdh.insert(record);
+                   		 	}
+                   		 	else
+                   		 	{
+                   		 		msg.what=2;
+                   		 		msg.obj=parsedresult;
+                   		 		msg.sendToTarget();
+                   		 	}
                    		 	ndt.close();
         				}
         			};

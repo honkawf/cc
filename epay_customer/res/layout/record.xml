@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <cn.edu.seu.dboperation.CornerListView
-        android:id="@+id/list1"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3" >
+ 
+  <RelativeLayout
+        android:id="@+id/rl_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_bg_listview"
-        />
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >      
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/list1"
-        android:layout_below="@+id/list1"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="30dp"
-        android:text="写" />
+          <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="交易记录"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
 
+    </RelativeLayout>
+
+        <Button
+            android:id="@+id/cheque"
+            android:layout_width="300dip"
+            android:layout_height="60dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="124dp"
+            android:background="@drawable/tabs_longbtn"
+            android:textSize="20sp"
+            android:text="我的电子支票"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/goods"
+            android:layout_width="300dip"
+            android:layout_height="60dip"
+            android:layout_alignLeft="@+id/cheque"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="98dp"
+            android:background="@drawable/tabs_longbtn"
+            android:text="我的商品交易记录"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+   
 </RelativeLayout>

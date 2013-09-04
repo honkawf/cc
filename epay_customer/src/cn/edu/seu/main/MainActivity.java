@@ -13,6 +13,7 @@ import java.util.Set;
 import cn.edu.seu.check.Check;
 import cn.edu.seu.check.CheckActivity;
 import cn.edu.seu.check.Checkdh;
+import cn.edu.seu.check.ChequeActivity;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.BluetoothReadThread;
 import cn.edu.seu.datatransportation.BluetoothServerThread;
@@ -95,7 +96,7 @@ public class MainActivity extends Activity {
 					 XML info=new XML();
 					 transfer=info.parseTransferXML(new ByteArrayInputStream(receive));
 					 Checkdh cdh = new Checkdh(MainActivity.this, "recorddb" , null, 1);
-					 Check mycheck=new Check(0,transfer.getPayerName(), transfer.getPayCardNumber(),"imei", Double.parseDouble(transfer.getTotalPrice()), transfer.getTradeTime(),new String(receive));
+					 Check mycheck=new Check(0,transfer.getPayerName(), transfer.getPayCardNumber(),"imei", Double.parseDouble(transfer.getTotalPrice()), transfer.getTradeTime(),"否",new String(receive));
 					 cdh.insert(mycheck); 
 			     }
 			     catch(Exception e)
@@ -250,7 +251,7 @@ public class MainActivity extends Activity {
             }
             else if(v==btnCheck)
             {
-            	Intent intent = new Intent(MainActivity.this,CheckActivity.class);
+            	Intent intent = new Intent(MainActivity.this,ChequeActivity.class);
 				startActivity(intent);
             }
          }

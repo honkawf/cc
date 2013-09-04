@@ -32,7 +32,7 @@ public class RecordActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.record);
+		setContentView(R.layout.recordlist);
 		Mapplication.getInstance().addActivity(this);
 		
 		b1 = (Button)findViewById(R.id.button1);

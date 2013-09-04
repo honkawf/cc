@@ -47,4 +47,7 @@
     <string name="price">元</string>
     <string name="confirm4">确认付款</string>
     <string name="receiver">收款方</string>
+    
+    <string name="title_activity_cheque">ChequeActivity</string>
+    <string name="title_activity_goods">GoodsActivity</string>
 </resources>
