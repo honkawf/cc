@@ -16,7 +16,7 @@ import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.xml.XML;
 
-import cn.edu.seu.main.MainActivity;
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.pay.GoodsListActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog;
@@ -81,7 +81,7 @@ public class TransferActivity extends Activity {
 
 									public void onClick(DialogInterface arg0, int arg1) {
 										// TODO Auto-generated method stub
-										Intent intent=new Intent(TransferActivity.this,MainActivity.class);
+										Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
 										startActivity(intent);
 										TransferActivity.this.finish();
 										try{
@@ -114,7 +114,7 @@ public class TransferActivity extends Activity {
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
 								TransferActivity.this.finish();
-								Intent intent=new Intent(TransferActivity.this,MainActivity.class);
+								Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
 								startActivity(intent);
 								TransferActivity.bdt.close();
 								
@@ -130,7 +130,7 @@ public class TransferActivity extends Activity {
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(TransferActivity.this,MainActivity.class);
+								Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
 								startActivity(intent);
 								TransferActivity.this.finish();
 								try{

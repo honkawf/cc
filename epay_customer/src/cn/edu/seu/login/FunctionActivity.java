@@ -1,6 +1,5 @@
-package cn.edu.seu.login;
+/*package cn.edu.seu.login;
 
-import cn.edu.seu.financing.FinancingActivity;
 import cn.edu.seu.gesturepassword.LockActivity;
 import cn.edu.seu.personinfomodify.ModifyActivity;
 
@@ -81,3 +80,4 @@ public class FunctionActivity extends Activity{
 		return false;
 	}
 }
+*/

@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.xml.Goods;
 import cn.edu.seu.xml.XML;
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
 
@@ -76,10 +76,10 @@ public class GoodsListActivity extends Activity{
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(GoodsListActivity.this,MainActivity.class);
+								Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
 								startActivity(intent);
 								GoodsListActivity.this.finish();
-								MainActivity.bdt.close();
+								FlipActivity.bdt.close();
 								
 							}
 				    		
@@ -119,10 +119,10 @@ public class GoodsListActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(GoodsListActivity.this,MainActivity.class);
+						Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
 						startActivity(intent);
 						GoodsListActivity.this.finish();
-						MainActivity.bdt.close();
+						FlipActivity.bdt.close();
 						
 					}
 		    		
@@ -188,9 +188,9 @@ public class GoodsListActivity extends Activity{
  						}
  						String xml=getPrice.producePriceXML("getTotalPrice");
  				        byte[] receive=null;
- 						if(MainActivity.bdt.write(xml))
+ 						if(FlipActivity.bdt.write(xml))
  						{
- 							receive=MainActivity.bdt.read();
+ 							receive=FlipActivity.bdt.read();
  							Message msg=handler.obtainMessage();
  			 				msg.what=0;
  			 				msg.sendToTarget();
@@ -253,9 +253,9 @@ public class GoodsListActivity extends Activity{
  		 					getPrice.addData(scanResult, "", "", "1");
  		 					String xml=getPrice.producePriceXML("getPrice");
  		 					byte [] receive=null;
- 		 					if(MainActivity.bdt.write(xml))
+ 		 					if(FlipActivity.bdt.write(xml))
  		 					{
- 		 						receive=MainActivity.bdt.read();
+ 		 						receive=FlipActivity.bdt.read();
  		 						Message msg=handler.obtainMessage();
  	 			 				msg.what=0;
  	 			 				msg.sendToTarget();

@@ -8,10 +8,10 @@ import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.MD5;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
-import cn.edu.seu.main.MainActivity;
 
 
 
+import cn.edu.seu.record.GoodsActivity;
 import cn.edu.seu.register.RegisterActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -52,7 +52,8 @@ public class LoginActivity extends Activity {
 		    //将登录标志位设置为false，下次登录时不在显示首次登录界面
 		    editor.putBoolean("firststart", false);
 		    editor.commit();
-		    Intent intent = new Intent(LoginActivity.this , RecordActivity.class);
+		    Intent intent = new Intent(LoginActivity.this , GoodsActivity.class);
+		    //放导航界面
 		    startActivity(intent);
 		    finish();
 		}
@@ -110,7 +111,7 @@ public class LoginActivity extends Activity {
 		findback.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				Intent it = new Intent(LoginActivity.this , FunctionActivity.class);
+				Intent it = new Intent(LoginActivity.this , FlipActivity.class);
 				startActivity(it);
 				finish();
 			}

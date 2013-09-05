@@ -5,11 +5,11 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.Map;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.RSA;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
 import cn.edu.seu.record.Record;
 import cn.edu.seu.record.Recorddh;
@@ -52,10 +52,10 @@ public class ConfirmPriceActivity extends Activity{
 							
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(ConfirmPriceActivity.this,MainActivity.class);
+								Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
 								startActivity(intent);
 								ConfirmPriceActivity.this.finish();
-								MainActivity.bdt.close();
+								FlipActivity.bdt.close();
 								
 							}
 				    		
@@ -79,10 +79,10 @@ public class ConfirmPriceActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ConfirmPriceActivity.this,MainActivity.class);
+						Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
 						startActivity(intent);
 						ConfirmPriceActivity.this.finish();
-						MainActivity.bdt.close();
+						FlipActivity.bdt.close();
 						
 					}
 		    		
@@ -96,10 +96,10 @@ public class ConfirmPriceActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ConfirmPriceActivity.this,MainActivity.class);
+						Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
 						startActivity(intent);
 						ConfirmPriceActivity.this.finish();
-						MainActivity.bdt.close();
+						FlipActivity.bdt.close();
 						
 					}
 		    		
@@ -130,12 +130,12 @@ public class ConfirmPriceActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Date dt=new Date();
-				String cardnumber=MainActivity.person.getCardnum();
+				String cardnumber=FlipActivity.person.getCardnum();
 				String tradetime=String.valueOf(dt.getTime()/1000);
-				String buyerimei=MainActivity.person.getImei();
-				String username=MainActivity.person.getUsername();
+				String buyerimei=FlipActivity.person.getImei();
+				String username=FlipActivity.person.getUsername();
 				String buyerdevice=BluetoothDataTransportation.getLocalMac().replaceAll(":","");
-				String salerdevice=MainActivity.bdt.getRemoteMac().replaceAll(":","");
+				String salerdevice=FlipActivity.bdt.getRemoteMac().replaceAll(":","");
 				int totalpricefill=(int)(Double.valueOf(trade.getTotalPrice())*100);
 				String pricefill=String.format("%08d",totalpricefill);
 				String buyerdevicesub=buyerdevice.substring(buyerdevice.length()-4,buyerdevice.length());
@@ -146,7 +146,7 @@ public class ConfirmPriceActivity extends Activity{
 				String salerfill=String.format("%05d",salerdevicefill);
 				String words=tradetime+buyerfill+salerfill+pricefill;
 				Log.d("words",words);
-				RSA rsa=new RSA(MainActivity.person.getPrivatekey(),"0");
+				RSA rsa=new RSA(FlipActivity.person.getPrivatekey(),"0");
 				String cipher=rsa.setRSA(words);
 				XML confirmTrade=new XML();
 				trade.setPayerDevice(buyerdevice);
@@ -157,7 +157,7 @@ public class ConfirmPriceActivity extends Activity{
 				trade.setCipher(cipher);
 				confirmTrade.setTrade(trade);
 				String xml=confirmTrade.produceIndividualTradeXML("individualTrade");
-				MainActivity.bdt.write(xml);
+				FlipActivity.bdt.write(xml);
 				Message msg=handler.obtainMessage();
 				msg.what=1;
 				msg.obj="正在确认付款";
@@ -166,7 +166,7 @@ public class ConfirmPriceActivity extends Activity{
 				{
 					public void run()
 					{
-						byte receive[]=MainActivity.bdt.read();
+						byte receive[]=FlipActivity.bdt.read();
 						XML payResult=new XML();
 						String sentence=payResult.parseSentenceXML(new ByteArrayInputStream(receive));
 						if(sentence=="")

@@ -7,16 +7,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.check.Check;
-import cn.edu.seu.check.CheckActivity;
 import cn.edu.seu.check.Checkdh;
 import cn.edu.seu.ciphertext.RSA;
 import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.pay.ConfirmPriceActivity;
 import cn.edu.seu.pay.GoodsListActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog;
@@ -72,7 +71,7 @@ public class TransferPriceActivity extends Activity {
 
 								public void onClick(DialogInterface arg0, int arg1) {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(TransferPriceActivity.this,MainActivity.class);
+									Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
 									startActivity(intent);
 									TransferPriceActivity.this.finish();
 									try{
@@ -104,7 +103,7 @@ public class TransferPriceActivity extends Activity {
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
 							TransferPriceActivity.this.finish();
-							Intent intent=new Intent(TransferPriceActivity.this,MainActivity.class);
+							Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
 							startActivity(intent);
 							TransferActivity.bdt.close();
 							
@@ -120,7 +119,7 @@ public class TransferPriceActivity extends Activity {
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
-							Intent intent=new Intent(TransferPriceActivity.this,MainActivity.class);
+							Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
 							startActivity(intent);
 							TransferPriceActivity.this.finish();
 							try{
@@ -225,9 +224,9 @@ public class TransferPriceActivity extends Activity {
 							// 点击确认按钮后，获取用户输入金额，完成转账交易
 							String totalprice=editText1.getText().toString();
 							Date dt=new Date();
-							String cardnumber=MainActivity.person.getCardnum();
-							String username=MainActivity.person.getUsername();
-							String imei=MainActivity.person.getImei();
+							String cardnumber=FlipActivity.person.getCardnum();
+							String username=FlipActivity.person.getUsername();
+							String imei=FlipActivity.person.getImei();
 							String transfertime=String.valueOf(dt.getTime()/1000);
 							String payerdevice=BluetoothDataTransportation.getLocalMac().replaceAll(":","");
 							String receiverdevice=TransferActivity.bdt.getRemoteMac().replaceAll(":","");
@@ -237,7 +236,7 @@ public class TransferPriceActivity extends Activity {
 							int payerdevicefill=Integer.parseInt(payerdevicesub,16);
 							String payerfill=String.format("%05d",payerdevicefill);
 							String words=transfertime+payerfill+pricefill;
-							RSA rsa=new RSA(MainActivity.person.getPrivatekey(),"0");
+							RSA rsa=new RSA(FlipActivity.person.getPrivatekey(),"0");
 							String cipher=rsa.setRSA(words);
 							transfer=new Transfer();
 							transfer.setPayerName(username);

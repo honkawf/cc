@@ -1,8 +1,8 @@
 package cn.edu.seu.transfer;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
 
@@ -49,7 +49,7 @@ public class ReceiverInfoActivity extends Activity{
 
 								public void onClick(DialogInterface arg0, int arg1) {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(ReceiverInfoActivity.this,MainActivity.class);
+									Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
 									startActivity(intent);
 									ReceiverInfoActivity.this.finish();
 									try
@@ -80,7 +80,7 @@ public class ReceiverInfoActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ReceiverInfoActivity.this,MainActivity.class);
+						Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
 						startActivity(intent);
 						ReceiverInfoActivity.this.finish();
 						try

@@ -3,9 +3,9 @@ package cn.edu.seu.pay;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.xml.XML;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import com.zxing.activity.CaptureActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
@@ -60,10 +60,10 @@ public class StoreInfoActivity extends Activity{
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(StoreInfoActivity.this,MainActivity.class);
+								Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
 								startActivity(intent);
 								StoreInfoActivity.this.finish();
-								MainActivity.bdt.close();
+								FlipActivity.bdt.close();
 								
 							}
 				    		
@@ -84,10 +84,10 @@ public class StoreInfoActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(StoreInfoActivity.this,MainActivity.class);
+						Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
 						startActivity(intent);
 						StoreInfoActivity.this.finish();
-						MainActivity.bdt.close();
+						FlipActivity.bdt.close();
 						
 					}
 		    		
@@ -147,9 +147,9 @@ public class StoreInfoActivity extends Activity{
                     		msg=handler.obtainMessage();
              				try
              				{
-             					MainActivity.bdt.createSocket();
+             					FlipActivity.bdt.createSocket();
 	             				Log.i("确认信息","顾客已确认");
-	                   			 if( MainActivity.bdt.isConnected())
+	                   			 if( FlipActivity.bdt.isConnected())
 	                   			 {
 	                            		 msg.what=0;
 	                            		 msg.sendToTarget();
@@ -187,11 +187,11 @@ public class StoreInfoActivity extends Activity{
                 			String xml=info.productSentenceXML("我要付款");
 							try 
 							{
-								 MainActivity.bdt.createSocket();
-								 if(MainActivity.bdt.isConnected())
+								 FlipActivity.bdt.createSocket();
+								 if(FlipActivity.bdt.isConnected())
 		                			{
-		                				 MainActivity.bdt.write(xml);
-		                    			 byte[] receive=MainActivity.bdt.read();
+		                				 FlipActivity.bdt.write(xml);
+		                    			 byte[] receive=FlipActivity.bdt.read();
 		                    			 if(receive!=null)
 		                    			 {
 		                             		 msg.what=3;

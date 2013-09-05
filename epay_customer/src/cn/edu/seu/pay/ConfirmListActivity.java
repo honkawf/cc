@@ -12,7 +12,6 @@ import java.util.Set;
 import cn.edu.seu.ciphertext.RSA;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
 import cn.edu.seu.record.Record;
 import cn.edu.seu.record.Recorddh;
@@ -20,6 +19,7 @@ import cn.edu.seu.xml.Goods;
 import cn.edu.seu.xml.Trade;
 import cn.edu.seu.xml.XML;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import com.zxing.activity.CaptureActivity;
 
@@ -79,10 +79,10 @@ public class ConfirmListActivity extends Activity{
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(ConfirmListActivity.this,MainActivity.class);
+								Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
 								startActivity(intent);
 								ConfirmListActivity.this.finish();
-								MainActivity.bdt.close();
+								FlipActivity.bdt.close();
 								
 							}
 				    		
@@ -106,11 +106,11 @@ public class ConfirmListActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ConfirmListActivity.this,MainActivity.class);
+						Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
 						startActivity(intent);
 						GoodsListActivity.flag=1;
 						ConfirmListActivity.this.finish();
-						MainActivity.bdt.close();
+						FlipActivity.bdt.close();
 						
 					}
 		    		
@@ -124,10 +124,10 @@ public class ConfirmListActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ConfirmListActivity.this,MainActivity.class);
+						Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
 						startActivity(intent);
 						ConfirmListActivity.this.finish();
-						MainActivity.bdt.close();
+						FlipActivity.bdt.close();
 						
 					}
 		    		
@@ -171,13 +171,13 @@ public class ConfirmListActivity extends Activity{
 						try
 						{
 							Date dt=new Date();
-							String cardnumber=MainActivity.person.getCardnum();
+							String cardnumber=FlipActivity.person.getCardnum();
 							String tradetime=String.valueOf(dt.getTime()/1000);
-							String buyerimei=MainActivity.person.getImei();
+							String buyerimei=FlipActivity.person.getImei();
 							Log.i(TAG, buyerimei);
-							String username=MainActivity.person.getUsername();
+							String username=FlipActivity.person.getUsername();
 							String buyerdevice=BluetoothDataTransportation.getLocalMac().replaceAll(":","");
-							String salerdevice=MainActivity.bdt.getRemoteMac().replaceAll(":","");
+							String salerdevice=FlipActivity.bdt.getRemoteMac().replaceAll(":","");
 							int totalpricefill=(int)(Double.valueOf(totalprice)*100);
 							String pricefill=String.format("%08d",totalpricefill);
 							String buyerdevicesub=buyerdevice.substring(buyerdevice.length()-4,buyerdevice.length());
@@ -188,7 +188,7 @@ public class ConfirmListActivity extends Activity{
 							String salerfill=String.format("%05d",salerdevicefill);
 							String words=tradetime+buyerfill+salerfill+pricefill;
 							Log.d("words",words);
-							RSA rsa=new RSA(MainActivity.person.getPrivatekey(),"0");
+							RSA rsa=new RSA(FlipActivity.person.getPrivatekey(),"0");
 							String cipher=rsa.setRSA(words);							
 							XML confirmTrade=new XML();
 							for(Map<String, Object> map :goodslist)
@@ -198,9 +198,9 @@ public class ConfirmListActivity extends Activity{
 							confirmTrade.setTrade(buyerdevice, username, buyerimei, cardnumber, salerdevice, "receivername", "receiverimei", "receivercardnumber", tradetime, totalprice, cipher);
 							String xml=confirmTrade.produceTradeXML("confirmTrade");
 							Log.d("",xml);
-							if(MainActivity.bdt.write(xml))
+							if(FlipActivity.bdt.write(xml))
 							{
-								byte[] receive=MainActivity.bdt.read();
+								byte[] receive=FlipActivity.bdt.read();
 								Message msg=handler.obtainMessage();
 								msg.what=0;
 								msg.sendToTarget();

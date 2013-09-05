@@ -15,10 +15,9 @@ import android.widget.Toast;
 import cn.edu.seu.gesturepassword.LockPatternView.Cell;
 import cn.edu.seu.gesturepassword.LockPatternView.DisplayMode;
 import cn.edu.seu.gesturepassword.LockPatternView.OnPatternListener;
-import cn.edu.seu.login.FunctionActivity;
 import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.login.ReloginActivity;
-import cn.edu.seu.main.MainActivity;
+import cn.edu.seu.main.FlipActivity;
 
 import cn.edu.seu.main.R;
 
@@ -59,7 +58,7 @@ public class LockActivity extends Activity implements OnClickListener {
 						wrongnum++;
 						if(wrongnum == 5){
 							wrongnum = 0;
-							MainActivity.s = true;
+							FlipActivity.s = true;
 							Intent it = new Intent(LockActivity.this , ReloginActivity.class);
 							startActivity(it);
 							finish();
@@ -73,7 +72,7 @@ public class LockActivity extends Activity implements OnClickListener {
 				} else {
 					Toast.makeText(LockActivity.this, "密码正确", Toast.LENGTH_LONG)
 							.show();
-					MainActivity.s = true;
+					FlipActivity.s = true;
 					finish();
 					
 				}
