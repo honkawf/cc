@@ -22,6 +22,7 @@ import cn.edu.seu.datatransportation.IDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.login.LoginActivity;
+import cn.edu.seu.login.Mapplication;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -54,8 +55,9 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 	
 	@SuppressLint("HandlerLeak")
 	private int XML_length1,XML_length2;
-	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_]{6,15}$";
-	private static final String REALNAME_PATTERN = "^[a-zA-Z]{6,15}$";
+	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_]{3,15}$";
+	private static final String REALNAME_PATTERN = "^[\u4e00-\u9fa5]{1,10}$";
+	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9_~]{6,15}$";
 
 	private Handler handler = new Handler() {
 		@Override
@@ -73,7 +75,8 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 				//存储用户信息，供之后绑定时使用。
 //				PersonInfo.localPersonInfo.setUserName(account_content);
 				
-		    	LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+				Properties property =PropertyInfo.getProperties();
+				LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 		    	LocalInfo li = new LocalInfo();
 		    	li.setAvailableBalance("0");
 		    	li.setBalance("0");
@@ -95,7 +98,8 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 				RegisterActivity.this.finish();
 				break;
 			case 3:
-				account_label.setText("注册失败，请重试");
+				button_label.setText("注册失败，请重试");
+				pd.dismiss();
 				break;
 			}
 			super.handleMessage(msg);
@@ -121,6 +125,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 			OutputStream out = cli_Soc.getOutputStream();
 			out.write(DataDeal.plusHead(xml.length()));
 			out.write(xml.getBytes());
+			Log.i("发送", xml);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,19 +171,22 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 		}
 		return true;
 	}
-
-	public boolean checkForm(String name) {
-		Pattern pattern = Pattern.compile(USERNAME_PATTERN);
+	
+	public boolean checkForm(String name, String re) {
+		Pattern pattern = Pattern.compile(re);
 
 		Matcher matcher = pattern.matcher(name);
 		return matcher.matches();
 	}
 
 
+
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
+		Mapplication.getInstance().addActivity(this);
+		
 		account = (EditText) findViewById(R.id.editText1);
 		account.getBackground().setAlpha(0);
 		pwd1 = (EditText) findViewById(R.id.editText2);
@@ -196,10 +204,10 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 		realName_label = (TextView) findViewById(R.id.realName_label);
 		button_label = (TextView) findViewById(R.id.button_label);
 		
-
-		File file = new File("sdcard/data" , "local.dat");
+		Properties property =PropertyInfo.getProperties();
+		File file = new File(property.getProperty("path") , property.getProperty("filename"));
     	if(file.exists()){
-    		LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+    		LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
     		Log.i("tiaozhuan", "1");
 	    	LocalInfo l = lio.readfile();
 	    	Log.i("tiaozhuan", "1:"+l.getUserName()+" 2:"+l.getPassword()+" 3:"+l.getGesturePwd()+" 4:"+l.getCardnum()+" 5:"+l.getBalance()+" 6:"+l.getAvailableBalance()+" 7:"+l.getPrivateKey()+" 8:"+l.getPublicKeyn());
@@ -207,7 +215,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 	    	Log.i("tiaozhuan", checkGesture);
 	    	String checkBank = l.getCardnum();
 	    	Log.i("tiaozhuan", checkBank);
-	    	if(!checkGesture.equals("0")){
+	    	if(!checkBank.equals("0")){
 	    		Toast.makeText(RegisterActivity.this, "该手机已注册，不用注册", Toast.LENGTH_LONG).show();
 	    		Intent intentToAlready = new Intent();
 	    		Log.i("tiaozhuan", "6");
@@ -238,6 +246,9 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 	    		Log.i("tiaozhuan", "16");
 	    		intentToAlready.setClass(RegisterActivity.this, LinkBankCardActivity.class);
 	    		Log.i("tiaozhuan", "17");
+	    		intentToAlready.putExtra("userName", l.getUserName());
+	    		intentToAlready.putExtra("password", l.getPassword());
+	    		intentToAlready.putExtra("firstPattern", l.getGesturePwd());
 	    		startActivity(intentToAlready);
 	    		Log.i("tiaozhuan", "18");
 	    		RegisterActivity.this.finish();
@@ -258,7 +269,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 						account_label.setText("用户名不能为空");
 						account_correct = false;
 					} else {
-						if (checkForm(account_content)) {
+						if (checkForm(account_content,USERNAME_PATTERN)) {
 							pb.setVisibility(View.VISIBLE);
 							new Thread() {
 								public void run() {
@@ -310,7 +321,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 						pwd1_label.setText("密码不能为空");
 						pwd_correct = false;
 					} else {
-						if (checkForm(pwd1_content)) {
+						if (checkForm(pwd1_content,PASSWORD_PATTERN)) {
 							if (pwd1_content.equals(pwd2_content)) {
 								pwd_correct = true;
 								pwd1_label.setText("");
@@ -339,7 +350,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 						pwd2_label.setText("密码不能为空");
 						pwd_correct =false;
 					} else {
-						if (checkForm(pwd2_content)) {
+						if (checkForm(pwd2_content,PASSWORD_PATTERN)) {
 							if (pwd2_content.equals(pwd1_content)) {
 								pwd_correct = true;
 								pwd1_label.setText("");
@@ -388,11 +399,17 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 				realName_content = realName.getText().toString();
 				if (realName_content.equals("")) {
 					realName_label.setText("真实姓名不能为空");
-				} else {					
-					if (checkForm(realName_content)) {
+				} else {	
+					Log.i("register", "000");
+					//checkForm(realName_content,REALNAME_PATTERN
+					if (true) {
+						Log.i("register", "001");
 						realName_label.setText("");
+						Log.i("register", "002");
 						if (account_correct && pwd_correct) {
+							Log.i("register", "003");
 							bluetoothMac = BluetoothDataTransportation.getLocalMac();
+							Log.i("register", bluetoothMac);
 							if(bluetoothMac.equals(""))
 								Log.e("bluetoothError", "empty");
 							else
@@ -414,7 +431,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 									xmlp.addPersonRegister(account_content,pwd1_content, realName_content,bluetoothMac);
 									Log.i("register", "5");
 									String resultXML = xmlp.produceRegisterXML(event);
-									Log.i("register", "6");
+									Log.i("register", resultXML);
 									
 									Properties config =PropertyInfo.getProperties();
 									Log.i("register", "7");
@@ -441,44 +458,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 										Log.i("chris", "注册失败");
 										handler.sendEmptyMessage(3);
 									}
-									close();
-/*									try {
-										String event = "register";
-										XML_Person xmlp = new XML_Person();
-										pwd1_content = MD5T.encodeStr(pwd1_content);
-										xmlp.addPersonRegister(account_content,pwd1_content, realName_content,bluetoothMac);
-										String resultXML = xmlp.produceRegisterXML(event);
-										Socket cli_Soc = new Socket("honka.xicp.net", 30145);
-										OutputStream out = cli_Soc.getOutputStream();
-										out.write(plusHead(resultXML.length()));
-										out.write(resultXML.getBytes());
-										
-										byte[] buffer = new byte[16];
-										InputStream in = cli_Soc.getInputStream();
-										in.read(buffer);
-										XML_length2 = readHead(buffer);
-										byte[] info = new byte[XML_length2];
-										in.read(info);
-										String checkResult = new String(info);
-										checkResult = XML_Person.parseSentenceXML(new ByteArrayInputStream(info));
-										
-										
-										if (checkResult.equals("注册成功")) {
-											Log.i("chris", "注册成功");
-											handler.sendEmptyMessage(2);
-										} else {
-											Log.i("chris", "注册失败");
-											handler.sendEmptyMessage(3);
-										}
-										cli_Soc.close();
-									} catch (UnknownHostException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-*/									
+									close();								
 								}
 							}.start();
 

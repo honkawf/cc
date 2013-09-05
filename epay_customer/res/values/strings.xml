@@ -33,7 +33,7 @@
     <string name="Cancel">返回</string>
     <string name="confirm2">提交订单</string>
     <string name="goon">开始购物</string>
-    <string name="confirm1">确认</string>
+    <string name="confirm1">购物</string>
     <string name="storeInfo">商家信息</string>
     <string name="confirm3">确认付款</string>
     <string name="total">共计</string>
@@ -43,10 +43,10 @@
     <string name="transfer">我要转账</string> 
     <string name="receiverInfo">收款方信息</string>
     <string name="checklist">我的支票</string>
-    <string name="confirmprice">请确认价格和收款方</string>
+    <string name="confirmprice">请确认价格和收款人</string>
     <string name="price">元</string>
     <string name="confirm4">确认付款</string>
-    <string name="receiver">收款方</string>
+    <string name="receiver">收款人</string>
     
     <string name="title_activity_cheque">ChequeActivity</string>
     <string name="title_activity_goods">GoodsActivity</string>

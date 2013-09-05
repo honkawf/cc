@@ -28,6 +28,7 @@ public class SetFirstActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.set_first);
+		Mapplication.getInstance().addActivity(this);
 		lockPatternView = (LockPatternView) findViewById(R.id.lpv_lock_first);
 
 

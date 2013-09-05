@@ -3,26 +3,58 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f3f3"
     android:orientation="vertical" >
+ <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:layout_x="0dip"
+        android:layout_y="-1dip"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnOpen"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="查找设备" />
+  			<Button
+            android:id="@+id/btn_back_p"
+            android:layout_width="70dip"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/title_btn_back"
+		    />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="查找用户"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/lvDevices"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/btnSearch"
-        android:layout_marginTop="51dp" >
+        android:layout_marginTop="20dip"
+        android:background="#f3f3f3" >
 
     </ListView>
+
+    <ImageView
+        android:id="@+id/btnSearch"
+        android:layout_width="80dip"
+        android:layout_height="80dip"
+        android:layout_below="@+id/rl_layout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/tabs_search" />
 
 </RelativeLayout>

@@ -195,6 +195,14 @@
             android:label="@string/title_activity_goods" >
         </activity>
         <activity
+            android:name="cn.edu.seu.guide.GuideActivity"
+            android:label="@string/title_activity_goods" >
+        </activity>
+        <activity
+            android:name="cn.edu.seu.guide.FirstTimeGuideActivity"
+            android:label="@string/title_activity_goods" >
+        </activity>
+        <activity
             android:name="cn.edu.seu.main.ConfirmListActivity"
             android:label="@string/app_name" >
         </activity>

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Properties;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.R;
 
 import cn.edu.seu.datadeal.DataDeal;
@@ -13,7 +14,7 @@ import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.datatransportation.NetDataTransportation;
-import cn.edu.seu.main.MainActivity;
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.pay.ConfirmPriceActivity;
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
@@ -50,6 +51,7 @@ public class DetailActivity extends Activity{
 	private static final String TAG="DetailActivity";
 	private TimeOutProgressDialog pd;
 	private Thread sendAndReceiveThread;
+	private Properties property;
 	private Handler handler = new Handler() {
 	@Override
 	public void handleMessage(Message msg) {
@@ -64,7 +66,7 @@ public class DetailActivity extends Activity{
 
 								public void onClick(DialogInterface arg0, int arg1) {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(DetailActivity.this,MainActivity.class);
+									Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 									startActivity(intent);
 									DetailActivity.this.finish();
 									try{
@@ -96,7 +98,7 @@ public class DetailActivity extends Activity{
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
 							DetailActivity.this.finish();
-							Intent intent=new Intent(DetailActivity.this,MainActivity.class);
+							Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 							startActivity(intent);
 							TransferActivity.bdt.close();
 							
@@ -112,7 +114,7 @@ public class DetailActivity extends Activity{
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
-							Intent intent=new Intent(DetailActivity.this,MainActivity.class);
+							Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 							startActivity(intent);
 							DetailActivity.this.finish();
 							try{
@@ -136,7 +138,9 @@ public class DetailActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listdetail);
+		Mapplication.getInstance().addActivity(this);
 		
+		property =PropertyInfo.getProperties();
 		name = (TextView)findViewById(R.id.name);
 		price = (TextView)findViewById(R.id.price);
 		time = (TextView)findViewById(R.id.time);
@@ -166,13 +170,13 @@ public class DetailActivity extends Activity{
         					Message msg=handler.obtainMessage();
         					XML cash=new XML();
                 			Transfer transfer=cash.parseTransferXML(new ByteArrayInputStream(xml.getBytes()));
-                			transfer.setReceiverDevice(MainActivity.person.getBluetoothmac());
-                			transfer.setReceiverName(MainActivity.person.getUsername());
-                			transfer.setReceiverCardNumber(MainActivity.person.getCardnum());
+                			transfer.setReceiverDevice(FlipActivity.person.getBluetoothmac());
+                			transfer.setReceiverName(FlipActivity.person.getUsername());
+                			transfer.setReceiverCardNumber(FlipActivity.person.getCardnum());
                 			cash.setTransfer(transfer);
                 			String cashxml=cash.produceTransferXML("transfer");
                 			NetDataTransportation ndt=new NetDataTransportation();
-                			Properties property =PropertyInfo.getProperties();
+                			
                 			ndt.connect(property.getProperty("serverAdress","honka.xicp.net"), Integer.parseInt(property.getProperty("serverPort","30145")));
                 			ndt.write(cashxml);
                    		 	Log.i("发送到银行长度",String.valueOf(cashxml.getBytes().length));
@@ -186,7 +190,7 @@ public class DetailActivity extends Activity{
                    		 		msg.what=2;
                    		 		msg.obj="兑现成功";
                    		 		msg.sendToTarget();
-	                   		 	LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+	                   		 	LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 								lio.modifyBalance(parsedresult);
 								//给交易记录赋值
 								Record record = new Record( 0 ,transfer.getPayerName(),transfer.getPayerDevice(),transfer.getPayerIMEI(),transfer.getReceiverName(),transfer.getReceiverDevice(),transfer.getReceiverIMEI(),Double.parseDouble(transfer.getTotalPrice()),"收款", transfer.getTradeTime());

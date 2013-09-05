@@ -52,7 +52,7 @@ public class Checkdh extends SQLiteOpenHelper {
     }
     
     public Check [] query(){
-    	getWritableDatabase().execSQL("drop table checklist");
+    	//getWritableDatabase().execSQL("drop table checklist");
     	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , iscashed varchar not null, xml blob not null)"); 
     	Cursor c = getReadableDatabase().query("checklist", new String[] { "checkid" ,"payername",  
         "payercardnum", "payerimei", "totalprice" , "transfertime" ,"iscashed" ,  "xml" }, null , null , null, null, null);

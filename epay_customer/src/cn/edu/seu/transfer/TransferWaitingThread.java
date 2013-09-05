@@ -10,7 +10,6 @@ import cn.edu.seu.check.Checkdh;
 import cn.edu.seu.datatransportation.BluetoothReadThread;
 import cn.edu.seu.datatransportation.BluetoothServerThread;
 import cn.edu.seu.datatransportation.BluetoothWriteThread;
-import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.xml.Transfer;
 import cn.edu.seu.xml.XML;
 

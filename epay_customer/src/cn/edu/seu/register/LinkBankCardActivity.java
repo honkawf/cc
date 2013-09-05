@@ -18,6 +18,7 @@ import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.datatransportation.PersonInfo;
 import cn.edu.seu.login.LoginActivity;
+import cn.edu.seu.login.Mapplication;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -48,10 +49,10 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 	private String password;
 	private String customerName, publickeyn, privatekey, localBalance;
 	
-	private static final String CARDNUM_PATTERN = "^[0-9]{19,19}$";
-	private static final String CARDPWD_PATTERN = "^[0-9]{6,6}$";
-	private static final String PHONENUM_PATTERN = "^[0-9]{11,11}$";
-	private static final String IDCARDNUM_PATTERN = "^[0-9]{18,18}$";
+	private static final String CARDNUM_PATTERN = "^[0-9]{19}$";
+	private static final String CARDPWD_PATTERN = "^[0-9]{6}$";
+	private static final String PHONENUM_PATTERN = "^1[0-9]{10}$";
+	private static final String IDCARDNUM_PATTERN = "\\d{17}[0-9a-zA-Z]$";
 
 	public Object connect(String address, int port){
 		Socket socket = null;
@@ -72,6 +73,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 			OutputStream out = cli_Soc.getOutputStream();
 			out.write(DataDeal.plusHead(xml.length()));
 			out.write(xml.getBytes());
+			Log.i("发送", new String(xml.getBytes()));
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,8 +125,8 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
-		    	LocalInfo li = new LocalInfo();
+				Properties property =PropertyInfo.getProperties();
+				LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));		    	LocalInfo li = new LocalInfo();
 		    	li.setAvailableBalance(localBalance);
 		    	Log.i("linkBankCard", "0");
 		    	li.setBalance(localBalance);
@@ -170,12 +172,18 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.linkbankcard);
+		Mapplication.getInstance().addActivity(this);
+		
 		cardNum = (EditText) findViewById(R.id.cardNum);
 		cardPwd = (EditText) findViewById(R.id.cardPwd);
 		phoneNum = (EditText) findViewById(R.id.phoneNum);
 		idCardNum = (EditText) findViewById(R.id.idCardNum);
 		btn_link_submit = (Button) findViewById(R.id.btn_link_submit);
 
+		cardNum.getBackground().setAlpha(0);
+		cardPwd.getBackground().setAlpha(0);
+		phoneNum.getBackground().setAlpha(0);
+		idCardNum.getBackground().setAlpha(0);
 		cardNum_label = (TextView) findViewById(R.id.cardNum_label);
 		cardPwd_label = (TextView) findViewById(R.id.cardPwd_label);
 		phoneNum_label = (TextView) findViewById(R.id.phoneNum_label);
@@ -224,7 +232,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 						if(checkForm(cardPwd_content,CARDPWD_PATTERN)){
 							cardPwd_correct = true;
 //							cardPwd_label.setText(cardPwd_content);
-							cardPwd_label.setText(customerName);
+							cardPwd_label.setText("格式正确");
 						}
 						else
 							cardPwd_label.setText("银行卡密码格式不正确");
@@ -300,7 +308,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 										xmlp.addPersonLinkBankCard(userName, cardNum_content, cardPwd_content, phoneNum_content, idCardNum_content, customerName);
 										Log.i("linkcardrun","15");
 										String resultXML = xmlp.produceLinkBankCardXML(event);
-										Log.i("linkcardrun","16");
+										Log.i("linkcardrun",resultXML);
 										
 										Properties config =PropertyInfo.getProperties();
 										Log.i("linkcardrun","17");

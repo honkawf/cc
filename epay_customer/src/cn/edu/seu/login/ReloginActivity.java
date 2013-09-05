@@ -1,10 +1,12 @@
 package cn.edu.seu.login;
 
 import java.io.File;
+import java.util.Properties;
 
 import cn.edu.seu.main.R;
 
 import cn.edu.seu.ciphertext.MD5;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 
@@ -29,24 +31,25 @@ public class ReloginActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.relogin);
+		setContentView(R.layout.login);
 		Mapplication.getInstance().addActivity(this);
 		
 		md5 = new MD5();
-		b1 = (Button)findViewById(R.id.button1);
-		username = (EditText)findViewById(R.id.editText1);
-		password = (EditText)findViewById(R.id.EditText01);
-		
+		b1 = (Button)findViewById(R.id.login);
+		username = (EditText)findViewById(R.id.account);
+		password = (EditText)findViewById(R.id.pwd);
+		Toast.makeText(ReloginActivity.this, "请重新登录", Toast.LENGTH_LONG);
 		b1.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				File file = new File("sdcard/data" , "local.dat");
+				Properties property =PropertyInfo.getProperties();
+				File file = new File(property.getProperty("path") , property.getProperty("filename"));
 				if(!file.exists()){
 					Toast.makeText(ReloginActivity.this, "请下载密码文件", Toast.LENGTH_LONG)
 					.show();
 				}
 				else{
-					LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+					LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 					LocalInfo x = lio.readfile();
 					String u = username.getText().toString();
 					String p = password.getText().toString();

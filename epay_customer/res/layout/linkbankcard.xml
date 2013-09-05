@@ -1,132 +1,206 @@
-<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3" >
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_back_c"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="绑定银行卡"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    
+<RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_below="@+id/rl_layout"
     android:orientation="vertical" >
+  
 
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/singleline_item_bg" >
+
+        <TextView
+            android:id="@+id/link2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 银行卡卡号:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/cardNum"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
     <TextView
-        android:id="@+id/title_linkbankcard"
+        android:id="@+id/idCardNum_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="绑定银行卡"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/link1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/link2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="要绑定的银行卡号"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/cardNum"
-        android:layout_width="252dp"
-        android:layout_height="34dp"
-        android:ems="10"
-        android:inputType="number" >
-
-        <requestFocus />
-    </EditText>
+        android:layout_alignLeft="@+id/linearLayout4"
+        android:layout_below="@+id/linearLayout4"
+        android:text="身份证是否"
+        android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        />
 
     <TextView
         android:id="@+id/cardNum_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" "
-        android:textColor="#FF0000"  />
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:text="银行卡是否符合规范"
+        android:textColor="@android:color/black" />
 
-    <TextView
-        android:id="@+id/link3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="银行卡密码"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/cardNum_label"
+        android:layout_below="@+id/cardNum_label"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/singleline_item_bg" >
 
-    <EditText
-        android:id="@+id/cardPwd"
-        android:layout_width="256dp"
-        android:layout_height="31dp"
-        android:ems="10"
-        android:inputType="numberPassword" />
+        <TextView
+            android:id="@+id/link3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 银行卡密码:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/cardPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberPassword" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/cardPwd_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" "
-        android:textColor="#FF0000" />
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout2"
+        android:text="密码是否符合"
+        android:textColor="@android:color/black"
+        />
 
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/cardPwd_label"
+        android:layout_below="@+id/cardPwd_label"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/singleline_item_bg" >
 
-    <TextView
-        android:id="@+id/link4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="您的手机号"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/link4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 手  机  号   :"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
-    <EditText
-        android:id="@+id/phoneNum"
-        android:layout_width="257dp"
-        android:layout_height="30dp"
-        android:ems="10"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/phoneNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/phoneNum_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#FF0000"  />
-
-    <TextView
-        android:id="@+id/link5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="您的身份证号"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/idCardNum"
-        android:layout_width="256dp"
-        android:layout_height="32dp"
-        android:ems="10"
-        android:inputType="number" />
-
-    <TextView
-        android:id="@+id/idCardNum_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:textColor="#FF0000"/>
-
-    <RelativeLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
     <Button
         android:id="@+id/btn_link_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="确认输入" />
+        android:layout_below="@+id/idCardNum_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/tabs_confirm" />
 
     <TextView
         android:id="@+id/btn_link_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/link_submit"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FF0000" />
-    
-    </RelativeLayout>
+        android:layout_below="@+id/btn_link_submit"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
+        android:text="确认所有信息" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/phoneNum_label"
+        android:layout_below="@+id/phoneNum_label"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/singleline_item_bg" >
+
+        <TextView
+            android:id="@+id/link5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 身 份 证 号 :"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/idCardNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/phoneNum_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout3"
+        android:text="手机号是否符合规范"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>
+
+</RelativeLayout>

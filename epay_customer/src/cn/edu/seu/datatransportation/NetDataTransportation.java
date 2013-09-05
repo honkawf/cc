@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import android.util.Log;
+
 import cn.edu.seu.datadeal.DataDeal;
 
 
@@ -32,6 +34,7 @@ public class NetDataTransportation implements IDataTransportation{
 			OutputStream out = Cli_Soc.getOutputStream();
 			out.write(DataDeal.plusHead(xml.length()));
 			out.write(xml.getBytes());
+			Log.i("发送", new String(xml.getBytes()));
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

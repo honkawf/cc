@@ -12,6 +12,7 @@ import java.util.Set;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.xml.Goods;
 import cn.edu.seu.xml.XML;
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
@@ -147,6 +148,8 @@ public class GoodsListActivity extends Activity{
 	{
         super.onCreate(savedInstanceState); 
         setContentView(R.layout.goodslist);
+        Mapplication.getInstance().addActivity(this);
+        
         goodslist=new  ArrayList<Map<String,Object>>();
         adapter = new MyAdapter(this);
         listview=(ListView)findViewById(R.id.listView1); 

@@ -1,5 +1,6 @@
 package cn.edu.seu.transfer;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 
@@ -106,6 +107,8 @@ public class ReceiverInfoActivity extends Activity{
 	{
 		 super.onCreate(savedInstanceState); 
          setContentView(R.layout.receiver); 
+         Mapplication.getInstance().addActivity(this);
+         
          storeInfo=(TextView)findViewById(R.id.receiverInfo);
          btnConfirm=(Button)findViewById(R.id.confirm1);
          Intent intent=getIntent();

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.check.Check;
@@ -172,6 +173,8 @@ public class TransferPriceActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState); 
         setContentView(R.layout.transferprice);
+        Mapplication.getInstance().addActivity(this);
+        
         btnConfirm=(Button) findViewById(R.id.btnConfirm);
         editText1=(EditText) findViewById(R.id.editText1);
         btnConfirm.setOnClickListener(new OnClickListener(){
@@ -206,7 +209,7 @@ public class TransferPriceActivity extends Activity {
 				}
 				boolean condition2=(Double.parseDouble(editText1.getText().toString())+sum<limitperday);
 				/*!!!!!此处加入计算当前交易额*/
-				LocalInfoIO localinfoio=new LocalInfoIO(properties.getProperty("path","sdcard/data") , properties.getProperty("filename","local.dat"));
+				LocalInfoIO localinfoio=new LocalInfoIO(properties.getProperty("path") , properties.getProperty("filename"));
 				LocalInfo local=localinfoio.readfile();
 				boolean condition3=Double.parseDouble(editText1.getText().toString())<Double.parseDouble(local.getAvailableBalance());
 				if(condition1&&condition2&&condition3)
@@ -276,7 +279,8 @@ public class TransferPriceActivity extends Activity {
 									try
 									{
 										
-										LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+										Properties property =PropertyInfo.getProperties();
+										LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 										LocalInfo local=lio.readfile();
 										double avaliblebalance=Double.parseDouble(local.getBalance())-Double.parseDouble(totalprice);
 										lio.modifyAvailableBalance(String.valueOf(avaliblebalance));

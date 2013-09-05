@@ -113,7 +113,8 @@ public class ResetActivity extends Activity {
 				.show();  
             } else if (msg.arg1 == 2) {
                 LocalInfo l = XML.parsePersonXML(new ByteArrayInputStream(parse));
-				LocalInfoIO llio = new LocalInfoIO("sdcard/data" , "local.dat");
+                Properties property =PropertyInfo.getProperties();
+        		LocalInfoIO llio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 				llio.writefile(l);
 				Toast.makeText(ResetActivity.this, "下载完成", Toast.LENGTH_LONG)
 				.show();

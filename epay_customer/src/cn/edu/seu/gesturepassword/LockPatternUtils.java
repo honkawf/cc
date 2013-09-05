@@ -3,7 +3,9 @@ package cn.edu.seu.gesturepassword;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 
@@ -70,14 +72,16 @@ public class LockPatternUtils {
     	/*Editor editor = preference.edit();
     	editor.putString(KEY_LOCK_PWD, patternToString(pattern));
     	editor.commit();*/
-    	LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+    	Properties property =PropertyInfo.getProperties();
+		LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
     	LocalInfo x = lio.readfile();
     	lio.modifyGesturePwd(patternToString(pattern));
     }
     
     public String getLockPaternString(){
     	//return preference.getString(KEY_LOCK_PWD, "");
-    	LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+    	Properties property =PropertyInfo.getProperties();
+		LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
     	LocalInfo x = lio.readfile();
     	return x.getGesturePwd();
     }

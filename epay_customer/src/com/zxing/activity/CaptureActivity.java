@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
+
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.R;
 import com.zxing.camera.CameraManager;
 import com.zxing.decoding.CaptureActivityHandler;
@@ -51,6 +53,8 @@ public class CaptureActivity extends Activity implements Callback {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.camera);
+		Mapplication.getInstance().addActivity(this);
+		
 		//ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
 		CameraManager.init(getApplication());
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);

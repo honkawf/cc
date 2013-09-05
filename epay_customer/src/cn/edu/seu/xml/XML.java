@@ -218,7 +218,93 @@ public class XML {
     
     
     
-	
+    public static String producePicXML()
+    {
+    	 StringWriter stringWriter = new StringWriter();  
+	        try {  
+	            // 获取XmlSerializer对象  
+	            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();  
+	            XmlSerializer xmlSerializer = factory.newSerializer();  
+	            // 设置输出流对象  
+	            xmlSerializer.setOutput(stringWriter);  
+	         
+	            xmlSerializer.startDocument("utf-8", true);
+	            xmlSerializer.startTag(null, "information");
+	            xmlSerializer.attribute(null, "event", "guide");
+	            xmlSerializer.endTag(null, "information");
+	            xmlSerializer.endDocument();
+    		} catch (Exception e) {  
+    			e.printStackTrace();  
+    		}  
+    		return stringWriter.toString();  
+    }
+    
+    public static String parsePic(InputStream is){
+    	String sentence="";
+        XmlPullParser xpp = Xml.newPullParser(); 
+        try {
+			xpp.setInput(is, "utf-8");
+			for (int i = xpp.getEventType(); i != XmlPullParser.END_DOCUMENT; i = xpp.next())
+			{        	
+			    switch (i) {  
+	            case XmlPullParser.START_TAG: 
+	            	if(xpp.getName().equals("information"))
+	            	{
+
+	            		if(!xpp.getAttributeValue(null,"event").equals("picture"))
+	            			return sentence;
+	            		else
+	            		{	
+	            			sentence=xpp.nextText();
+	            		}
+
+	            	}
+	                
+	            }
+			}
+
+		} catch (XmlPullParserException e) {
+				Log.e("错误","未成功接收xml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return sentence;
+    }
+
+    
+    public static String parseSize(InputStream is)
+    {
+    	String sentence="";
+        XmlPullParser xpp = Xml.newPullParser(); 
+        try {
+			xpp.setInput(is, "utf-8");
+			for (int i = xpp.getEventType(); i != XmlPullParser.END_DOCUMENT; i = xpp.next())
+			{        	
+			    switch (i) {  
+	            case XmlPullParser.START_TAG: 
+	            	if(xpp.getName().equals("information"))
+	            	{
+
+	            		if(!xpp.getAttributeValue(null,"event").equals("size"))
+	            			return sentence;
+	            		else
+	            		{	
+	            			sentence=xpp.nextText();
+	            		}
+
+	            	}
+	                
+	            }
+			}
+
+		} catch (XmlPullParserException e) {
+				Log.e("错误","未成功接收xml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return sentence;
+    }
+
 	    
 		
 	    public String parseBalanceXML(InputStream is)

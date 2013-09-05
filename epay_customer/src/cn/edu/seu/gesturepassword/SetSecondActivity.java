@@ -30,6 +30,7 @@ public class SetSecondActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.set_second);
+		Mapplication.getInstance().addActivity(this);
 		lockPatternView = (LockPatternView) findViewById(R.id.lpv_lock_second);
 
 		Intent intent = getIntent();

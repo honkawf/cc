@@ -4,10 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Map;
+import java.util.Properties;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.RSA;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
@@ -115,6 +118,8 @@ public class ConfirmPriceActivity extends Activity{
 	{
         super.onCreate(savedInstanceState); 
         setContentView(R.layout.confirmprice);
+        Mapplication.getInstance().addActivity(this);
+        
         confirm=(Button) findViewById(R.id.confirm4);
         price=(TextView)findViewById(R.id.price);
         receivername=(TextView)findViewById(R.id.receivername);
@@ -175,8 +180,8 @@ public class ConfirmPriceActivity extends Activity{
 		 					//给余额赋值
 							sentence=payResult.parseBalanceXML(new ByteArrayInputStream(receive));
 							String balance = sentence;
-							LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
-							lio.modifyBalance(balance);
+							Properties property =PropertyInfo.getProperties();
+							LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));							lio.modifyBalance(balance);
 							//给交易记录赋值
 							Record record = new Record( 0 ,trade.getPayerName(),trade.getPayerDevice(),trade.getPayerIMEI(),trade.getReceiverName(),trade.getReceiverDevice(),trade.getReceiverIMEI(),Double.parseDouble(trade.getTotalPrice()),"收款", trade.getTradeTime());
 							Recorddh rdh = new Recorddh(ConfirmPriceActivity.this , "recorddb" , null , 1);

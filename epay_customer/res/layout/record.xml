@@ -26,27 +26,44 @@
     </RelativeLayout>
 
         <Button
-            android:id="@+id/cheque"
-            android:layout_width="300dip"
-            android:layout_height="60dip"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="124dp"
-            android:background="@drawable/tabs_longbtn"
-            android:textSize="20sp"
-            android:text="我的电子支票"
-            android:textColor="#ffffff" />
-
-        <Button
             android:id="@+id/goods"
-            android:layout_width="300dip"
-            android:layout_height="60dip"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
             android:layout_alignLeft="@+id/cheque"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="98dp"
-            android:background="@drawable/tabs_longbtn"
-            android:text="我的商品交易记录"
+            android:background="@drawable/tabs_traderecord"
             android:textColor="#ffffff"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/cheque"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_below="@+id/rl_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="83dp"
+            android:background="@drawable/tabs_check"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的支票"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="74dp"
+            android:text="交易记录"
+            android:textColor="@android:color/darker_gray" />
    
 </RelativeLayout>

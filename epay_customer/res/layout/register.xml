@@ -2,17 +2,228 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/register" >
+    android:background="#f3f3f3" >
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_back_c"
+            android:layout_width="70dip"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="注册"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@+id/rl_layout"
+    android:orientation="vertical" >
+  
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dip"
+        android:background="@drawable/singleline_item_bg" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 用户名:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="200dip"
+            android:layout_height="match_parent"
+             >
+
+            <requestFocus />
+        </EditText>
+
+        <ProgressBar
+            android:id="@+id/progressBar_Account"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/realName_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout4"
+        android:layout_below="@+id/linearLayout4"
+        android:text="身份证是否"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/account_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:text="银行卡是否符合规范"
+        android:textColor="@android:color/black"
+         />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/account_label"
+        android:layout_below="@+id/account_label"
+        android:layout_marginTop="27dip"
+        android:background="@drawable/singleline_item_bg" >
+
+        <TextView
+            android:id="@+id/link3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 密  码   :"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/pwd1_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout2"
+        android:text="密码是否符合"
+       android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/pwd1_label"
+        android:layout_below="@+id/pwd1_label"
+        android:layout_marginTop="23dip"
+        android:background="@drawable/singleline_item_bg" >
+
+        <TextView
+            android:id="@+id/link4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 再次密码:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/button_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/btn_register"
+        android:layout_below="@+id/btn_register"
+        android:text="确认所有信息" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/realName_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/tabs_confirm" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="300dip"
+        android:layout_height="40dip"
+        android:layout_alignLeft="@+id/pwd2_label"
+        android:layout_below="@+id/pwd2_label"
+        android:layout_marginTop="23dip"
+        android:background="@drawable/singleline_item_bg" >
+
+        <TextView
+            android:id="@+id/link5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 真实姓名:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pwd2_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout3"
+        android:text="手机号是否符合规范"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>
+
+</RelativeLayout>
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
+        android:layout_width="70dip"
+        android:layout_height="30dip"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="14dip"
         android:background="@drawable/shape"
         android:text="注册"
         android:textColor="#ffffff" />
@@ -76,8 +287,8 @@
     <ProgressBar
         android:id="@+id/progressBar_Account"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="39dp"
-        android:layout_height="39dp"
+        android:layout_width="39dip"
+        android:layout_height="39dip"
         android:layout_alignTop="@+id/editText1"
         android:layout_toRightOf="@+id/button_label"
         android:visibility="invisible" />
@@ -88,7 +299,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText1"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="28dip"
         android:text="用户名"
         android:textColor="#62a9e1" />
 
@@ -114,7 +325,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText4"
         android:layout_below="@+id/pwd2_label"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="21dip"
         android:text="真实姓名"
         android:textColor="#62a9e1" />
 
@@ -132,8 +343,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/account_label"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="27dip"
+        android:layout_marginTop="20dip"
         android:text="密码"
         android:textColor="#62a9e1" />
 
@@ -143,8 +354,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText2"
         android:layout_below="@+id/pwd1_label"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="18dip"
         android:text="再次输入密码"
         android:textColor="#62a9e1" />
     
 </RelativeLayout>
+ -->

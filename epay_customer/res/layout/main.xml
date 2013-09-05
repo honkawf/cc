@@ -84,6 +84,7 @@
          android:layout_alignLeft="@+id/text_shoukuan"
          android:layout_below="@+id/duixian"
          android:text="兑现"
+         android:textColor="@android:color/darker_gray"
          android:textSize="17sp" />
 
      <TextView
@@ -94,6 +95,7 @@
          android:layout_below="@+id/shoukuan"
          android:layout_marginRight="18dp"
          android:text="收款"
+         android:textColor="@android:color/darker_gray"
          android:textSize="17sp" />
 
      <TextView
@@ -104,6 +106,7 @@
          android:layout_below="@+id/transfer"
          android:layout_marginLeft="19dp"
          android:text="转账"
+         android:textColor="@android:color/darker_gray"
          android:textSize="17sp" />
 
      <TextView
@@ -114,6 +117,7 @@
          android:layout_alignBottom="@+id/text_duixian"
          android:layout_alignLeft="@+id/text_transfer"
          android:text="付款"
+         android:textColor="@android:color/darker_gray"
          android:textSize="17sp" />
 
 </RelativeLayout>

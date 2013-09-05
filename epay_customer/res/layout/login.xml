@@ -3,25 +3,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login" >
+   
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="300dip"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dip"
+        android:background="@drawable/singleline_item_bg_top" >
+
+        <EditText
+            android:id="@+id/account"
+            android:layout_width="230dip"
+            android:layout_height="50dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:ems="10" >
+            
+            <requestFocus />
+        </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dip"
+            android:layout_toLeftOf="@+id/account"
+            android:text="账  户"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="300dip"
+        android:layout_height="50dip"
+        android:layout_marginTop="-5dip"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_below="@+id/relativeLayout2"
+        android:background="@drawable/singleline_item_bg_bottom" >
+
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_width="230dip"
+            android:layout_height="50dip"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:inputType="textPassword" >
+
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dip"
+            android:text="密  码"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/login"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="250dip"
+        android:layout_height="50dip"
+        android:layout_below="@+id/relativeLayout1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
+        android:layout_marginTop="22dip"
+        android:background="@drawable/loginbutton"
         android:text="登录"
-        android:background="@drawable/shape"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/pwd"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="14dp"
+        android:layout_alignLeft="@+id/login"
+        android:layout_below="@+id/login"
+        android:layout_marginLeft="63dip"
+        android:layout_marginTop="140dip"
         android:text="注册"
         android:textColor="#2e9aff" />
 
@@ -31,29 +93,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/login"
+        android:layout_alignRight="@+id/login"
+        android:layout_marginRight="62dip"
         android:text="挂失"
         android:textColor="#2e9aff" />
-
-    <EditText
-        android:id="@+id/pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/login"
-        android:layout_alignLeft="@+id/account"
-        android:layout_marginBottom="50dp"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/pwd"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="18dp"
-        android:layout_marginRight="30dp"
-        android:ems="10" />
 
 </RelativeLayout>

@@ -2,7 +2,9 @@ package cn.edu.seu.register;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.R;
 
 import android.R.integer;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 
@@ -34,6 +37,8 @@ public class SetGestureSecondActivity extends Activity implements OnClickListene
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.set_second);
+		Mapplication.getInstance().addActivity(this);
+		
 		lockPatternView = (LockPatternView) findViewById(R.id.lpv_lock_second);
 
 		Intent intent = getIntent();
@@ -53,8 +58,8 @@ public class SetGestureSecondActivity extends Activity implements OnClickListene
 
 				if (first_pattern.equals(LockPatternUtils
 						.patternToString(pattern))) {
-					LocalInfoIO lio = new LocalInfoIO("sdcard/data",
-							"local.dat");
+					Properties property =PropertyInfo.getProperties();
+					LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 					LocalInfo li = new LocalInfo();
 					li.setAvailableBalance("0");
 					li.setBalance("0");

@@ -1,70 +1,54 @@
 package cn.edu.seu.transfer;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
-import cn.edu.seu.datatransportation.BluetoothDataTransportation;
-import cn.edu.seu.datatransportation.ClsUtils;
-import cn.edu.seu.datatransportation.LocalInfo;
-import cn.edu.seu.datatransportation.LocalInfoIO;
-import cn.edu.seu.xml.XML;
-
-import cn.edu.seu.main.FlipActivity;
-import cn.edu.seu.main.R;
-import cn.edu.seu.pay.GoodsListActivity;
-import cn.edu.seu.pay.TimeOutProgressDialog;
-import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
-import cn.edu.seu.record.Record;
-import cn.edu.seu.record.Recorddh;
-
-import com.zxing.activity.CaptureActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+import cn.edu.seu.datatransportation.BluetoothDataTransportation;
+import cn.edu.seu.login.Mapplication;
+import cn.edu.seu.main.FlipActivity;
+import cn.edu.seu.main.R;
+import cn.edu.seu.pay.TimeOutProgressDialog;
+import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+import cn.edu.seu.xml.XML;
 public class TransferActivity extends Activity {
     /** Called when the activity is first created. */
-	private Button btnSearch; 
+	private ImageView btnSearch; 
 	private ListView lvBTDevices; 
 	private String mac,name;
-	private ArrayAdapter<String> adtDevices;
+	private MyAdapter adtDevices;
 	private List<String> lstDevices = new ArrayList<String>(); 
 	private BluetoothAdapter btAdapt; 
 	private final static String TAG="TransferActivity";
 	private TimeOutProgressDialog pd;
-	private Thread sendAndReceiveThread;
+	private Thread sendAndReceiveThread,changeBackgroundThread;
 	private String xml;
 	public static BluetoothDataTransportation bdt=new BluetoothDataTransportation();
 	private Handler handler = new Handler() {
@@ -84,6 +68,7 @@ public class TransferActivity extends Activity {
 										Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
 										startActivity(intent);
 										TransferActivity.this.finish();
+										changeBackgroundThread.interrupt();
 										try{
 											TransferActivity.bdt.close();
 										}
@@ -117,6 +102,7 @@ public class TransferActivity extends Activity {
 								Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
 								startActivity(intent);
 								TransferActivity.bdt.close();
+								changeBackgroundThread.interrupt();
 								
 							}
 				    		
@@ -133,6 +119,7 @@ public class TransferActivity extends Activity {
 								Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
 								startActivity(intent);
 								TransferActivity.this.finish();
+								changeBackgroundThread.interrupt();
 								try{
 									TransferActivity.bdt.close();
 								}
@@ -146,6 +133,18 @@ public class TransferActivity extends Activity {
 				    	});
 				    	builder1.show();
 				    	break;
+		         case 4:
+		        	 	btnSearch.setImageDrawable(getResources().getDrawable(R.drawable.search_left));
+						break;
+		         case 5:
+		        	 	btnSearch.setImageDrawable(getResources().getDrawable(R.drawable.search_top));
+						break;
+		         case 6:
+		        	 	btnSearch.setImageDrawable(getResources().getDrawable(R.drawable.search_right));
+			    		break;
+		         case 7:
+		        	 	btnSearch.setImageDrawable(getResources().getDrawable(R.drawable.search_pressed));
+			    		break;
 		     }
 		     super.handleMessage(msg);
 		  }
@@ -155,7 +154,7 @@ public class TransferActivity extends Activity {
      public void onCreate(Bundle savedInstanceState) { 
          super.onCreate(savedInstanceState); 
          setContentView(R.layout.transfer);
-         
+         Mapplication.getInstance().addActivity(this);
          
          btAdapt = BluetoothAdapter.getDefaultAdapter();// 初始化本机蓝牙功能 
          /*打开蓝牙*/
@@ -173,8 +172,7 @@ public class TransferActivity extends Activity {
 
          // ListView及其数据源 适配器 
          lvBTDevices = (ListView) this.findViewById(R.id.lvDevices); 
-         adtDevices = new ArrayAdapter<String>(this, 
-                 android.R.layout.simple_list_item_1, lstDevices); 
+         adtDevices = new MyAdapter(); 
          lvBTDevices.setAdapter(adtDevices); 
          lvBTDevices.setOnItemClickListener(new OnItemClickListener() {
 
@@ -255,9 +253,58 @@ public class TransferActivity extends Activity {
 			} 	
 		});
    
-         btnSearch=(Button) findViewById(R.id.btnSearch);
+         btnSearch=(ImageView) findViewById(R.id.btnSearch);
          btnSearch.setOnClickListener(new OnClickEvent());
-         
+         changeBackgroundThread=new Thread(){
+ 	    	public void run()
+ 	    	{
+ 	    		try{
+ 	    			long start=System.currentTimeMillis();
+ 	    			while(true)
+ 	    			{
+ 	    				long end=System.currentTimeMillis();
+ 	    				long last=end-start;
+ 	    				if(last>60000)
+ 	    					break;
+ 	    				try
+ 	    				{
+ 	    					Message msg=handler.obtainMessage();
+ 	 	    				sleep(500);
+ 	 	    				msg.what=4;
+ 	 	    				msg.sendToTarget();
+ 	 	    				Log.i(TAG,"1");
+ 	 	    				sleep(500);
+ 	 	    				msg=handler.obtainMessage();
+ 	 	    				msg.what=5;
+ 	 	    				Log.i(TAG,"2");
+ 	 	    				msg.sendToTarget();
+ 	 	    				sleep(500);
+ 	 	    				msg=handler.obtainMessage();
+ 	 	    				msg.what=6;
+ 	 	    				Log.i(TAG,"3");
+ 	 	    				msg.sendToTarget();
+ 	 	    				sleep(500);
+ 	 	    				msg=handler.obtainMessage();
+ 	 	    				msg.what=7;
+ 	 	    				Log.i(TAG,"4");
+ 	 	    				msg.sendToTarget();
+ 	    				}
+ 	    				catch(InterruptedException e)
+ 	    				{
+ 	    					Log.i(TAG, "线程中断");
+ 	    					break;
+ 	    				}
+ 	    			}
+	    			TransferActivity.this.finish();
+ 	    			
+ 	    		}
+ 	    		catch(Exception e)
+ 	    		{
+ 	    			Log.i(TAG,e.getMessage());
+ 	    		}
+ 	    	}
+ 	    };
+ 	   
  
          // ============================================================ 
          // 注册Receiver来获取蓝牙设备相关的结果 
@@ -271,7 +318,37 @@ public class TransferActivity extends Activity {
          
      } 
   
-     class OnClickEvent implements Button.OnClickListener{
+     private class MyAdapter extends BaseAdapter{        
+         public int getCount() {
+             // TODO Auto-generated method stub
+             return lstDevices.size();
+         }
+
+         public Object getItem(int position) {
+             // TODO Auto-generated method stub
+             return position;
+         }
+
+         public long getItemId(int position) {
+             // TODO Auto-generated method stub
+             return position;
+         }
+
+         public View getView(int position, View convertView, ViewGroup parent) {
+             // TODO Auto-generated method stub
+             TextView mTextView = new TextView(getApplicationContext());
+             mTextView.setText(lstDevices.get(position));
+             mTextView.setTextSize(20);
+             mTextView.setBackgroundDrawable(getResources().getDrawable(R.drawable.singleline_listview_bg));
+             mTextView.setTextColor(Color.GRAY);
+             
+             return mTextView;
+         }
+         
+     }
+
+
+	class OnClickEvent implements Button.OnClickListener{
      public void onClick(View v)
      {
     	 if (v==btnSearch)
@@ -288,6 +365,7 @@ public class TransferActivity extends Activity {
 					}
 				}
 				btAdapt.startDiscovery();
+				changeBackgroundThread.start();
     	 }
     	 
      }
@@ -345,6 +423,15 @@ public class TransferActivity extends Activity {
      protected void onDestroy() { 
          this.unregisterReceiver(searchDevices); 
          super.onDestroy(); 
+         try
+ 		{
+ 			changeBackgroundThread.interrupt();
+ 		}
+ 		catch(Exception e)
+ 		{
+ 			Log.i(TAG,"线程中断失败");
+ 		}
      } 
+    
 
   }

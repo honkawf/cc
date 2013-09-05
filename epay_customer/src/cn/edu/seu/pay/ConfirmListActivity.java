@@ -7,9 +7,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import cn.edu.seu.ciphertext.RSA;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
@@ -19,6 +21,7 @@ import cn.edu.seu.xml.Goods;
 import cn.edu.seu.xml.Trade;
 import cn.edu.seu.xml.XML;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import com.zxing.activity.CaptureActivity;
@@ -143,6 +146,8 @@ public class ConfirmListActivity extends Activity{
 	{
         super.onCreate(savedInstanceState); 
         setContentView(R.layout.confirmlist);
+        Mapplication.getInstance().addActivity(this);
+        
         Intent intent=getIntent();
         totalprice=intent.getStringExtra("totalprice");
         totalView=(TextView)findViewById(R.id.totalprice);
@@ -217,8 +222,8 @@ public class ConfirmListActivity extends Activity{
 				 					//更新余额,交易记录
 				 					//给余额赋值
 				 					String balance=sentence;
-				 					LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
-									lio.modifyBalance(balance);
+				 					Properties property =PropertyInfo.getProperties();
+				 					LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));									lio.modifyBalance(balance);
 									//给交易记录赋值
 									trade=confirmTrade.getTrade();
 									Record record = new Record( 0 ,trade.getPayerName(),trade.getPayerDevice(),trade.getPayerIMEI(),trade.getReceiverName(),trade.getReceiverDevice(),trade.getReceiverIMEI(),Double.parseDouble(trade.getTotalPrice()),"收款", trade.getTradeTime());

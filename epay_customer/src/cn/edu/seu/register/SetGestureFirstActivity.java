@@ -7,6 +7,7 @@ import cn.edu.seu.gesturepassword.LockPatternView;
 import cn.edu.seu.gesturepassword.LockPatternView.Cell;
 import cn.edu.seu.gesturepassword.LockPatternView.OnPatternListener;
 
+import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.R;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ public class SetGestureFirstActivity extends Activity implements OnClickListener
 		Log.i("firstSet","1");
 		setContentView(R.layout.set_first);
 		Log.i("firstSet","2");
+		Mapplication.getInstance().addActivity(this);
 		
 		Intent intent = getIntent();
 		Log.i("firstSet","3");

@@ -2,12 +2,15 @@ package cn.edu.seu.login;
 
 
 import java.io.File;
+import java.util.Properties;
 
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.MD5;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
+import cn.edu.seu.guide.FirstTimeGuideActivity;
 
 
 
@@ -44,6 +47,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
+		Mapplication.getInstance().addActivity(this);
 		
 		preferences = getSharedPreferences("phone", Context.MODE_PRIVATE);
 		 //判断是不是首次登录，
@@ -52,10 +56,9 @@ public class LoginActivity extends Activity {
 		    //将登录标志位设置为false，下次登录时不在显示首次登录界面
 		    editor.putBoolean("firststart", false);
 		    editor.commit();
-		    Intent intent = new Intent(LoginActivity.this , GoodsActivity.class);
+		    Intent intent = new Intent(LoginActivity.this , FirstTimeGuideActivity.class);
 		    //放导航界面
 		    startActivity(intent);
-		    finish();
 		}
 
 		
@@ -70,7 +73,8 @@ public class LoginActivity extends Activity {
 		login.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				File file = new File("sdcard/data" , "local.dat");
+				Properties property =PropertyInfo.getProperties();
+				File file = new File(property.getProperty("path") , property.getProperty("filename"));
 				if(!file.exists()){
 					Toast.makeText(LoginActivity.this, "请下载密码文件", Toast.LENGTH_LONG)
 					.show();
@@ -78,19 +82,19 @@ public class LoginActivity extends Activity {
 					intent.setClass(LoginActivity.this, ResetActivity.class);
 					startActivity(intent);
 				}
-//				else{
-//					LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
-//					LocalInfo x = lio.readfile();
-//					String u = username.getText().toString();
-//					String p = password.getText().toString();
-//					Toast.makeText(LoginActivity.this, u+md5.encrypt(p), Toast.LENGTH_LONG)
-//					.show();
-//					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
-//						Intent it = new Intent(LoginActivity.this , MainActivity.class);
-//						startActivity(it);
-//						finish();
-//					}
-//				}
+				else{
+					LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
+					LocalInfo x = lio.readfile();
+					String u = username.getText().toString();
+					String p = password.getText().toString();
+					Toast.makeText(LoginActivity.this, u+md5.encrypt(p), Toast.LENGTH_LONG)
+					.show();
+					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
+						Intent it = new Intent(LoginActivity.this , FlipActivity.class);
+						startActivity(it);
+						finish();
+					}
+				}
 				Intent it = new Intent(LoginActivity.this , FlipActivity.class);
 				startActivity(it);
 				finish();
