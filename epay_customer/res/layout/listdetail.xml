@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#f3f3f3" >
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView1"
-        android:textSize="40dp" />
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
 
-    <TextView
-        android:id="@+id/cash"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/time"
-        android:layout_marginTop="62dp"
-        android:text="TextView4"
-        android:textSize="40dp" />
+        <Button
+            android:id="@+id/btn_back_c"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/name"
-        android:layout_marginTop="50dp"
-        android:text="TextView2"
-        android:textSize="40dp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的电子支票"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/price"
-        android:layout_marginTop="48dp"
-        android:text="TextView3"
-        android:textSize="40dp" />
-
-    <TextView
-        android:id="@+id/cardnum"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/cash"
-        android:layout_marginTop="70dp"
-        android:text="TextView5"
-        android:textSize="40dp" />
-
-    <Button
-        android:id="@+id/cashbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/cardnum"
-        android:layout_marginRight="58dp"
-        android:text="兑现" />
 
     <Button
         android:id="@+id/transmitbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="96dp"
-        android:text="转发" />
+        android:layout_alignLeft="@+id/cashbtn"
+        android:layout_below="@+id/cashbtn"
+        android:layout_marginTop="78dp"
+        android:background="@drawable/tabs_transfer" />
+
+    <Button
+        android:id="@+id/cashbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/tabs_duixian" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cashbtn"
+        android:layout_centerHorizontal="true"
+        android:text="兑现"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transmitbtn"
+        android:layout_centerHorizontal="true"
+        android:text="转发"
+        android:textColor="@android:color/darker_gray" />
 
 </RelativeLayout>

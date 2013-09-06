@@ -20,6 +20,7 @@
             android:layout_height="50dip"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:alpha="0"
             android:ems="10" >
             
             <requestFocus />
@@ -49,6 +50,7 @@
             android:layout_height="50dip"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:alpha="0"
             android:ems="10"
             android:inputType="textPassword" >
 

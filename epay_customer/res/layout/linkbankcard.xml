@@ -42,7 +42,7 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
@@ -61,6 +61,7 @@
             android:id="@+id/cardNum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:alpha="0"
             android:inputType="number" >
 
             <requestFocus />
@@ -89,7 +90,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignLeft="@+id/cardNum_label"
         android:layout_below="@+id/cardNum_label"
         android:layout_marginTop="27dp"
@@ -109,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:alpha="0"
             android:inputType="numberPassword" />
     </LinearLayout>
 
@@ -125,7 +127,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignLeft="@+id/cardPwd_label"
         android:layout_below="@+id/cardPwd_label"
         android:layout_marginTop="23dp"
@@ -145,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:alpha="0"
             android:inputType="number" />
     </LinearLayout>
 
@@ -169,7 +172,7 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignLeft="@+id/phoneNum_label"
         android:layout_below="@+id/phoneNum_label"
         android:layout_marginTop="24dp"
@@ -189,7 +192,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:alpha="0"
+            android:inputType="text" />
     </LinearLayout>
 
     <TextView

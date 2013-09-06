@@ -141,19 +141,19 @@ public class DetailActivity extends Activity{
 		Mapplication.getInstance().addActivity(this);
 		
 		property =PropertyInfo.getProperties();
-		name = (TextView)findViewById(R.id.name);
+		/*name = (TextView)findViewById(R.id.name);
 		price = (TextView)findViewById(R.id.price);
 		time = (TextView)findViewById(R.id.time);
 		cash = (TextView)findViewById(R.id.cash);
-		cardnum = (TextView)findViewById(R.id.cardnum);
+		cardnum = (TextView)findViewById(R.id.cardnum);*/
 		cashbtn=(Button)findViewById(R.id.cashbtn);
 		transmitbtn=(Button)findViewById(R.id.transmitbtn);
 		
-		name.setText(this.getIntent().getStringExtra("name"));
+		/*name.setText(this.getIntent().getStringExtra("name"));
 		price.setText(this.getIntent().getStringExtra("price"));
 		time.setText(this.getIntent().getStringExtra("time"));
 		cash.setText(this.getIntent().getStringExtra("cash"));
-		cardnum.setText(this.getIntent().getStringExtra("cardnum"));
+		cardnum.setText(this.getIntent().getStringExtra("cardnum"));*/
 		xml=this.getIntent().getStringExtra("xml");
 		cashbtn.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v) {

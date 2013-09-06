@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
+import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +26,10 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
 import cn.edu.seu.login.Mapplication;
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
+import cn.edu.seu.record.GoodsActivity;
+
 import com.zxing.camera.CameraManager;
 import com.zxing.decoding.CaptureActivityHandler;
 import com.zxing.decoding.InactivityTimer;
@@ -221,5 +225,10 @@ public class CaptureActivity extends Activity implements Callback {
 			mediaPlayer.seekTo(0);
 		}
 	};
-
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	CaptureActivity.this.finish();
+	    }
+		return false;
+	}
 }

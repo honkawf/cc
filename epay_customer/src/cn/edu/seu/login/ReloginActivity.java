@@ -38,6 +38,8 @@ public class ReloginActivity extends Activity {
 		b1 = (Button)findViewById(R.id.login);
 		username = (EditText)findViewById(R.id.account);
 		password = (EditText)findViewById(R.id.pwd);
+		username.getBackground().setAlpha(0);
+		password.getBackground().setAlpha(0);
 		Toast.makeText(ReloginActivity.this, "请重新登录", Toast.LENGTH_LONG);
 		b1.setOnClickListener(new OnClickListener(){
 
@@ -55,7 +57,11 @@ public class ReloginActivity extends Activity {
 					String p = password.getText().toString();
 					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
 						finish();
+					
 					}
+					else
+						Toast.makeText(ReloginActivity.this, "用户名或密码不正确", Toast.LENGTH_LONG);
+
 				}
 			}
 			

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3" >
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+  			<Button
+            android:id="@+id/btn_back_m2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/title_btn_back"
+		    />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="修改绑定手机号"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+ <AbsoluteLayout
+     android:id="@+id/ll_lowwarn"
+     android:layout_width="280dip"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/rl_layout"
+     android:layout_centerHorizontal="true"
+     android:layout_marginTop="44dp"
+     android:background="@drawable/singleline_item_bg"
+     android:minHeight="40dip" >
+
+     <TextView
+         android:id="@+id/tv_pre"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="6dp"
+         android:layout_y="28dp"
+         android:text="请输入密码:"
+         android:textColor="#000000"
+         android:textSize="15dip" />
+
+     <EditText
+         android:id="@+id/editText1"
+         android:layout_width="135dp"
+         android:layout_height="wrap_content"
+         android:layout_x="128dp"
+         android:layout_y="17dp"
+         android:alpha="0"
+         android:ems="10"
+         android:inputType="textPassword" >
+
+         <requestFocus />
+     </EditText>
+ </AbsoluteLayout>
+
+ <AbsoluteLayout
+     android:id="@+id/ll_lowwarn1"
+     android:layout_width="220dip"
+     android:layout_height="wrap_content"
+     android:layout_alignLeft="@+id/ll_lowwarn"
+     android:layout_alignRight="@+id/ll_lowwarn"
+     android:layout_below="@+id/check"
+     android:layout_marginTop="35dp"
+     android:background="@drawable/singleline_item_bg"
+     android:minHeight="40dip" >
+
+     <TextView
+         android:id="@+id/tv_pre"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="6dp"
+         android:layout_y="28dp"
+         android:text="请输入新手机号:"
+         android:textColor="#000000"
+         android:textSize="15dip" />
+
+     <EditText
+         android:id="@+id/editText2"
+         android:layout_width="135dp"
+         android:layout_height="wrap_content"
+         android:layout_x="129dp"
+         android:layout_y="17dp"
+         android:alpha="0"
+         android:ems="10"
+         android:inputType="textPassword|phone" />
+
+ </AbsoluteLayout>
+
+ <Button
+     android:id="@+id/check"
+     android:layout_width="50dip"
+     android:layout_height="50dip"
+     android:layout_below="@+id/ll_lowwarn"
+     android:layout_centerHorizontal="true"
+     android:background="@drawable/tabs_next" />
+
+ <Button
+     android:id="@+id/confirm"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/ll_lowwarn1"
+     android:layout_centerHorizontal="true"
+     android:layout_marginTop="24dp"
+     android:background="@drawable/tabs_confirm" />
+
+</RelativeLayout>

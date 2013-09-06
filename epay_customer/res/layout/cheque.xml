@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3" >
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_back_c"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的电子支票"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rl_layout" >
+
+        <TextView
+            android:id="@+id/tv_c1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:background="#d2d2d2"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_c2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:background="#d2d2d2" />
+
+        <TextView
+            android:id="@+id/tv_c3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:text="TextView"
+            android:gravity="center"
+            android:background="#d2d2d2" />
+
+        <TextView
+            android:id="@+id/tv_c4"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:gravity="center"
+            android:background="#d2d2d2" />
+
+        <TextView
+            android:id="@+id/tv_c5"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:gravity="center"
+            android:background="#d2d2d2" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1" >
+    </ListView>
+
+</RelativeLayout>

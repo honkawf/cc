@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string-array name="pro">
+        <item>存入储蓄账户</item>
+        <item>投资</item>
+    </string-array> 
+</resources>

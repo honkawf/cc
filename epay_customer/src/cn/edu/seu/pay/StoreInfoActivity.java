@@ -140,7 +140,10 @@ public class StoreInfoActivity extends Activity{
         	 if(type.equals("supermarket"))
         		 type="超市";
         	 else if(type.equals("individual"))
+        	 {
         		 type="个体商户";
+        		 btnDiscount.setVisibility(View.GONE);
+        	 }
         	 else
         		 type="信息有误";
         	 tvtype.setText("类型："+type);
@@ -156,7 +159,7 @@ public class StoreInfoActivity extends Activity{
         	 
         	 public void onClick(View v) {
         		 // TODO Auto-generated method stub
-        		 if(type.equals("supermarket"))
+        		 if(type.equals("超市"))
         		 {
         			 Log.i("蓝牙地址",mac);
         			 Message msg=handler.obtainMessage();
@@ -195,7 +198,7 @@ public class StoreInfoActivity extends Activity{
              		};
              		sendThread.start();
                  }
-                 else if(type.equals("individual"))
+                 else if(type.equals("个体商户"))
                  {
                 	 Message msg=handler.obtainMessage();
                      msg.what=1;

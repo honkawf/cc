@@ -16,6 +16,7 @@ import cn.edu.seu.gesturepassword.LockPatternView.Cell;
 import cn.edu.seu.gesturepassword.LockPatternView.OnPatternListener;
 import cn.edu.seu.login.Mapplication;
 
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 
 public class SetSecondActivity extends Activity implements OnClickListener {
@@ -50,9 +51,17 @@ public class SetSecondActivity extends Activity implements OnClickListener {
 					Toast.makeText(SetSecondActivity.this, "密码已经设置", Toast.LENGTH_LONG)
 					.show();
 					lockPatternView.clearPattern();
-					Intent intentToCheck = new Intent();
-					intentToCheck.setClass(SetSecondActivity.this, LockActivity.class);
-		            startActivity(intentToCheck);
+					int source = getIntent().getIntExtra("flag", -1);
+					if (source > -1){
+						Intent intent=new Intent();
+						intent.setClass(SetSecondActivity.this, FlipActivity.class);
+						intent.putExtra("flag", source);
+						startActivity(intent);
+						SetSecondActivity.this.finish();
+					}
+					else{
+						
+					}
 		            SetSecondActivity.this.finish();
 				} else{
 					Toast.makeText(SetSecondActivity.this, "输入不一致，请重新输入", Toast.LENGTH_LONG)
@@ -78,19 +87,26 @@ public class SetSecondActivity extends Activity implements OnClickListener {
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        new AlertDialog.Builder(SetSecondActivity.this)
-	                .setTitle("真的要离开？")
-	                .setMessage("你确定要离开")
-	                .setPositiveButton("确定",
-	                                new DialogInterface.OnClickListener() {
-	                                        public void onClick(DialogInterface dialog,
-	                                                        int which) {
-	                                        	Mapplication.getInstance().exit();
-	                                        }
-	                                }).show();
-
-	    }
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	int source = getIntent().getIntExtra("flag", -1);
+			if (source > -1){
+				Intent intent=new Intent();
+				intent.setClass(SetSecondActivity.this, FlipActivity.class);
+				intent.putExtra("flag", source);
+				startActivity(intent);
+			}
+			else{
+				new AlertDialog.Builder(SetSecondActivity.this)
+                .setTitle("真的要离开？")
+                .setMessage("你确定要离开")
+                .setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+                        Mapplication.getInstance().exit();
+                    }
+                }).show();
+			}
+		}
 		return false;
 	}
 

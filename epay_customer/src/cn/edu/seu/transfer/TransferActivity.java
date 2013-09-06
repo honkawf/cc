@@ -20,7 +20,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,19 +39,22 @@ import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+import cn.edu.seu.record.GoodsActivity;
 import cn.edu.seu.xml.XML;
 public class TransferActivity extends Activity {
     /** Called when the activity is first created. */
-	private ImageView btnSearch; 
+	private ImageView btnSearch;
 	private ListView lvBTDevices; 
 	private String mac,name;
 	private MyAdapter adtDevices;
+	private boolean flag=false;
 	private List<String> lstDevices = new ArrayList<String>(); 
 	private BluetoothAdapter btAdapt; 
 	private final static String TAG="TransferActivity";
 	private TimeOutProgressDialog pd;
 	private Thread sendAndReceiveThread,changeBackgroundThread;
 	private String xml;
+	private Button btn_back;
 	public static BluetoothDataTransportation bdt=new BluetoothDataTransportation();
 	private Handler handler = new Handler() {
 		@Override
@@ -253,6 +258,15 @@ public class TransferActivity extends Activity {
 			} 	
 		});
    
+         btn_back = (Button)findViewById(R.id.btn_back_p);
+         btn_back.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+				TransferActivity.this.finish();
+			}
+        	 
+         });
+         
          btnSearch=(ImageView) findViewById(R.id.btnSearch);
          btnSearch.setOnClickListener(new OnClickEvent());
          changeBackgroundThread=new Thread(){
@@ -351,21 +365,24 @@ public class TransferActivity extends Activity {
 	class OnClickEvent implements Button.OnClickListener{
      public void onClick(View v)
      {
-    	 if (v==btnSearch)
+    	 if(!flag)
     	 {
-    		 if(btAdapt==null)
-				{
-					Toast.makeText(TransferActivity.this, "设备不支持蓝牙", Toast.LENGTH_LONG).show();
-				}
-				else
-				{
-					if(!btAdapt.isEnabled())
-					{
-						btAdapt.enable();
-					}
-				}
-				btAdapt.startDiscovery();
-				changeBackgroundThread.start();
+    		 if (v==btnSearch)
+        	 {
+        		 if(btAdapt==null)
+    				{
+    					Toast.makeText(TransferActivity.this, "设备不支持蓝牙", Toast.LENGTH_LONG).show();
+    				}
+    				else
+    				{
+    					if(!btAdapt.isEnabled())
+    					{
+    						btAdapt.enable();
+    					}
+    				}
+    				btAdapt.startDiscovery();
+    				changeBackgroundThread.start();
+        	 }
     	 }
     	 
      }
@@ -432,6 +449,10 @@ public class TransferActivity extends Activity {
  			Log.i(TAG,"线程中断失败");
  		}
      } 
-    
-
-  }
+     public boolean onKeyDown(int keyCode, KeyEvent event) {
+ 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+ 	    	TransferActivity.this.finish();
+ 	    }
+ 		return false;
+ 	}
+}

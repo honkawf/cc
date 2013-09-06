@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+   android:background="#f3f3f3" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="请设置密码"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black" />
 
     <cn.edu.seu.gesturepassword.LockPatternView
-         xmlns:app="http://schemas.android.com/apk/res/com.wgs.jiesuo"
-         android:id="@+id/lpv_lock_first"
-         android:background="#334455"
-         android:layout_width="300dp"
-         android:layout_height="300dp"
-        />
-    
+        xmlns:app="http://schemas.android.com/apk/res/com.wgs.jiesuo"
+        android:id="@+id/lpv_lock_first"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#f3f3f3" />
   
 </LinearLayout>

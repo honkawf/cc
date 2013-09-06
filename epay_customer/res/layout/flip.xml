@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f3f3f3" >
+
+     <ViewFlipper
+        android:id="@+id/viewFlipper1"
+        android:layout_width="fill_parent"
+        android:layout_height="389dip"
+        android:layout_weight="0.12" >
+    </ViewFlipper>
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/home"
+            style="@style/main_tab_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableTop="@drawable/tabs_home"
+            android:text="主页"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/manage"
+            style="@style/main_tab_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/tabs_manage"
+            android:text="理财"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/record"
+            style="@style/main_tab_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/tabs_record"
+            android:text="交易记录"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/setting"
+            style="@style/main_tab_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/tabs_setting"
+            android:text="设置"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/more"
+            style="@style/main_tab_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/tabs_more"
+            android:text="更多"
+            android:textColor="@android:color/white" />
+
+    </RadioGroup>
+
+
+
+</LinearLayout>

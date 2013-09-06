@@ -42,7 +42,7 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dip"
@@ -61,6 +61,7 @@
             android:id="@+id/editText1"
             android:layout_width="200dip"
             android:layout_height="match_parent"
+            android:alpha="0"
              >
 
             <requestFocus />
@@ -97,7 +98,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignLeft="@+id/account_label"
         android:layout_below="@+id/account_label"
         android:layout_marginTop="27dip"
@@ -117,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:alpha="0"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -132,7 +134,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignLeft="@+id/pwd1_label"
         android:layout_below="@+id/pwd1_label"
         android:layout_marginTop="23dip"
@@ -152,6 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:alpha="0"
             android:inputType="textPassword" />
 
     </LinearLayout>
@@ -176,7 +179,7 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="300dip"
-        android:layout_height="40dip"
+        android:layout_height="50dip"
         android:layout_alignLeft="@+id/pwd2_label"
         android:layout_below="@+id/pwd2_label"
         android:layout_marginTop="23dip"
@@ -195,7 +198,8 @@
             android:id="@+id/editText4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10" />
+            android:ems="10" 
+            android:alpha="0"/>
     </LinearLayout>
 
     <TextView

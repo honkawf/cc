@@ -23,7 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ReceiverInfoActivity extends Activity{
-	private TextView storeInfo;
+	private TextView receivername,address;
 	private Button btnConfirm;
 	private TimeOutProgressDialog pd;
 	private Thread sendAndReceiveThread;
@@ -109,12 +109,14 @@ public class ReceiverInfoActivity extends Activity{
          setContentView(R.layout.receiver); 
          Mapplication.getInstance().addActivity(this);
          
-         storeInfo=(TextView)findViewById(R.id.receiverInfo);
+         receivername=(TextView)findViewById(R.id.receivername);
+         address=(TextView)findViewById(R.id.address);
          btnConfirm=(Button)findViewById(R.id.confirm1);
          Intent intent=getIntent();
          name=intent.getStringExtra("name");
          mac=intent.getStringExtra("mac");
-         storeInfo.setText("收款方："+name+"\n蓝牙地址："+mac);
+         receivername.setText("收款方："+name);
+         address.setText("\n蓝牙地址："+mac);
          btnConfirm.setOnClickListener(new Button.OnClickListener(){
         	 public void onClick(View v) {
         		 // TODO Auto-generated method stub

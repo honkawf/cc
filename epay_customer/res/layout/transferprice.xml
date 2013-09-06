@@ -2,35 +2,89 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="#f3f3f3" >
 
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="114dp"
-        android:text="确认" />
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:ems="10" >
+        <Button
+            android:id="@+id/btn_back_c"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="14sp" />
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="收款人信息"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="请输入转账金额：" />
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="56dp"
+            android:background="@drawable/tabs_confirm" />
 
+        <AbsoluteLayout
+            android:id="@+id/li"
+            android:layout_width="281dip"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/singleline_item_bg"
+            android:minHeight="40dip" >
+
+            <TextView
+                android:id="@+id/Text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_x="6dip"
+                android:layout_y="29dip"
+                android:text="请输入转账金额:"
+                android:textColor="#000000"
+                android:textSize="15dip" />
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:layout_x="120dp"
+                android:layout_y="22dp"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="114dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="62dip"
+                android:layout_x="155dp"
+                android:layout_y="16dp"
+                android:alpha="0"
+                android:background="@drawable/edittext1"
+                android:gravity="left|center"
+                android:inputType="numberDecimal"
+                android:minHeight="40dip"
+                android:paddingLeft="5dip"
+                android:textColor="#ff000000"
+                android:textSize="15dip" />
+
+        </AbsoluteLayout>
 </RelativeLayout>

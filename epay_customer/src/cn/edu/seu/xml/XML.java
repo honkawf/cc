@@ -54,7 +54,30 @@ public class XML {
             e.printStackTrace();  
         }  
         return stringWriter.toString();
-    }  
+    } 
+    
+    public static String produceGetInterestXML( String username ){  
+        StringWriter stringWriter = new StringWriter();  
+        try {  
+            // 获取XmlSerializer对象  
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();  
+            XmlSerializer xmlSerializer = factory.newSerializer();  
+            // 设置输出流对象  
+            xmlSerializer.setOutput(stringWriter);  
+         
+            xmlSerializer.startDocument("utf-8", true);
+            xmlSerializer.startTag(null, "information");
+            xmlSerializer.attribute(null, "event" , "getInterest");
+            xmlSerializer.startTag(null, "name");
+            xmlSerializer.text(username);
+            xmlSerializer.endTag(null, "name");
+            xmlSerializer.endTag(null, "information");
+            xmlSerializer.endDocument();  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+        return stringWriter.toString();
+    }
     
     public static LocalInfo parsePersonXML(InputStream is)
     {

@@ -32,7 +32,7 @@ public class NetDataTransportation implements IDataTransportation{
 	public boolean write(String xml){
 		try{
 			OutputStream out = Cli_Soc.getOutputStream();
-			out.write(DataDeal.plusHead(xml.length()));
+			out.write(DataDeal.plusHead(xml.getBytes().length));
 			out.write(xml.getBytes());
 			Log.i("发送", new String(xml.getBytes()));
 		} catch (UnknownHostException e) {

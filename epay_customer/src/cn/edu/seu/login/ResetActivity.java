@@ -74,9 +74,16 @@ public class ResetActivity extends Activity {
 							String address = config.getProperty("serverAddress");
 							int port = Integer.parseInt(config.getProperty("serverPort"));
 							NetDataTransportation ndt = new NetDataTransportation();
-							ndt.connect(address , port);
-							ndt.write(produce);
-							parse = ndt.read();
+							try{
+								ndt.connect(address , port);
+								ndt.write(produce);
+								parse = ndt.read();
+							}catch(Exception e){
+								Message message = myHandler.obtainMessage();  
+							    message.arg1 = 3;
+							    message.sendToTarget();
+							    return;
+							}
 							Log.i("解析之前" , new String(parse));
 							XML xml = new XML();
 							String result = xml.parseSentenceXML(new ByteArrayInputStream(parse));
@@ -122,7 +129,11 @@ public class ResetActivity extends Activity {
 				Intent it = new Intent(ResetActivity.this , SetFirstActivity.class);
 				startActivity(it);
 				finish();
-            }  
+            } else if (msg.arg1 == 3) {  
+                pd.dismiss();
+				Toast.makeText(ResetActivity.this, "网络不可用" , Toast.LENGTH_LONG)
+				.show();
+            }
         }  
     }
 }

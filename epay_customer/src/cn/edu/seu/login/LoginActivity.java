@@ -107,7 +107,6 @@ public class LoginActivity extends Activity {
 			public void onClick(View arg0) {
 				Intent it = new Intent(LoginActivity.this , RegisterActivity.class);
 				startActivity(it);
-				finish();
 			}
 			
 		});

@@ -4,43 +4,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-	 <TextView
-	     android:id="@+id/goodsinfo1"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignParentLeft="true"
-	     android:layout_alignParentTop="true"
-	     android:layout_marginTop="24dp"
-	     android:text="50*33"
-	     android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/price1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/barcode1"
+        android:layout_alignBottom="@+id/barcode1"
+        android:layout_marginLeft="62dp"
+        android:layout_toRightOf="@+id/barcode1"
+        android:text="50*33"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	 <TextView
-	     android:id="@+id/price1"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignBaseline="@+id/barcode1"
-	     android:layout_alignBottom="@+id/barcode1"
-	     android:layout_marginLeft="62dp"
-	     android:layout_toRightOf="@+id/barcode1"
-	     android:text="50*33"
-	     android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/price1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="52dp"
+        android:text="x3" />
 
-	 <TextView
-	     android:id="@+id/count"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_above="@+id/price1"
-	     android:layout_alignParentRight="true"
-	     android:layout_marginRight="52dp"
-	     android:text="x3" />
+    <TextView
+        android:id="@+id/barcode1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="50*33"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	 <TextView
-	     android:id="@+id/barcode1"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_alignParentLeft="true"
-	     android:layout_below="@+id/goodsinfo1"
-	     android:text="50*33"
-	     android:textAppearance="?android:attr/textAppearanceSmall" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barcode1"
+        android:layout_marginTop="57dp"
+        android:layout_toLeftOf="@+id/price1" >
+
+        <TextView
+            android:id="@+id/goodsinfo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="50*33"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/goodsinfo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/goodsinfo1"
+            android:text="50*33"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
 
 </RelativeLayout>

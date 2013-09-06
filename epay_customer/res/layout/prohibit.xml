@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f3f3f3" >   
+ <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+  			<Button
+            android:id="@+id/btn_back_p"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/title_btn_back"
+		    />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="利息理财"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+<Button
+    android:id="@+id/confirm_p"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="58dp"
+    android:background="@drawable/tabs_confirm"
+    android:gravity="center" />
+
+<AbsoluteLayout
+    android:id="@+id/li"
+    android:layout_width="281dip"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/confirm_p"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="64dp"
+    android:background="@drawable/singleline_item_bg"
+    android:minHeight="40dip" >
+
+    <TextView
+        android:id="@+id/interest"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="62dip"
+        android:layout_x="154dp"
+        android:layout_y="18dip"
+        android:background="@drawable/edittext1"
+        android:gravity="left|center"
+        android:inputType="numberDecimal"
+        android:minHeight="40dip"
+        android:paddingLeft="5dip"
+        android:textColor="#ff000000"
+        android:textSize="15dip" />
+
+    <TextView
+        android:id="@+id/wenzi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="6dip"
+        android:layout_y="29dip"
+        android:text="您当前共有利息:"
+        android:textColor="#000000"
+        android:textSize="15dip" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_x="120dp"
+        android:layout_y="22dp"
+        android:visibility="invisible" />
+
+</AbsoluteLayout>
+
+<AbsoluteLayout
+    android:id="@+id/ll"
+    android:layout_width="281dip"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/li"
+    android:layout_alignLeft="@+id/li"
+    android:layout_marginBottom="34dp"
+    android:background="@drawable/singleline_item_bg"
+    android:minHeight="40dip" >
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="62dip"
+        android:layout_x="154dp"
+        android:layout_y="18dip"
+        android:background="@drawable/edittext1"
+        android:gravity="left|center"
+        android:minHeight="40dip"
+        android:paddingLeft="5dip"
+        android:textColor="#ff000000"
+        android:textSize="15dip" />
+
+    <TextView
+        android:id="@+id/wenzi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="6dip"
+        android:layout_y="29dip"
+        android:text="请选择利息投资方式:"
+        android:textColor="#000000"
+        android:textSize="15dip" />
+
+    <ImageButton
+        android:id="@+id/bt_dropdown3"
+        android:layout_width="27dp"
+        android:layout_height="20dp"
+        android:layout_x="236dp"
+        android:layout_y="29dp"
+        android:background="@drawable/down_arrow" />
+</AbsoluteLayout>
+
+</RelativeLayout>

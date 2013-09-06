@@ -39,7 +39,7 @@ import android.widget.TextView;
 public class LinkBankCardActivity extends Activity implements IDataTransportation{
 	private EditText cardNum, cardPwd, phoneNum, idCardNum;
 	private TextView cardNum_label, cardPwd_label, phoneNum_label, idCardNum_label, btn_link_label;
-	private Button btn_link_submit;
+	private Button btn_link_submit,btn_back;
 	private Socket cli_Soc = null;
 	private ProgressDialog linkBankCard_pd;
 	private String cardNum_content = "", cardPwd_content = "", phoneNum_content = "", idCardNum_content= "";
@@ -154,6 +154,10 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 			case 1:
 				linkBankCard_pd.dismiss();
 				btn_link_label.setText("绑定失败，请重新绑定");
+				break;
+			case 2:
+				linkBankCard_pd.dismiss();
+				btn_link_label.setText("网络不可用");
 			}
 			super.handleMessage(msg);
 		}
@@ -196,6 +200,14 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 		password = intent.getStringExtra("password");
 		customerName = intent.getStringExtra("customerName");
 		
+		btn_back = (Button)findViewById(R.id.btn_back_c);
+		btn_back.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+				LinkBankCardActivity.this.finish();
+			}
+			
+		});
 		cardNum.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if(hasFocus){
@@ -316,11 +328,17 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 										Log.i("linkcardrun","18");
 										String serverPort=config.getProperty("serverPort" );
 										Log.i("linkcardrun","19");
-										cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
-										Log.i("linkcardrun","20");
-										write(resultXML);
-										Log.i("linkcardrun","21");
-										byte[] info = read();
+										byte[] info = {};
+										try{
+											cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
+											Log.i("linkcardrun","20");
+											write(resultXML);
+											Log.i("linkcardrun","21");
+											info = read();
+										}catch(Exception e){
+											handler.sendEmptyMessage(2);
+											return;
+										}
 										Log.i("linkcardrun","22");
 										String checkResult = new String(info);
 										Log.i("linkcardrun","23");

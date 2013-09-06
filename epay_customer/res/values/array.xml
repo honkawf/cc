@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+      <string-array name="cunkuan">
+         <item>活期</item>
+        <item>定期3个月</item>
+        <item>定期6个月</item>
+        <item>定期1年</item>
+        <item>定期2年</item>
+        <item>定期3年</item>
+        <item>定期5年</item> 
+        <item>一年定活两便</item>
+        <item>三年定活两便</item>
+        <item>五年定活两便</item>
+    </string-array>   
+</resources>

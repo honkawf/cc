@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import cn.edu.seu.datatransportation.NetDataTransportation;
 
 import cn.edu.seu.main.R;
 
@@ -40,7 +41,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RegisterActivity extends Activity implements IDataTransportation{
+public class RegisterActivity extends Activity{
 
 	private EditText account, pwd1, pwd2, realName;
 	private TextView pwd1_label, pwd2_label, account_label, realName_label, button_label;
@@ -52,6 +53,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 	private ProgressDialog pd;
 	private String bluetoothMac;
 	private ProgressBar pb;
+	private Button btn_back;
 	
 	@SuppressLint("HandlerLeak")
 	private int XML_length1,XML_length2;
@@ -101,76 +103,19 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 				button_label.setText("注册失败，请重试");
 				pd.dismiss();
 				break;
+			case 4:
+				account_label.setText("网络不可用");
+				pb.setVisibility(View.INVISIBLE);
+				break;
+			case 5:
+				button_label.setText("网络不可用");
+				pd.dismiss();
+				break;
 			}
 			super.handleMessage(msg);
 		}
 	};
 	
-	public Object connect(String address, int port){
-		Socket socket = null;
-		try{
-			socket = new Socket(address, port);	
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return socket;
-	}
-	
-	public boolean write(String xml){
-		try{
-			OutputStream out = cli_Soc.getOutputStream();
-			out.write(DataDeal.plusHead(xml.length()));
-			out.write(xml.getBytes());
-			Log.i("发送", xml);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	
-	public byte[] read(){
-		byte[] info = null;
-		try{
-			byte[] buffer = new byte[16];
-			InputStream in = cli_Soc.getInputStream();
-			in.read(buffer);
-			int XML_length = DataDeal.readHead(buffer);
-			info = new byte[XML_length];
-			in.read(info);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return info;
-	}
-	
-	public boolean close(){
-		try{
-			cli_Soc.close();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
 	
 	public boolean checkForm(String name, String re) {
 		Pattern pattern = Pattern.compile(re);
@@ -203,6 +148,15 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 		account_label = (TextView) findViewById(R.id.account_label);
 		realName_label = (TextView) findViewById(R.id.realName_label);
 		button_label = (TextView) findViewById(R.id.button_label);
+		
+		btn_back = (Button)findViewById(R.id.btn_back_c);
+		btn_back.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+				RegisterActivity.this.finish();
+			}
+			
+		});
 		
 		Properties property =PropertyInfo.getProperties();
 		File file = new File(property.getProperty("path") , property.getProperty("filename"));
@@ -277,14 +231,19 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 									XML_Person xmlp = new XML_Person();
 									xmlp.addPersonUserName(account_content);
 									String resultXML = xmlp.produceUserNameXML(event);
-									
+									NetDataTransportation ndt=new NetDataTransportation();
 									Properties config =PropertyInfo.getProperties();
 									String serverAddress=config.getProperty("serverAddress");
 									String serverPort=config.getProperty("serverPort" );
-									cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
-									
-									write(resultXML);
-									byte[] info = read();
+									byte[] info = {};
+									try{
+										cli_Soc = (Socket) ndt.connect(serverAddress, Integer.parseInt(serverPort));
+										ndt.write(resultXML);
+										info = ndt.read();
+									}catch(Exception e){
+										handler.sendEmptyMessage(4);
+										return;
+									}
 									String checkResult = new String(info);
 									checkResult = XML_Person.parseSentenceXML(new ByteArrayInputStream(info));
 									
@@ -297,7 +256,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 										account_correct = false;
 										handler.sendEmptyMessage(1);
 									}
-									close();																
+									ndt.close();																
 								}
 							}.start();
 						} else{
@@ -439,12 +398,19 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 									Log.i("register", "8");
 									String serverPort=config.getProperty("serverPort" );
 									Log.i("register", "9");
-									cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
-									Log.i("register", "10");
-									
-									write(resultXML);
-									Log.i("register", "11");
-									byte[] info = read();
+									NetDataTransportation ndt=new NetDataTransportation();
+									byte[] info = {};
+									try{
+										cli_Soc = (Socket)ndt.connect(serverAddress, Integer.parseInt(serverPort));
+										Log.i("register", "10");
+										
+										ndt.write(resultXML);
+										Log.i("register", "11");
+										info = ndt.read();
+									}catch(Exception e){
+										handler.sendEmptyMessage(5);
+										return;
+									}
 									Log.i("register", "12");
 									String checkResult = new String(info);
 									Log.i("register", "13");
@@ -458,7 +424,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 										Log.i("chris", "注册失败");
 										handler.sendEmptyMessage(3);
 									}
-									close();								
+									ndt.close();								
 								}
 							}.start();
 
