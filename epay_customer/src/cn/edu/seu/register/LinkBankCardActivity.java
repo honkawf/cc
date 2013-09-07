@@ -1,4 +1,4 @@
-package cn.edu.seu.cose.register;
+package cn.edu.seu.register;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,9 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.edu.seu.main.R;
-
-import cn.edu.seu.cose.property.ProperityInfo;
 import cn.edu.seu.datadeal.DataDeal;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.IDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
@@ -344,7 +343,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 										String resultXML = xmlp.produceLinkBankCardXML(event);
 										Log.i("button","16");
 										
-										Properties config =ProperityInfo.getProperties();
+										Properties config =PropertyInfo.getProperties();
 										Log.i("button","17");
 										String serverAddress=config.getProperty("serverAddress");
 										Log.i("button","18");

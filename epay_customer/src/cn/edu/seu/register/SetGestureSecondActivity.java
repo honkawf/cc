@@ -1,4 +1,4 @@
-package cn.edu.seu.cose.register;
+package cn.edu.seu.register;
 
 import java.io.File;
 import java.util.List;

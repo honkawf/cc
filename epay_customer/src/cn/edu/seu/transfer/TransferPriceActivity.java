@@ -4,16 +4,21 @@ package cn.edu.seu.transfer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Properties;
 
 import cn.edu.seu.main.R;
-
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
+import cn.edu.seu.datatransportation.LocalInfo;
+import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.pay.ConfirmPriceActivity;
 import cn.edu.seu.pay.GoodsListActivity;
 import cn.edu.seu.pay.RSA;
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+import cn.edu.seu.record.Record;
+import cn.edu.seu.record.Recorddh;
 import cn.edu.seu.xml.PersonInfo;
 import cn.edu.seu.xml.Trade;
 import cn.edu.seu.xml.XML;
@@ -66,7 +71,13 @@ public class TransferPriceActivity extends Activity {
 									Intent intent=new Intent(TransferPriceActivity.this,MainActivity.class);
 									startActivity(intent);
 									TransferPriceActivity.this.finish();
-									MainActivity.bdt.close();
+									try{
+										TransferActivity.bdt.close();
+									}
+									catch(Exception e)
+									{
+										Log.i(TAG,"连接已经关闭");
+									}
 									
 								}
 					    		
@@ -81,6 +92,7 @@ public class TransferPriceActivity extends Activity {
 					pd.show();
 	                break;
 	         case 2:
+	        	 pd.dismiss();
 	        	 AlertDialog.Builder alertDialog = new Builder(TransferPriceActivity.this);
 	        	 alertDialog.setTitle("转账结果").setMessage((String)msg.obj).setCancelable(false);
 	        	 alertDialog.setPositiveButton("确认", new DialogInterface.OnClickListener(){
@@ -99,16 +111,63 @@ public class TransferPriceActivity extends Activity {
 					alertDialog.show();
 					break;
 	         case 3:
-	        	 pd.dismiss();
-				 Toast.makeText(TransferPriceActivity.this, "连接失败", 2000).show();
-	             break;
+	            	pd.dismiss();
+	            	AlertDialog.Builder builder1 = new Builder(TransferPriceActivity.this);
+			    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							Intent intent=new Intent(TransferPriceActivity.this,MainActivity.class);
+							startActivity(intent);
+							TransferPriceActivity.this.finish();
+							try{
+								TransferActivity.bdt.close();
+							}
+							catch(Exception e)
+							{
+								Log.i(TAG,"连接已经关闭");
+							}
+							
+						}
+			    		
+			    	});
+			    	builder1.show();
+			    	break;
+	         case 4:
+	            	AlertDialog.Builder builder2 = new Builder(TransferPriceActivity.this);
+			    	builder2.setTitle("连接信息").setMessage("转账金额超限，请重试").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							
+							
+						}
+			    		
+			    	});
+			    	builder2.show();
+			    	break;
 	     }
 	     super.handleMessage(msg);
 	  }
 	};
 
     
-	 public void onCreate(Bundle savedInstanceState) { 
+	 @Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		try
+		{
+			pd.dismiss();
+		}
+		catch(Exception e)
+		{
+			Log.i(TAG,"界面已经关闭，无需再次关闭");
+		}
+	}
+
+
+	public void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState); 
         setContentView(R.layout.transferprice);
         btnConfirm=(Button) findViewById(R.id.btnConfirm);
@@ -117,64 +176,122 @@ public class TransferPriceActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Message msg=handler.obtainMessage();
-				msg.what=1;
-				msg.obj="正在发送电子支票";
-				msg.sendToTarget();
-				sendAndReceiveThread=new Thread()
+				btnConfirm.setVisibility(View.GONE);
+				PropertyInfo pi=new PropertyInfo();
+				Properties properties=pi.getProperties();
+				double limitpertime=Double.parseDouble(properties.getProperty("limitpertime","2000"));
+				double limitperday=Double.parseDouble(properties.getProperty("limitperday","10000"));
+				boolean condition1=(Double.parseDouble(editText1.getText().toString())<limitpertime);//单笔限额
+				boolean condition2=true;
+				/*!!!!!此处加入计算当前交易额*/
+				if(condition1&&condition2)
 				{
-					public void run()
+					Message msg=handler.obtainMessage();
+					msg.what=1;
+					msg.obj="正在发送电子支票";
+					msg.sendToTarget();
+					sendAndReceiveThread=new Thread()
 					{
-
-						XML info=new XML();
-						// 点击确认按钮后，获取用户输入金额，完成转账交易
-						String totalprice=editText1.getText().toString();
-						Date dt=new Date();
-						String cardnumber=MainActivity.person.getCardnum();
-						String username=MainActivity.person.getCustomername();
-						String imei=MainActivity.person.getImei();
-						String transfertime=String.valueOf(dt.getTime()/1000);
-						String payerdevice=BluetoothDataTransportation.getLocalMac().replaceAll(":","");
-						String receiverdevice=TransferActivity.bdt.getRemoteMac().replaceAll(":","");
-						int totalpricefill=(int)(Double.valueOf(totalprice)*100);
-						String pricefill=String.format("%08d",totalpricefill);
-						String payerdevicesub=payerdevice.substring(payerdevice.length()-4,payerdevice.length());
-						int payerdevicefill=Integer.parseInt(payerdevicesub,16);
-						String payerfill=String.format("%05d",payerdevicefill);
-						String words=transfertime+payerfill+pricefill;
-						RSA rsa=new RSA();
-						String cipher=rsa.setRSA(words);
-						transfer=new Transfer();
-						transfer.setPayerName(username);
-						transfer.setPayerCardNumber(cardnumber);
-						transfer.setPayerIMEI(imei);
-						transfer.setPayerDevice(payerdevice);
-						transfer.setTotalPrice(totalprice);
-						transfer.setTradeTime(transfertime);
-						transfer.setCipher(cipher);
-						Log.d("words",words);
-						info.setTransfer(transfer);
-						String xml=info.produceTransferXML("transfer");
-						TransferActivity.bdt.write(xml);
-						Log.d("发送",xml);
-						byte[] receive=TransferActivity.bdt.read();
-						String sentence=info.parseSentenceXML(new ByteArrayInputStream(receive));
-						Message msg=handler.obtainMessage();
-						msg.what=2;
-						msg.obj="转账失败";
-						if(sentence.equals("转账成功"))
+						public void run()
 						{
 
-							msg.obj="转账成功";
-							//生成转账记录
-							//扣除余额
+							XML info=new XML();
+							// 点击确认按钮后，获取用户输入金额，完成转账交易
+							String totalprice=editText1.getText().toString();
+							Date dt=new Date();
+							String cardnumber=MainActivity.person.getCardnum();
+							String username=MainActivity.person.getCustomername();
+							String imei=MainActivity.person.getImei();
+							String transfertime=String.valueOf(dt.getTime()/1000);
+							String payerdevice=BluetoothDataTransportation.getLocalMac().replaceAll(":","");
+							String receiverdevice=TransferActivity.bdt.getRemoteMac().replaceAll(":","");
+							int totalpricefill=(int)(Double.valueOf(totalprice)*100);
+							String pricefill=String.format("%08d",totalpricefill);
+							String payerdevicesub=payerdevice.substring(payerdevice.length()-4,payerdevice.length());
+							int payerdevicefill=Integer.parseInt(payerdevicesub,16);
+							String payerfill=String.format("%05d",payerdevicefill);
+							String words=transfertime+payerfill+pricefill;
+							RSA rsa=new RSA();
+							String cipher=rsa.setRSA(words);
+							transfer=new Transfer();
+							transfer.setPayerName(username);
+							transfer.setPayerCardNumber(cardnumber);
+							transfer.setPayerIMEI(imei);
+							transfer.setPayerDevice(payerdevice);
+							transfer.setTotalPrice(totalprice);
+							transfer.setTradeTime(transfertime);
+							transfer.setCipher(cipher);
+							Log.d("words",words);
+							info.setTransfer(transfer);
+							String xml=info.produceTransferXML("transfer");
+							byte[] receive=null;
+							try
+							{
+								TransferActivity.bdt.write(xml);
+								Log.d("发送",xml);
+								receive=TransferActivity.bdt.read();
+							}
+							catch(Exception e)
+							{
+								Message msg=handler.obtainMessage();
+								msg.what=3;
+								msg.sendToTarget();
+							}
+							if(receive!=null)
+							{
+								String sentence=info.parseSentenceXML(new ByteArrayInputStream(receive));
+								Message msg=handler.obtainMessage();
+								msg.what=2;
+								if(sentence.equals("转账成功"))
+								{
+
+									msg.obj="转账成功";
+									msg.sendToTarget();
+									//扣除余额
+									try
+									{
+										
+										LocalInfoIO lio = new LocalInfoIO("sdcard/data" , "local.dat");
+										LocalInfo local=lio.readfile();
+										double avaliblebalance=Double.parseDouble(local.getBalance())-Double.parseDouble(totalprice);
+										lio.modifyAvailableBalance(String.valueOf(avaliblebalance));
+										
+										//生成转账记录
+										Record record = new Record( 0 ,transfer.getPayerName(),transfer.getPayerDevice(),transfer.getPayerIMEI(),transfer.getReceiverName(),transfer.getReceiverDevice(),transfer.getReceiverIMEI(),Double.parseDouble(transfer.getTotalPrice()),"收款", transfer.getTradeTime());
+										Recorddh rdh = new Recorddh(TransferPriceActivity.this , "recorddb" , null , 1);
+										rdh.insert(record);
+										
+									}
+									catch(Exception e)
+									{
+										Log.i(TAG,"文件写入失败");
+									}
+								}
+								else
+								{
+
+									msg.obj="转账失败";
+									msg.sendToTarget();
+								}
+							}
+							try{
+								TransferActivity.bdt.close();
+							}
+							catch(Exception e)
+							{
+								Log.i(TAG,"关闭socket失败");
+							}
 						}
-						msg.sendToTarget();
-						TransferActivity.bdt.close();
-								
-					}
-				};
-				sendAndReceiveThread.start();
+					};
+					sendAndReceiveThread.start();
+				}
+				else
+				{
+					Log.i(TAG,"转账金额超限");
+					Message msg=handler.obtainMessage();
+					msg.what=4;
+					msg.sendToTarget();
+				}
 			}
         	
         });

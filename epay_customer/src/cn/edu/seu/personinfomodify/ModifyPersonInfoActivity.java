@@ -17,12 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.edu.seu.ciphertext.MD5;
-import cn.edu.seu.cose.property.ProperityInfo;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.datatransportation.NetDataTransportation;
 import cn.edu.seu.xml.XML;
-
 import cn.edu.seu.main.R;
 
 public class ModifyPersonInfoActivity extends Activity {
@@ -138,7 +137,7 @@ public class ModifyPersonInfoActivity extends Activity {
 				produce = XML.produceModifyPhonenumXML(username , newphonenum.getText().toString());
 				new Thread(){
 					public void run(){
-						Properties config =ProperityInfo.getProperties();
+						Properties config =PropertyInfo.getProperties();
 						String address = config.getProperty("serverAddress");
 						int port = Integer.parseInt(config.getProperty("serverPort"));
 						NetDataTransportation ndt = new NetDataTransportation();

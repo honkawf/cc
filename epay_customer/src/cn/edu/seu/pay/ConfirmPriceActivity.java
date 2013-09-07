@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 
 import cn.edu.seu.main.R;
-
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.main.MainActivity;
@@ -72,6 +71,7 @@ public class ConfirmPriceActivity extends Activity{
                 pd.dismiss();
                 break;
             case 2:
+            	pd.dismiss();
 		    	AlertDialog.Builder builder = new Builder(ConfirmPriceActivity.this);
 		    	builder.setTitle("付款结果").setMessage((String)msg.obj).setCancelable(false).setPositiveButton("确认", new OnClickListener(){
 
@@ -87,6 +87,23 @@ public class ConfirmPriceActivity extends Activity{
 		    	});
 		    	builder.show();
             	break;
+            case 3:
+            	pd.dismiss();
+            	AlertDialog.Builder builder1 = new Builder(ConfirmPriceActivity.this);
+		    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new OnClickListener(){
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						// TODO Auto-generated method stub
+						Intent intent=new Intent(ConfirmPriceActivity.this,MainActivity.class);
+						startActivity(intent);
+						ConfirmPriceActivity.this.finish();
+						MainActivity.bdt.close();
+						
+					}
+		    		
+		    	});
+		    	builder1.show();
+		    	break;
             }
             super.handleMessage(msg);
         }
@@ -167,11 +184,17 @@ public class ConfirmPriceActivity extends Activity{
 		            		msg.obj="付款成功";
 		            		msg.sendToTarget();
 						}
-						else
+						else if(sentence.equals("付款失败"))
 						{
 							Message msg=handler.obtainMessage();
 		            		msg.what=2;
 		            		msg.obj="付款失败";
+		            		msg.sendToTarget();
+						}
+						else
+						{
+							Message msg=handler.obtainMessage();
+		            		msg.what=3;
 		            		msg.sendToTarget();
 						}
 					}

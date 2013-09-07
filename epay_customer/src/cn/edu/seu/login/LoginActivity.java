@@ -4,15 +4,14 @@ package cn.edu.seu.login;
 import java.io.File;
 
 import cn.edu.seu.main.R;
-
 import cn.edu.seu.ciphertext.MD5;
-import cn.edu.seu.cose.register.RegisterActivity;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.main.MainActivity;
 
 
 
+import cn.edu.seu.register.RegisterActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;

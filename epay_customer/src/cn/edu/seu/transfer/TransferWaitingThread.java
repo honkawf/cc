@@ -43,8 +43,6 @@ public class TransferWaitingThread extends Thread{
              	msg.what=1;
              	msg.obj=receive;
              	msg.sendToTarget();
-             	while(TransferActivity.bdt.isAlive())
-             		yield();
            
     		}
     		catch(Exception e)

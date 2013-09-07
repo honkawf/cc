@@ -15,12 +15,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import cn.edu.seu.cose.property.ProperityInfo;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.datatransportation.NetDataTransportation;
 import cn.edu.seu.xml.XML;
-
 import cn.edu.seu.main.R;
 
 public class DepositThirdActivity extends Activity {
@@ -63,7 +62,7 @@ public class DepositThirdActivity extends Activity {
 				produce = XML.produceDepositXML(depositInfo);
 				new Thread(){
 					public void run(){
-						Properties config =ProperityInfo.getProperties();
+						Properties config =PropertyInfo.getProperties();
 						String address = config.getProperty("serverAddress");
 						int port = Integer.parseInt(config.getProperty("serverPort"));
 						NetDataTransportation ndt = new NetDataTransportation();

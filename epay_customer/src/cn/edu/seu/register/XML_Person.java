@@ -1,4 +1,4 @@
-package cn.edu.seu.cose.register;
+package cn.edu.seu.register;
 
 import java.io.IOException;
 import java.io.InputStream;

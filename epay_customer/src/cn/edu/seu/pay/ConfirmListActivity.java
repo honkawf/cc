@@ -99,6 +99,7 @@ public class ConfirmListActivity extends Activity{
                 pd.dismiss();
                 break;
             case 2:
+            	pd.dismiss();
 		    	AlertDialog.Builder builder = new Builder(ConfirmListActivity.this);
 		    	builder.setTitle("付款结果").setMessage((String)msg.obj).setCancelable(false).setPositiveButton("确认", new OnClickListener(){
 
@@ -116,6 +117,7 @@ public class ConfirmListActivity extends Activity{
 		    	builder.show();
             	break;
             case 3:
+            	pd.dismiss();
             	AlertDialog.Builder builder1 = new Builder(ConfirmListActivity.this);
 		    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new OnClickListener(){
 

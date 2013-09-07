@@ -91,22 +91,22 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="cn.edu.seu.cose.register.SetGestureFirstActivity"
+            android:name="cn.edu.seu.register.SetGestureFirstActivity"
             android:label="@string/title_activity_main" >
         </activity>
         
         <activity
-            android:name="cn.edu.seu.cose.register.SetGestureSecondActivity"
+            android:name="cn.edu.seu.register.SetGestureSecondActivity"
             android:label="@string/title_activity_main" >
         </activity>
         
         <activity
-            android:name="cn.edu.seu.cose.register.RegisterActivity"
+            android:name="cn.edu.seu.register.RegisterActivity"
             android:label="@string/title_activity_main" >
         </activity>
         
          <activity
-            android:name="cn.edu.seu.cose.register.LinkBankCardActivity"
+            android:name="cn.edu.seu.register.LinkBankCardActivity"
             android:label="@string/title_activity_main" >
         </activity>
         

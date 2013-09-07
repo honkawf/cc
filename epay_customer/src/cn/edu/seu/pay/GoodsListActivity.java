@@ -13,15 +13,20 @@ import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.main.MainActivity;
 import cn.edu.seu.xml.Goods;
 import cn.edu.seu.xml.XML;
-
 import cn.edu.seu.main.R;
+import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
+
 import com.zxing.activity.CaptureActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -46,11 +51,12 @@ public class GoodsListActivity extends Activity{
 	private Button goon,confirm;
 	private MyAdapter adapter;
     private Goods goods=new Goods();
-    private ProgressDialog pd;
+    private TimeOutProgressDialog pd;
     private String totalprice;
     public static int flag=0;
     private int loaded=0;
     private String scanResult;
+    private Thread sendAndReceiveThread;
 	private ArrayList<String> barcodeset=new ArrayList<String>();
 	private Handler handler = new Handler() {
         @Override
@@ -61,11 +67,31 @@ public class GoodsListActivity extends Activity{
             	pd.dismiss();
             	break;
             case 1:
-            	Log.i("case","1");
-            	pd=new ProgressDialog(GoodsListActivity.this);
-				pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            	pd=TimeOutProgressDialog.createProgressDialog(GoodsListActivity.this,50000,new OnTimeOutListener(){
+
+    				
+					public void onTimeOut(TimeOutProgressDialog dialog) {
+						// TODO Auto-generated method stub
+						AlertDialog.Builder builder = new Builder(GoodsListActivity.this);
+				    	builder.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new OnClickListener(){
+
+							public void onClick(DialogInterface arg0, int arg1) {
+								// TODO Auto-generated method stub
+								Intent intent=new Intent(GoodsListActivity.this,MainActivity.class);
+								startActivity(intent);
+								GoodsListActivity.this.finish();
+								MainActivity.bdt.close();
+								
+							}
+				    		
+				    	});
+				    	builder.show();
+					}
+            		
+            	});
+				pd.setProgressStyle(TimeOutProgressDialog.STYLE_SPINNER);
 				pd.setCancelable(false);
-				pd.setMessage((String)msg.obj);  
+				pd.setMessage((String)msg.obj); 
 				pd.show();
                 break;
             case 2:
@@ -89,8 +115,21 @@ public class GoodsListActivity extends Activity{
        	     	break;
             case 5:
             	pd.dismiss();
-            	Toast.makeText(GoodsListActivity.this, "连接失败，请重试", 5000).show();
-            	break;
+            	AlertDialog.Builder builder1 = new Builder(GoodsListActivity.this);
+		    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new OnClickListener(){
+
+					public void onClick(DialogInterface arg0, int arg1) {
+						// TODO Auto-generated method stub
+						Intent intent=new Intent(GoodsListActivity.this,MainActivity.class);
+						startActivity(intent);
+						GoodsListActivity.this.finish();
+						MainActivity.bdt.close();
+						
+					}
+		    		
+		    	});
+		    	builder1.show();
+		    	break;
             case 6:
             	Toast.makeText(GoodsListActivity.this, "条形码不存在", 5000).show();
             	break;
@@ -135,32 +174,11 @@ public class GoodsListActivity extends Activity{
 				boolean condition2=(goodslist.size()==1&&(goodslist.get(0).get("quantity").toString().equals("0")));
 				if(condition2)
 					return;
-				new Thread()
-				{
-					public void run()
-					{
-						Message msg=handler.obtainMessage();
-						msg.what=1;
-						msg.obj="正在获取总价";
-						msg.sendToTarget();
-						Date dstart=new Date();
-                   	 	long start=dstart.getTime()/1000;
-                   	 	while(loaded==0)
-                   	 	{
-                   	 		Date dend=new Date();
-                   	 		long end=dend.getTime()/1000;
-                   	 		if(end-start>=20)
-                   	 		{
-                   	 			msg=handler.obtainMessage();
-                        		msg.what=5;
-                        		msg.sendToTarget();
-                        		return;
-                   	 		}
-                   	 	}
-                   	 	loaded=0;
-					}
-				}.start();
- 				new Thread()
+				Message msg=handler.obtainMessage();
+				msg.what=1;
+				msg.obj="正在获取总价";
+				msg.sendToTarget();
+				sendAndReceiveThread=new Thread()
  				{
  					public void run()
  					{
@@ -170,17 +188,20 @@ public class GoodsListActivity extends Activity{
  							getPrice.addData(map.get("barcode").toString(), map.get("name").toString(), map.get("price").toString(), map.get("quantity").toString());
  						}
  						String xml=getPrice.producePriceXML("getTotalPrice");
- 				        byte[] receive;
+ 				        byte[] receive=null;
  						if(MainActivity.bdt.write(xml))
  						{
  							receive=MainActivity.bdt.read();
- 							loaded=1;
  							Message msg=handler.obtainMessage();
  			 				msg.what=0;
  			 				msg.sendToTarget();
  						}
  		 				else
- 		 					return;
+ 		 				{
+ 		 					Message msg=handler.obtainMessage();
+ 			 				msg.what=5;
+ 			 				msg.sendToTarget();
+ 		 				}
  		 				try{
  			 				totalprice=getPrice.parseTotalPriceXML(new ByteArrayInputStream(receive));
  			 				Log.i("收到总价",totalprice);
@@ -191,10 +212,12 @@ public class GoodsListActivity extends Activity{
  		 				catch(Exception e)
  		 				{
  		 			        Log.i("info","未成功接收xml");
- 		 					//Toast.makeText(GoodsListActivity.this, "未成功接收xml", Toast.LENGTH_LONG).show();
- 		 				};
+ 		 			        Message msg=handler.obtainMessage();
+			 				msg.what=5;
+			 				msg.sendToTarget(); 		 				};
  					}
- 				}.start();
+ 				};
+ 				sendAndReceiveThread.start();
 		}
         	
     });
@@ -219,49 +242,31 @@ public class GoodsListActivity extends Activity{
  				Toast.makeText(GoodsListActivity.this, scanResult, Toast.LENGTH_LONG).show();
  				if(barcodeset.indexOf(scanResult)==-1)
  				{
- 					new Thread()
- 					{
- 						public void run()
- 						{
- 							Message msg=handler.obtainMessage();
- 							msg.what=1;
- 							msg.obj="正在获取商品信息";
- 							msg.sendToTarget();
- 							Date dstart=new Date();
- 	                   	 	long start=dstart.getTime()/1000;
- 	                   	 	while(loaded==0)
- 	                   	 	{
- 	                   	 		Date dend=new Date();
- 	                   	 		long end=dend.getTime()/1000;
- 	                   	 		if(end-start>=20)
- 	                   	 		{
- 	                   	 			msg=handler.obtainMessage();
- 	                        		msg.what=5;
- 	                        		msg.sendToTarget();
- 	                        		return;
- 	                   	 		}
- 	                   	 	}
- 	                   	 	loaded=0;
-						}
-					}.start();
- 					new Thread()
+ 					Message msg=handler.obtainMessage();
+					msg.what=1;
+					msg.obj="正在获取商品信息";
+					msg.sendToTarget();
+ 					sendAndReceiveThread=new Thread()
  					{
  						public void run()
  						{
  							XML getPrice=new XML();
  		 					getPrice.addData(scanResult, "", "", "1");
  		 					String xml=getPrice.producePriceXML("getPrice");
- 		 					byte [] receive;
+ 		 					byte [] receive=null;
  		 					if(MainActivity.bdt.write(xml))
  		 					{
  		 						receive=MainActivity.bdt.read();
- 		 						loaded=1;
  		 						Message msg=handler.obtainMessage();
  	 			 				msg.what=0;
  	 			 				msg.sendToTarget();
  		 					}
  		 	 				else
- 		 	 					return;
+ 		 	 				{
+ 		 	 					Message msg=handler.obtainMessage();
+ 	 			 				msg.what=5;
+ 	 			 				msg.sendToTarget();
+ 		 	 				}
  		 					try{
  		 			        	String sentence=getPrice.parseSentenceXML(new ByteArrayInputStream(receive));
  		 						if(sentence.equals("条形码不存在"))
@@ -283,8 +288,9 @@ public class GoodsListActivity extends Activity{
  		 	 	 					}
  		 	 	 					catch(Exception e)
  		 	 	 					{
- 	 		 							Log.i("info","界面创建失败");
- 		 	 	 						//Toast.makeText(GoodsListActivity.this, "界面创建失败", Toast.LENGTH_LONG).show();
+	 		 	 	 					Message msg=handler.obtainMessage();
+	 	 	 			 				msg.what=5;
+	 	 	 			 				msg.sendToTarget();
  		 	 	 					}
  		 						}
  		 						
@@ -292,11 +298,14 @@ public class GoodsListActivity extends Activity{
  		 					catch(Exception e)
  		 					{
  		 						Log.i("info","解析xml出错");
- 		 						//Toast.makeText(GoodsListActivity.this, "解析xml出错", Toast.LENGTH_LONG).show();
+ 		 						Message msg=handler.obtainMessage();
+ 	 			 				msg.what=5;
+ 	 			 				msg.sendToTarget();
  		 					}
  		 					
  						}
- 					}.start();
+ 					};
+ 					sendAndReceiveThread.start();
  				}
  			} catch (Exception e) {
  				// TODO Auto-generated catch block

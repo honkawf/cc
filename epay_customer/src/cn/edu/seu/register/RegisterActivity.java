@@ -1,4 +1,4 @@
-package cn.edu.seu.cose.register;
+package cn.edu.seu.register;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -15,8 +15,8 @@ import cn.edu.seu.main.R;
 
 
 import cn.edu.seu.ciphertext.MD5;
-import cn.edu.seu.cose.property.ProperityInfo;
 import cn.edu.seu.datadeal.DataDeal;
+import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.IDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
@@ -267,7 +267,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 									xmlp.addPersonUserName(account_content);
 									String resultXML = xmlp.produceUserNameXML(event);
 									
-									Properties config =ProperityInfo.getProperties();
+									Properties config =PropertyInfo.getProperties();
 									String serverAddress=config.getProperty("serverAddress");
 									String serverPort=config.getProperty("serverPort" );
 									cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
@@ -444,7 +444,7 @@ public class RegisterActivity extends Activity implements IDataTransportation{
 									xmlp.addPersonRegister(account_content,pwd1_content, realName_content,bluetoothMac);
 									String resultXML = xmlp.produceRegisterXML(event);
 									
-									Properties config =ProperityInfo.getProperties();
+									Properties config =PropertyInfo.getProperties();
 									String serverAddress=config.getProperty("serverAddress");
 									String serverPort=config.getProperty("serverPort" );
 									cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));

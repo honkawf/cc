@@ -54,11 +54,11 @@ public class ReceiverInfoActivity extends Activity{
 									ReceiverInfoActivity.this.finish();
 									try
 									{
-										MainActivity.bdt.close();
+										TransferActivity.bdt.close();
 									}
 									catch(Exception e)
 									{
-										
+										Log.i(TAG,"连接已经关闭");
 									}
 									
 								}
@@ -74,6 +74,7 @@ public class ReceiverInfoActivity extends Activity{
 				pd.show();
 	            break;
             case 2:
+            	pd.dismiss();
             	AlertDialog.Builder builder = new Builder(ReceiverInfoActivity.this);
 		    	builder.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new OnClickListener(){
 
@@ -82,7 +83,14 @@ public class ReceiverInfoActivity extends Activity{
 						Intent intent=new Intent(ReceiverInfoActivity.this,MainActivity.class);
 						startActivity(intent);
 						ReceiverInfoActivity.this.finish();
-						MainActivity.bdt.close();
+						try
+						{
+							TransferActivity.bdt.close();
+						}
+						catch(Exception e)
+						{
+							Log.i(TAG,"连接已经关闭");
+						}
 						
 					}
 		    		
