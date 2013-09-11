@@ -47,10 +47,7 @@ public class LockActivity extends Activity implements OnClickListener {
 
 			public void onPatternDetected(List<Cell> pattern) {
 				int result = lockPatternUtils.checkPattern(pattern);
-				Toast.makeText(LockActivity.this,
-						LockPatternUtils.patternToString(pattern),
-						Toast.LENGTH_LONG).show();
-
+				
 				if (result != 1) {
 					if (result == 0) {
 						lockPatternView.setDisplayMode(DisplayMode.Wrong);

@@ -73,7 +73,7 @@
         android:layout_below="@+id/relativeLayout1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dip"
-        android:background="@drawable/loginbutton"
+        android:background="@drawable/tabs_loginbutton"
         android:text="登录"
         android:textColor="#ffffff"
         android:textSize="20sp" />

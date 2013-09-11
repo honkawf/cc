@@ -19,6 +19,7 @@ import cn.edu.seu.register.RegisterActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,7 +61,14 @@ public class LoginActivity extends Activity {
 		    //放导航界面
 		    startActivity(intent);
 		}
-
+		BluetoothAdapter btAdapt= BluetoothAdapter.getDefaultAdapter();
+   		if(!btAdapt.isEnabled())
+       	 {
+       		 btAdapt.enable();
+       		 Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+          	 intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
+          	 startActivity(intent);
+       	 }
 		
 		md5 = new MD5();
 		login = (Button)findViewById(R.id.login);
@@ -87,17 +95,18 @@ public class LoginActivity extends Activity {
 					LocalInfo x = lio.readfile();
 					String u = username.getText().toString();
 					String p = password.getText().toString();
-					Toast.makeText(LoginActivity.this, u+md5.encrypt(p), Toast.LENGTH_LONG)
-					.show();
+				/*	Toast.makeText(LoginActivity.this, u+md5.encrypt(p), Toast.LENGTH_LONG)
+					.show();*/
 					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
 						Intent it = new Intent(LoginActivity.this , FlipActivity.class);
 						startActivity(it);
 						finish();
 					}
+					else{
+						Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_LONG)
+						.show();
+					}
 				}
-				Intent it = new Intent(LoginActivity.this , FlipActivity.class);
-				startActivity(it);
-				finish();
 			}
 			
 		});
@@ -114,9 +123,9 @@ public class LoginActivity extends Activity {
 		findback.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				Intent it = new Intent(LoginActivity.this , FlipActivity.class);
+				/*Intent it = new Intent(LoginActivity.this , FlipActivity.class);
 				startActivity(it);
-				finish();
+				finish();*/
 			}
 			
 		});

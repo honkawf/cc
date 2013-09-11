@@ -566,9 +566,13 @@ public class XML {
 	        	HashMap<String,String> map=new HashMap<String,String>();
 	        	map.put("type", type.get(i));
 	        	map.put("amount", amount.get(i));
-	        	Date date=new Date(Integer.parseInt(starttime.get(i))*1000);
+	        	Log.i(TAG,"0");
+	        	Date date=new Date(Long.parseLong(starttime.get(i)));
+	        	Log.i(TAG,"1");
 	        	SimpleDateFormat myFmt=new SimpleDateFormat("yyyy-MM-dd");
+	        	Log.i(TAG,"2");
 				String time=myFmt.format(date);
+				Log.i(TAG,time);
 	        	map.put("starttime",time);
 	        	tradelist.add(map);
 	        }

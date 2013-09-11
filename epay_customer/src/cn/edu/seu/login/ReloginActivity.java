@@ -2,19 +2,19 @@ package cn.edu.seu.login;
 
 import java.io.File;
 import java.util.Properties;
-
 import cn.edu.seu.main.R;
-
 import cn.edu.seu.ciphertext.MD5;
 import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,9 +29,10 @@ public class ReloginActivity extends Activity {
 	private EditText password;
 	private MD5 md5;
 	
+	@SuppressLint("ShowToast")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+		setContentView(R.layout.relogin);
 		Mapplication.getInstance().addActivity(this);
 		
 		md5 = new MD5();
@@ -40,6 +41,7 @@ public class ReloginActivity extends Activity {
 		password = (EditText)findViewById(R.id.pwd);
 		username.getBackground().setAlpha(0);
 		password.getBackground().setAlpha(0);
+		Log.i("kjjjjjjjjjjjjjj","1");
 		Toast.makeText(ReloginActivity.this, "请重新登录", Toast.LENGTH_LONG);
 		b1.setOnClickListener(new OnClickListener(){
 
@@ -51,16 +53,21 @@ public class ReloginActivity extends Activity {
 					.show();
 				}
 				else{
+					Log.i("ReloginActivity","else");
 					LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 					LocalInfo x = lio.readfile();
 					String u = username.getText().toString();
 					String p = password.getText().toString();
+					Log.i("ReloginActivity","1");
 					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
 						finish();
-					
+						Log.i("ReloginActivity","2");
 					}
 					else
+					{
 						Toast.makeText(ReloginActivity.this, "用户名或密码不正确", Toast.LENGTH_LONG);
+						Log.i("ReloginActivity","3");
+					}
 
 				}
 			}
