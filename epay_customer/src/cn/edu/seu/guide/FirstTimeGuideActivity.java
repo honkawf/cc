@@ -3,10 +3,8 @@ package cn.edu.seu.guide;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.edu.seu.login.Mapplication;
-import cn.edu.seu.main.R;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,11 +12,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import cn.edu.seu.login.LoginActivity;
+import cn.edu.seu.login.Mapplication;
+import cn.edu.seu.main.R;
 
 public class FirstTimeGuideActivity extends Activity {
 
@@ -39,7 +40,7 @@ public class FirstTimeGuideActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.guide);
+		setContentView(R.layout.guide_first_time);
 		Mapplication.getInstance().addActivity(this);
 
 		for (int i = 0; i < ids.length; i++) {
@@ -64,7 +65,16 @@ public class FirstTimeGuideActivity extends Activity {
 						return true;
 					}
 				});*/
+		open.setOnClickListener(new Button.OnClickListener(){
 
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(FirstTimeGuideActivity.this,LoginActivity.class);
+				startActivity(intent);
+				FirstTimeGuideActivity.this.finish();
+			}
+			
+		});
 		BookFisherPagerAdapter adapter = new BookFisherPagerAdapter(guides);
 		pager = (ViewPager) findViewById(R.id.contentPager);
 		pager.setAdapter(adapter);

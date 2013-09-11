@@ -54,14 +54,12 @@ public class ModifyPhoActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ModifyPhoActivity.this.finish();
-				Intent intent=new Intent();
-				intent.setClass(ModifyPhoActivity.this, FlipActivity.class);
-				intent.putExtra("flag", 3);
-				startActivity(intent);
+				FlipActivity.id = 3;
 			}
 		});
 		
 		ischecked = false;
+		newphonenum.setFocusable(false);
 		btn_check = (Button)findViewById(R.id.check);
 		btn_check.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View arg0) {
@@ -73,6 +71,7 @@ public class ModifyPhoActivity extends Activity {
 				if(md5.encrypt(p).equals(x.getPassword())){
 					password.setFocusable(false);
 					btn_check.setClickable(false);
+					newphonenum.setFocusable(true);
 					Toast.makeText(ModifyPhoActivity.this, "密码正确", Toast.LENGTH_LONG)
 					.show();
 					ischecked = true;
@@ -153,10 +152,7 @@ public class ModifyPhoActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
 	    	ModifyPhoActivity.this.finish();
-			Intent intent=new Intent();
-			intent.setClass(ModifyPhoActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 3);
-			startActivity(intent);
+	    	FlipActivity.id = 3;
 	    }
 		return false;
 	}

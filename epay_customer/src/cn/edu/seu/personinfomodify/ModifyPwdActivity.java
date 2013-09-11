@@ -47,6 +47,11 @@ public class ModifyPwdActivity extends Activity {
 		setContentView(R.layout.modifypwd);
 		
 		ischecked = false;
+		password = (EditText)findViewById(R.id.editText1);
+		newpassword1 = (EditText)findViewById(R.id.editText2);
+		newpassword2 = (EditText)findViewById(R.id.editText3);
+		newpassword1.setFocusable(false);
+		newpassword2.setFocusable(false);
 		btn_check = (Button)findViewById(R.id.check);
 		btn_check.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View arg0) {
@@ -58,6 +63,8 @@ public class ModifyPwdActivity extends Activity {
 				if(md5.encrypt(p).equals(x.getPassword())){
 					password.setFocusable(false);
 					btn_check.setClickable(false);
+					newpassword1.setFocusable(true);
+					newpassword2.setFocusable(true);
 					Toast.makeText(ModifyPwdActivity.this, "密码正确", Toast.LENGTH_LONG)
 					.show();
 					ischecked = true;
@@ -135,10 +142,7 @@ public class ModifyPwdActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ModifyPwdActivity.this.finish();
-				Intent intent=new Intent();
-				intent.setClass(ModifyPwdActivity.this, FlipActivity.class);
-				intent.putExtra("flag", 3);
-				startActivity(intent);
+				FlipActivity.id = 3;
 			}
 			
 		});
@@ -174,10 +178,7 @@ public class ModifyPwdActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
 	    	ModifyPwdActivity.this.finish();
-			Intent intent=new Intent();
-			intent.setClass(ModifyPwdActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 3);
-			startActivity(intent);
+	    	FlipActivity.id = 3;
 	    }
 		return false;
 	}
