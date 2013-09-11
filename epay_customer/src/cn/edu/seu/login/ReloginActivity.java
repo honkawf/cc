@@ -2,6 +2,8 @@ package cn.edu.seu.login;
 
 import java.io.File;
 import java.util.Properties;
+
+import cn.edu.seu.main.ExitActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.MD5;
 import cn.edu.seu.datadeal.PropertyInfo;
@@ -13,6 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -75,19 +78,12 @@ public class ReloginActivity extends Activity {
 		});
 	}
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        new AlertDialog.Builder(ReloginActivity.this)
-	                .setTitle("真的要离开？")
-	                .setMessage("你确定要离开")
-	                .setPositiveButton("确定",
-	                                new DialogInterface.OnClickListener() {
-	                                        public void onClick(DialogInterface dialog,
-	                                                        int which) {
-	                                        	Mapplication.getInstance().exit();
-	                                        }
-	                                }).show();
-
-	    }
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+        		Intent intent = new Intent();
+            	intent.setClass(ReloginActivity.this,ExitActivity.class);
+            	startActivityForResult(intent,100);    
+		}
 		return false;
 	}
 }

@@ -179,6 +179,16 @@
             android:name="cn.edu.seu.main.FlipActivity"
             android:label="@string/app_name" >
         </activity>
+         <activity
+            android:name="cn.edu.seu.main.ExitFromSettings"
+            android:label="@string/app_name" 
+         	android:theme="@style/MyDialogStyleBottom" >
+        </activity>
+         <activity
+            android:name="cn.edu.seu.main.ExitActivity"
+            android:label="@string/app_name" 
+            android:theme="@style/MyDialogStyle">
+        </activity>
         <activity
             android:name="cn.edu.seu.financing.DepositActivity"
             android:label="@string/app_name" >

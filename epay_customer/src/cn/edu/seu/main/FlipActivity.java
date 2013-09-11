@@ -49,6 +49,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ public class FlipActivity extends Activity implements OnGestureListener{
 	private RadioButton setting;
 	private RadioButton more;
 	private RadioGroup group;
+	private PopupWindow menuWindow;
 	private Button paybtn, shoukuanbtn,transferbtn,duixianbtn; 
 	private View v1;
 	private View v2;
@@ -81,11 +83,13 @@ public class FlipActivity extends Activity implements OnGestureListener{
 	private Button goods;
 	private BluetoothAdapter btAdapt; 
 	private String scanResult;
+	private boolean menu_display = false;
 	public static PersonInfo person=new PersonInfo();;//这里写person的初始化
     public static boolean s = true;
     private static final String TAG="FlipActivity";
 	public static BluetoothDataTransportation bdt=new BluetoothDataTransportation();
 	private String mac;
+	public static int id=0;
 	private BroadcastReceiver receiver = new BroadcastReceiver(){
 
 		public void onReceive(Context context, Intent intent) {
@@ -116,6 +120,13 @@ public class FlipActivity extends Activity implements OnGestureListener{
 		flipper.addView(v3);
 		flipper.addView(v4);
 		flipper.addView(v5);
+		
+
+		v1.setId(0);
+		v2.setId(1);
+		v3.setId(2);
+		v4.setId(3);
+		v5.setId(4);
 		
 		group=(RadioGroup)findViewById(R.id.radioGroup1);
 		home=(RadioButton)findViewById(R.id.home);
@@ -335,8 +346,11 @@ public class FlipActivity extends Activity implements OnGestureListener{
 
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-        	Mapplication.getInstance().exit();
-			
+			id=flipper.getCurrentView().getId();     
+    		Log.i(TAG,String.valueOf(id));
+    		Intent intent = new Intent();
+        	intent.setClass(FlipActivity.this,ExitFromSettings.class);
+        	startActivityForResult(intent,100);   
 		}
 		
 	});
@@ -441,10 +455,9 @@ public class FlipActivity extends Activity implements OnGestureListener{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Intent intent=getIntent();
-		int flag=intent.getIntExtra("flag",0);
-		flipper.setDisplayedChild(flag);
-		switch(flag)
+		Log.i(TAG+"onResume",String.valueOf(id));
+		flipper.setDisplayedChild(id);
+		switch(id)
 		{
 		case 0:
 			home.setChecked(true);
@@ -579,19 +592,20 @@ public class FlipActivity extends Activity implements OnGestureListener{
 	}
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        new AlertDialog.Builder(FlipActivity.this)
-	                .setTitle("真的要离开？")
-	                .setMessage("你确定要离开")
-	                .setPositiveButton("确定",
-	                                new DialogInterface.OnClickListener() {
-	                                        public void onClick(DialogInterface dialog,
-	                                                        int which) {
-	                                        	Mapplication.getInstance().exit();
-	                                        }
-	                                }).show();
-
-	    }
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			if(menu_display){         
+				menuWindow.dismiss();
+        		menu_display = false;
+        	}
+        	else {
+        		id=flipper.getCurrentView().getId();     
+        		Log.i(TAG,String.valueOf(id));
+        		Intent intent = new Intent();
+            	intent.setClass(FlipActivity.this,ExitActivity.class);
+            	startActivityForResult(intent,100);            
+        	}
+		}
 		return false;
 	}
 

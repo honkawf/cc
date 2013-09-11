@@ -4,6 +4,7 @@ package cn.edu.seu.login;
 import java.io.File;
 import java.util.Properties;
 
+import cn.edu.seu.main.ExitActivity;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.MD5;
@@ -25,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -132,19 +134,12 @@ public class LoginActivity extends Activity {
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        new AlertDialog.Builder(LoginActivity.this)
-	                .setTitle("真的要离开？")
-	                .setMessage("你确定要离开")
-	                .setPositiveButton("确定",
-	                                new DialogInterface.OnClickListener() {
-	                                        public void onClick(DialogInterface dialog,
-	                                                        int which) {
-	                                        	Mapplication.getInstance().exit();
-	                                        }
-	                                }).show();
-
-	    }
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+        		Intent intent = new Intent();
+            	intent.setClass(LoginActivity.this,ExitActivity.class);
+            	startActivityForResult(intent,100);    
+		}
 		return false;
 	}
 }
