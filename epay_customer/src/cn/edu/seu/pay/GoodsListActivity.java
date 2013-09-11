@@ -77,8 +77,8 @@ public class GoodsListActivity extends Activity{
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
-								startActivity(intent);
+								/*Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
+								startActivity(intent);*/
 								GoodsListActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -120,8 +120,8 @@ public class GoodsListActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
-						startActivity(intent);
+						/*Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
+						startActivity(intent);*/
 						GoodsListActivity.this.finish();
 						FlipActivity.bdt.close();
 						
@@ -158,7 +158,7 @@ public class GoodsListActivity extends Activity{
         goon.setOnClickListener(new Button.OnClickListener(){
 
 			public void onClick(View v) {
-				goon.setText("继续购物");
+				
 				Intent openCameraIntent = new Intent(GoodsListActivity.this,CaptureActivity.class);
 				startActivityForResult(openCameraIntent, 0);
 			}

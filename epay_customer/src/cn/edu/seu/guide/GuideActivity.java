@@ -5,7 +5,8 @@ import java.util.List;
 
 import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.R;
-
+import cn.edu.seu.pay.GoodsListActivity;
+import cn.edu.seu.pay.StoreInfoActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -62,6 +63,16 @@ public class GuideActivity extends Activity {
 
 		//curDot = (ImageView) findViewById(R.id.cur_dot);
 		open = (ImageView) findViewById(R.id.open);
+		open.setOnClickListener(new View.OnClickListener(){
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent goodslist = new Intent(GuideActivity.this,GoodsListActivity.class);
+    			startActivity(goodslist);   
+    			GuideActivity.this.finish();
+			}
+			
+		});
 		/*curDot.getViewTreeObserver().addOnPreDrawListener(
 				new OnPreDrawListener() {
 

@@ -72,8 +72,8 @@ public class TransferPriceActivity extends Activity {
 
 								public void onClick(DialogInterface arg0, int arg1) {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
-									startActivity(intent);
+									/*Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
+									startActivity(intent);*/
 									TransferPriceActivity.this.finish();
 									try{
 										TransferActivity.bdt.close();
@@ -104,8 +104,8 @@ public class TransferPriceActivity extends Activity {
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
 							TransferPriceActivity.this.finish();
-							Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
-							startActivity(intent);
+							/*Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
+							startActivity(intent);*/
 							TransferActivity.bdt.close();
 							
 						}
@@ -120,8 +120,8 @@ public class TransferPriceActivity extends Activity {
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
-							Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
-							startActivity(intent);
+							/*Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
+							startActivity(intent);*/
 							TransferPriceActivity.this.finish();
 							try{
 								TransferActivity.bdt.close();
@@ -138,7 +138,7 @@ public class TransferPriceActivity extends Activity {
 			    	break;
 	         case 4:
 	            	AlertDialog.Builder builder2 = new Builder(TransferPriceActivity.this);
-			    	builder2.setTitle("连接信息").setMessage("转账金额超限，请重试").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
+			    	builder2.setTitle("连接信息").setMessage("转账金额超限，请重新输入").setCancelable(false).setPositiveButton("确认", new DialogInterface.OnClickListener(){
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub

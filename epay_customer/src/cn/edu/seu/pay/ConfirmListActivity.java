@@ -82,8 +82,8 @@ public class ConfirmListActivity extends Activity{
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
-								startActivity(intent);
+								/*Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
+								startActivity(intent);*/
 								ConfirmListActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -109,8 +109,8 @@ public class ConfirmListActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
-						startActivity(intent);
+						/*Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
+						startActivity(intent);*/
 						GoodsListActivity.flag=1;
 						ConfirmListActivity.this.finish();
 						FlipActivity.bdt.close();

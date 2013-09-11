@@ -2,43 +2,85 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="#f3f3f3" >
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/title"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_back_c"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="确认付款"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listView2"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_alignParentTop="true" >
-
+        android:layout_below="@+id/rl_layout" >
     </ListView>
-
-    <Button
+    
+         <Button
         android:id="@+id/confirm3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/confirm3" />
+        android:background="@drawable/tabs_confirm" />
+   
 
-    <TextView
-        android:id="@+id/totalprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/total"
-        android:layout_alignBottom="@+id/total"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="22dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/total"
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/listView2"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/total"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginTop="18dp" >
+
+        <TextView
+            android:id="@+id/totalprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="20dp"
+            android:text="总计"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="38dp"
+            android:text="@string/total"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+
+        </RelativeLayout>
 
 </RelativeLayout>

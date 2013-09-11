@@ -50,8 +50,8 @@ public class ReceiverInfoActivity extends Activity{
 
 								public void onClick(DialogInterface arg0, int arg1) {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
-									startActivity(intent);
+									/*Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
+									startActivity(intent);*/
 									ReceiverInfoActivity.this.finish();
 									try
 									{
@@ -81,8 +81,8 @@ public class ReceiverInfoActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
-						startActivity(intent);
+						/*Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
+						startActivity(intent);*/
 						ReceiverInfoActivity.this.finish();
 						try
 						{
@@ -124,12 +124,14 @@ public class ReceiverInfoActivity extends Activity{
         		 msg.what=1;
         		 msg.obj="正在连接";
         		 msg.sendToTarget();
+        		 Log.i(TAG,"正在连接");
         		 sendAndReceiveThread=new Thread()
         		 {
         			 public void run()
         			 {
         				 try
                 		 {
+        	        		 Log.i(TAG,"创建socket");
         					 TransferActivity.bdt.createSocket();
         					 Message msg=handler.obtainMessage();
         					 msg=handler.obtainMessage();

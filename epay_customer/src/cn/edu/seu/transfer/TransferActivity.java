@@ -70,8 +70,8 @@ public class TransferActivity extends Activity {
 
 									public void onClick(DialogInterface arg0, int arg1) {
 										// TODO Auto-generated method stub
-										Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
-										startActivity(intent);
+										/*Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
+										startActivity(intent);*/
 										TransferActivity.this.finish();
 										changeBackgroundThread.interrupt();
 										try{
@@ -104,8 +104,8 @@ public class TransferActivity extends Activity {
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
 								TransferActivity.this.finish();
-								Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
-								startActivity(intent);
+								/*Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
+								startActivity(intent);*/
 								TransferActivity.bdt.close();
 								changeBackgroundThread.interrupt();
 								
@@ -121,8 +121,8 @@ public class TransferActivity extends Activity {
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
-								startActivity(intent);
+								/*Intent intent=new Intent(TransferActivity.this,FlipActivity.class);
+								startActivity(intent);*/
 								TransferActivity.this.finish();
 								changeBackgroundThread.interrupt();
 								try{
@@ -194,12 +194,14 @@ public class TransferActivity extends Activity {
                 Intent intent;
                 if(flagIntent.getStringExtra("flag").equals("transfer"))
                 {
+                	TransferActivity.bdt.connect(mac);
                 	intent=new Intent(TransferActivity.this,ReceiverInfoActivity.class);
                 	intent.putExtra("name",name);
                     intent.putExtra("mac",mac);
                     startActivity(intent);
                     Log.i(TAG, name);
-                    TransferActivity.bdt.connect(mac);
+					TransferActivity.this.finish();
+
                 }
                 else if(flagIntent.getStringExtra("flag").equals("transmit"))
                 {
@@ -305,7 +307,7 @@ public class TransferActivity extends Activity {
  	    				}
  	    				catch(InterruptedException e)
  	    				{
- 	    					Log.i(TAG, "线程中断");
+ 	    					Log.i(TAG, e.getMessage());
  	    					break;
  	    				}
  	    			}
@@ -365,26 +367,34 @@ public class TransferActivity extends Activity {
 	class OnClickEvent implements Button.OnClickListener{
      public void onClick(View v)
      {
-    	 if(!flag)
+    	 try
     	 {
-    		 if (v==btnSearch)
+
+        	 if(!flag)
         	 {
-        		 if(btAdapt==null)
-    				{
-    					Toast.makeText(TransferActivity.this, "设备不支持蓝牙", Toast.LENGTH_LONG).show();
-    				}
-    				else
-    				{
-    					if(!btAdapt.isEnabled())
-    					{
-    						btAdapt.enable();
-    					}
-    				}
-    				btAdapt.startDiscovery();
-    				changeBackgroundThread.start();
+        		 flag=true;
+        		 if (v==btnSearch)
+            	 {
+            		 if(btAdapt==null)
+        				{
+        					Toast.makeText(TransferActivity.this, "设备不支持蓝牙", Toast.LENGTH_LONG).show();
+        				}
+        				else
+        				{
+        					if(!btAdapt.isEnabled())
+        					{
+        						btAdapt.enable();
+        					}
+        				}
+        				btAdapt.startDiscovery();
+        				changeBackgroundThread.start();
+            	 }
         	 }
     	 }
-    	 
+    	 catch(Exception e)
+    	 {
+    		 Log.i(TAG,e.getMessage());
+    	 }
      }
      }
      

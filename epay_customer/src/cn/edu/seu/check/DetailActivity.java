@@ -66,8 +66,8 @@ public class DetailActivity extends Activity{
 
 								public void onClick(DialogInterface arg0, int arg1) {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
-									startActivity(intent);
+									/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
+									startActivity(intent);*/
 									DetailActivity.this.finish();
 									try{
 										TransferActivity.bdt.close();
@@ -98,8 +98,8 @@ public class DetailActivity extends Activity{
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
 							DetailActivity.this.finish();
-							Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
-							startActivity(intent);
+							/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
+							startActivity(intent);*/
 							TransferActivity.bdt.close();
 							
 						}
@@ -114,8 +114,8 @@ public class DetailActivity extends Activity{
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
-							Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
-							startActivity(intent);
+							/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
+							startActivity(intent);*/
 							DetailActivity.this.finish();
 							try{
 								TransferActivity.bdt.close();
@@ -176,7 +176,6 @@ public class DetailActivity extends Activity{
                 			cash.setTransfer(transfer);
                 			String cashxml=cash.produceTransferXML("transfer");
                 			NetDataTransportation ndt=new NetDataTransportation();
-                			
                 			ndt.connect(property.getProperty("serverAdress","honka.xicp.net"), Integer.parseInt(property.getProperty("serverPort","30145")));
                 			ndt.write(cashxml);
                    		 	Log.i("发送到银行长度",String.valueOf(cashxml.getBytes().length));

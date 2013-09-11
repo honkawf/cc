@@ -5,24 +5,24 @@
     android:background="#f3f3f3"
     android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/deposit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="124dp"
-            android:background="@drawable/tabs_deposit"
-            android:textSize="20sp" />
-  <RelativeLayout
+    <Button
+        android:id="@+id/deposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="124dip"
+        android:background="@drawable/tabs_deposit"
+        android:textSize="20sp" />
+
+    <RelativeLayout
         android:id="@+id/rl_layout"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:layout_x="0dp"
-        android:layout_y="-1dp"
+        android:layout_height="45dip"
+        android:layout_x="0dip"
+        android:layout_y="-1dip"
         android:background="@drawable/title"
         android:gravity="center_vertical" >
-
 
         <TextView
             android:id="@+id/textView2"
@@ -33,53 +33,65 @@
             android:text="理财"
             android:textColor="#ffffff"
             android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deposit"
+        android:layout_centerHorizontal="true"
+        android:text="存款理财"
+        android:textColor="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dip"
+        android:layout_alignTop="@+id/relativeLayout1"
+        android:layout_toRightOf="@+id/textView1" >
+
+        <Button
+            android:id="@+id/manageinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/tabs_search" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manageinfo"
+            android:layout_centerHorizontal="true"
+            android:text="理财查询"
+            android:textColor="@android:color/darker_gray" />
 
     </RelativeLayout>
 
-  <TextView
-      android:id="@+id/textView1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/deposit"
-      android:layout_centerHorizontal="true"
-      android:text="存款理财"
-      android:textColor="@android:color/darker_gray"
-     />
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="100dip"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="82dp"
+        android:layout_toLeftOf="@+id/deposit"
+        android:orientation="vertical" >
 
-  <Button
-      android:id="@+id/button1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/TextView01"
-      android:layout_toRightOf="@+id/textView1"
-      android:background="@drawable/tabs_search" />
+        <Button
+            android:id="@+id/prohibit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tabs_interest" />
 
-  <TextView
-      android:id="@+id/textView3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBaseline="@+id/TextView01"
-      android:layout_alignBottom="@+id/TextView01"
-      android:layout_toRightOf="@+id/deposit"
-      android:text="理财查询"
-      android:textColor="@android:color/darker_gray" />
-
-  <Button
-      android:id="@+id/prohibit"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/textView1"
-      android:layout_marginTop="84dp"
-      android:layout_toLeftOf="@+id/deposit"
-      android:background="@drawable/tabs_interest" />
-
-  <TextView
-      android:id="@+id/TextView01"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@+id/prohibit"
-      android:layout_below="@+id/prohibit"
-      android:text="利息理财"
-      android:textColor="@android:color/darker_gray" />
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prohibit"
+            android:layout_centerHorizontal="true"
+            android:text="利息理财"
+            android:textColor="@android:color/darker_gray" />
+    </RelativeLayout>
 
 </RelativeLayout>

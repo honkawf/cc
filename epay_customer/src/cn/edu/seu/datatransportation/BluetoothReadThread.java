@@ -43,6 +43,7 @@ public class BluetoothReadThread extends Thread{
 			int total=0;
 			is.read(buffer);
 			total=DataDeal.readHead(buffer);
+			Log.i(TAG,"长度"+total);
 			byte [] receiveTemp=new byte[total];
 			buffer=new byte[8];
 			for(int i=0;i<total;i++)
@@ -57,10 +58,15 @@ public class BluetoothReadThread extends Thread{
 				Log.i(TAG,String.valueOf(length));
 				System.arraycopy(buffer, 0, receiveTemp, i*length, length);
 			}
-			buffer=new byte[rest];
-			int newlength=is.read(buffer);
-			Log.i(TAG,String.valueOf(newlength));
-			System.arraycopy(buffer, 0, receiveTemp, times*8, rest);
+			if(rest!=0)
+			{
+				buffer=new byte[rest];
+				Log.i(TAG,String.valueOf(rest));
+				int newlength=is.read(buffer);
+				Log.i(TAG,String.valueOf(newlength));
+				System.arraycopy(buffer, 0, receiveTemp, times*8, rest);
+				
+			}
 			receive=receiveTemp;
 			String s = new String(receive);
 			Log.i("收到",s);

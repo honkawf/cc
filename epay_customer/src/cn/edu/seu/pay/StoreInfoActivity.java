@@ -62,8 +62,8 @@ public class StoreInfoActivity extends Activity{
 
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
-								startActivity(intent);
+								/*Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
+								startActivity(intent);*/
 								StoreInfoActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -86,8 +86,8 @@ public class StoreInfoActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
-						startActivity(intent);
+						/*Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
+						startActivity(intent);*/
 						StoreInfoActivity.this.finish();
 						FlipActivity.bdt.close();
 						

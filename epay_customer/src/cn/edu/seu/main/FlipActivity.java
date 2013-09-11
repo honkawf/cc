@@ -12,6 +12,7 @@ import cn.edu.seu.datatransportation.BluetoothDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
 import cn.edu.seu.financing.DepositActivity;
+import cn.edu.seu.financing.ManageInfoActivity;
 import cn.edu.seu.financing.ProhibitActivity;
 import cn.edu.seu.gesturepassword.LockActivity;
 import cn.edu.seu.gesturepassword.SetFirstActivity;
@@ -71,6 +72,7 @@ public class FlipActivity extends Activity implements OnGestureListener{
 	private View v5;
 	private Button deposit;
 	private Button prohibit;
+	private Button manageinfo;
 	private Button btn_s1;
 	private Button btn_s2;
 	private Button btn_s3;
@@ -125,6 +127,20 @@ public class FlipActivity extends Activity implements OnGestureListener{
 		
         deposit=(Button)findViewById(R.id.deposit);
         prohibit=(Button)findViewById(R.id.prohibit);
+        manageinfo=(Button)findViewById(R.id.manageinfo);
+        manageinfo.setOnClickListener(new Button.OnClickListener()
+        {
+
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent();
+				intent.setClass(FlipActivity.this, ManageInfoActivity.class);
+				startActivity(intent);
+				
+			}
+        	
+        });
         
         deposit.setOnClickListener(new Button.OnClickListener()
         {
@@ -198,6 +214,9 @@ public class FlipActivity extends Activity implements OnGestureListener{
        		if(!btAdapt.isEnabled())
            	 {
            		 btAdapt.enable();
+           		 Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+              	 intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
+              	 startActivity(intent);
            	 }
        		person.setBluetoothmac(BluetoothDataTransportation.getLocalMac().replace(":", ""));
        	}

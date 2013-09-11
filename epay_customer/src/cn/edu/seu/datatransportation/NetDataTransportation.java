@@ -15,7 +15,7 @@ import cn.edu.seu.datadeal.DataDeal;
 public class NetDataTransportation implements IDataTransportation{
 	
 	private Socket Cli_Soc;
-	
+	private static final String TAG="NetDataTransportation";
 	public Object connect(String address, int port){
 		try{
 			Cli_Soc = new Socket(address, port);	
@@ -56,6 +56,7 @@ public class NetDataTransportation implements IDataTransportation{
 			int XML_length = DataDeal.readHead(buffer);
 			info = new byte[XML_length];
 			in.read(info);
+			Log.i(TAG,new String(info));
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

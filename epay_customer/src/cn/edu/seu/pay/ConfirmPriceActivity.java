@@ -55,8 +55,8 @@ public class ConfirmPriceActivity extends Activity{
 							
 							public void onClick(DialogInterface arg0, int arg1) {
 								// TODO Auto-generated method stub
-								Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
-								startActivity(intent);
+								/*Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
+								startActivity(intent);*/
 								ConfirmPriceActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -81,9 +81,9 @@ public class ConfirmPriceActivity extends Activity{
 		    	builder.setTitle("付款结果").setMessage((String)msg.obj).setCancelable(false).setPositiveButton("确认", new OnClickListener(){
 
 					public void onClick(DialogInterface arg0, int arg1) {
-						// TODO Auto-generated method stub
+						/*// TODO Auto-generated method stub
 						Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
-						startActivity(intent);
+						startActivity(intent);*/
 						ConfirmPriceActivity.this.finish();
 						FlipActivity.bdt.close();
 						
