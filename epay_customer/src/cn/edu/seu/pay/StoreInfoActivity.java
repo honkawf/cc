@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ import com.zxing.activity.CaptureActivity;
 
 public class StoreInfoActivity extends Activity{
 	private TextView tvstorename,tvaddress,tvtype;
-	private Button btnConfirm,btnDiscount;
+	private Button btnConfirm,btnDiscount,btn_back_c;
 	private TimeOutProgressDialog pd;
 	private String storeName,mac,type;
 	private boolean loaded=false;
@@ -64,6 +65,7 @@ public class StoreInfoActivity extends Activity{
 								// TODO Auto-generated method stub
 								/*Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
 								startActivity(intent);*/
+								FlipActivity.id=0;
 								StoreInfoActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -88,6 +90,7 @@ public class StoreInfoActivity extends Activity{
 						// TODO Auto-generated method stub
 						/*Intent intent=new Intent(StoreInfoActivity.this,FlipActivity.class);
 						startActivity(intent);*/
+						FlipActivity.id=0;
 						StoreInfoActivity.this.finish();
 						FlipActivity.bdt.close();
 						
@@ -128,6 +131,7 @@ public class StoreInfoActivity extends Activity{
          tvtype=(TextView)findViewById(R.id.type);
          btnConfirm=(Button)findViewById(R.id.buy);
          btnDiscount=(Button)findViewById(R.id.discount);
+         btn_back_c=(Button)findViewById(R.id.btn_back_c);
          String Info[]=new String[3];
          try{
         	 Intent intent=getIntent();
@@ -296,5 +300,21 @@ public class StoreInfoActivity extends Activity{
 	            sendThread.start();
 			}
 			});
+         btn_back_c.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				FlipActivity.id=0;
+				StoreInfoActivity.this.finish();
+			}
+        	 
+         });
 	}
+	  public boolean onKeyDown(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK) {
+				FlipActivity.id=0;
+				this.finish();
+		    }
+			return false;
+		}
 }

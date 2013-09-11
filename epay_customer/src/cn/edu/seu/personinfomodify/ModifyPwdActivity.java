@@ -141,8 +141,8 @@ public class ModifyPwdActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ModifyPwdActivity.this.finish();
 				FlipActivity.id = 3;
+				ModifyPwdActivity.this.finish();
 			}
 			
 		});
@@ -177,8 +177,8 @@ public class ModifyPwdActivity extends Activity {
     }
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    	ModifyPwdActivity.this.finish();
 	    	FlipActivity.id = 3;
+	    	ModifyPwdActivity.this.finish();
 	    }
 		return false;
 	}

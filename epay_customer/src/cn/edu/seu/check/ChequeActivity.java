@@ -90,11 +90,8 @@ public class ChequeActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				FlipActivity.id=2;
 				ChequeActivity.this.finish();
-				Intent intent=new Intent();
-				intent.setClass(ChequeActivity.this, FlipActivity.class);
-				intent.putExtra("flag", getIntent().getIntExtra("flag", 0));
-				startActivity(intent);
 			}
 			
 		});
@@ -169,11 +166,9 @@ public class ChequeActivity extends Activity {
 	}
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	FlipActivity.id=2;
 	    	ChequeActivity.this.finish();
-			Intent intent=new Intent();
-			intent.setClass(ChequeActivity.this, FlipActivity.class);
-			intent.putExtra("flag", getIntent().getIntExtra("flag", 0));
-			startActivity(intent);
+			
 	    }
 		return false;
 	}

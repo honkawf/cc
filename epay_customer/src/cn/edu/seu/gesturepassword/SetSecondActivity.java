@@ -11,11 +11,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
-
 import cn.edu.seu.gesturepassword.LockPatternView.Cell;
 import cn.edu.seu.gesturepassword.LockPatternView.OnPatternListener;
 import cn.edu.seu.login.Mapplication;
-
+import cn.edu.seu.main.ExitActivity;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 
@@ -87,29 +86,22 @@ public class SetSecondActivity extends Activity implements OnClickListener {
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
 	    	int source = getIntent().getIntExtra("flag", -1);
 			if (source > -1){
-				Intent intent=new Intent();
-				intent.setClass(SetSecondActivity.this, FlipActivity.class);
-				intent.putExtra("flag", source);
-				startActivity(intent);
+				FlipActivity.id =  source;
+				finish();
 			}
 			else{
-				new AlertDialog.Builder(SetSecondActivity.this)
-                .setTitle("真的要离开？")
-                .setMessage("你确定要离开")
-                .setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int which) {
-                        Mapplication.getInstance().exit();
-                    }
-                }).show();
+
+        		Intent intent = new Intent();
+            	intent.setClass(SetSecondActivity.this,ExitActivity.class);
+            	startActivityForResult(intent,100);    
 			}
 		}
 		return false;
 	}
-
+	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		

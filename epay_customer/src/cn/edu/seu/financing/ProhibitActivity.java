@@ -113,7 +113,7 @@ public class ProhibitActivity extends Activity implements OnClickListener, Abstr
 		interestInfo = new PersonInterestInfo();
 		interestInfo.setUsername(x.getUserName());
 		interestInfo.setFinancingway("0");
-		
+	
 		
 		tv.setText(proList.get(0).toString());
 		prAdapter = new CustemSpinnerAdapter(this);
@@ -189,11 +189,8 @@ public class ProhibitActivity extends Activity implements OnClickListener, Abstr
 			showSpinWindow(bt_dropdown3);
 			break;
 		case R.id.btn_back_p:
+			FlipActivity.id=1;
 			this.finish();
-			Intent intent=new Intent();
-			intent.setClass(ProhibitActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 1);
-			startActivity(intent);
 			break;
 			
 		}
@@ -227,11 +224,8 @@ public class ProhibitActivity extends Activity implements OnClickListener, Abstr
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    	ProhibitActivity.this.finish();
-			Intent intent=new Intent();
-			intent.setClass(ProhibitActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 1);
-			startActivity(intent);
+			FlipActivity.id=1;
+			this.finish();
 	    }
 		return false;
 	}

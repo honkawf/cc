@@ -204,6 +204,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 		btn_back.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
+				
 				LinkBankCardActivity.this.finish();
 			}
 			
@@ -387,5 +388,6 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 		});
 		
 	}	
+	
 	
 }

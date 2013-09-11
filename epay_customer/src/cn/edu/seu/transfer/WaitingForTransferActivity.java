@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -121,6 +122,7 @@ public class WaitingForTransferActivity extends Activity{
 	    btn_back.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View v) {
+				FlipActivity.id=0;
 				WaitingForTransferActivity.this.finish();
 			}
 	    	
@@ -168,5 +170,12 @@ public class WaitingForTransferActivity extends Activity{
 	    };
 	    changeBackgroundThread.start();
 	}
+	   public boolean onKeyDown(int keyCode, KeyEvent event) {
+	 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	 	    	FlipActivity.id=0;
+	 	    	WaitingForTransferActivity.this.finish();
+	 	    }
+	 		return false;
+	 	} 
 
 }

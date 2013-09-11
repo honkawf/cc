@@ -40,6 +40,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +52,7 @@ import cn.edu.seu.xml.Transfer;
 public class TransferPriceActivity extends Activity {
 	private TextView textView1;
 	private EditText editText1;
-	private Button btnConfirm;
+	private Button btnConfirm,btn_back_c;
 	private TimeOutProgressDialog pd;
 	private boolean loaded=false;
 	private PersonInfo receiver;
@@ -74,6 +75,7 @@ public class TransferPriceActivity extends Activity {
 									// TODO Auto-generated method stub
 									/*Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
 									startActivity(intent);*/
+									FlipActivity.id=0;
 									TransferPriceActivity.this.finish();
 									try{
 										TransferActivity.bdt.close();
@@ -106,6 +108,7 @@ public class TransferPriceActivity extends Activity {
 							TransferPriceActivity.this.finish();
 							/*Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
 							startActivity(intent);*/
+							FlipActivity.id=0;
 							TransferActivity.bdt.close();
 							
 						}
@@ -122,6 +125,7 @@ public class TransferPriceActivity extends Activity {
 							// TODO Auto-generated method stub
 							/*Intent intent=new Intent(TransferPriceActivity.this,FlipActivity.class);
 							startActivity(intent);*/
+							FlipActivity.id=0;
 							TransferPriceActivity.this.finish();
 							try{
 								TransferActivity.bdt.close();
@@ -177,6 +181,16 @@ public class TransferPriceActivity extends Activity {
         
         btnConfirm=(Button) findViewById(R.id.btnConfirm);
         editText1=(EditText) findViewById(R.id.editText1);
+        btn_back_c=(Button) findViewById(R.id.btn_back_c);
+        btn_back_c.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				FlipActivity.id=0;
+				TransferPriceActivity.this.finish();
+			}
+        	
+        });
         btnConfirm.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View v) {
@@ -325,7 +339,13 @@ public class TransferPriceActivity extends Activity {
         	
         });
         }
-	     
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+ 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+ 	    	FlipActivity.id=0;
+ 	    	TransferPriceActivity.this.finish();
+ 	    }
+ 		return false;
+ 	} 
  
 
 }

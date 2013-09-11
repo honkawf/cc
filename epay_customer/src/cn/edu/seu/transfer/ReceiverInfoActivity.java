@@ -3,7 +3,6 @@ package cn.edu.seu.transfer;
 import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
-
 import cn.edu.seu.pay.TimeOutProgressDialog;
 import cn.edu.seu.pay.TimeOutProgressDialog.OnTimeOutListener;
 
@@ -18,13 +17,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class ReceiverInfoActivity extends Activity{
 	private TextView receivername,address;
-	private Button btnConfirm;
+	private Button btnConfirm,btn_back_c;
 	private TimeOutProgressDialog pd;
 	private Thread sendAndReceiveThread;
 	private final static String TAG="ReceiverInfoActivity";
@@ -52,6 +52,7 @@ public class ReceiverInfoActivity extends Activity{
 									// TODO Auto-generated method stub
 									/*Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
 									startActivity(intent);*/
+									FlipActivity.id=0;
 									ReceiverInfoActivity.this.finish();
 									try
 									{
@@ -83,6 +84,7 @@ public class ReceiverInfoActivity extends Activity{
 						// TODO Auto-generated method stub
 						/*Intent intent=new Intent(ReceiverInfoActivity.this,FlipActivity.class);
 						startActivity(intent);*/
+						FlipActivity.id=0;
 						ReceiverInfoActivity.this.finish();
 						try
 						{
@@ -112,11 +114,21 @@ public class ReceiverInfoActivity extends Activity{
          receivername=(TextView)findViewById(R.id.receivername);
          address=(TextView)findViewById(R.id.address);
          btnConfirm=(Button)findViewById(R.id.confirm1);
+         btn_back_c=(Button)findViewById(R.id.btn_back_c);
          Intent intent=getIntent();
          name=intent.getStringExtra("name");
          mac=intent.getStringExtra("mac");
          receivername.setText("收款方："+name);
          address.setText("\n蓝牙地址："+mac);
+         btn_back_c.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				FlipActivity.id=0;
+				ReceiverInfoActivity.this.finish();
+			}
+        	 
+         });
          btnConfirm.setOnClickListener(new Button.OnClickListener(){
         	 public void onClick(View v) {
         		 // TODO Auto-generated method stub
@@ -153,4 +165,12 @@ public class ReceiverInfoActivity extends Activity{
 			}
          });
 	}
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+ 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+ 	    	FlipActivity.id=0;
+ 	    	ReceiverInfoActivity.this.finish();
+ 	    }
+ 		return false;
+ 	} 
+ 
 }

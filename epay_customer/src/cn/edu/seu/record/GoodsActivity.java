@@ -82,22 +82,16 @@ public class GoodsActivity extends Activity {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				FlipActivity.id=2;
 				GoodsActivity.this.finish();
-				Intent intent=new Intent();
-				intent.setClass(GoodsActivity.this, FlipActivity.class);
-				intent.putExtra("flag", 2);
-				startActivity(intent);
 			}
 			
 		});
 	}
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    	GoodsActivity.this.finish();
-			Intent intent=new Intent();
-			intent.setClass(GoodsActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 2);
-			startActivity(intent);
+	    	FlipActivity.id=2;
+			GoodsActivity.this.finish();
 	    }
 		return false;
 	}

@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 public class ResetActivity extends Activity {
 
-	private Button b1;
+	private Button b1,btn_back_c;
 	private EditText cardnumber;
 	private EditText identificationnumber;
 	private String produce;
@@ -46,9 +46,15 @@ public class ResetActivity extends Activity {
         Mapplication.getInstance().addActivity(this);
         
         b1=(Button)findViewById(R.id.button3);
+        btn_back_c=(Button)findViewById(R.id.btn_back_c);
         cardnumber = (EditText)findViewById(R.id.editText2);
 		identificationnumber = (EditText)findViewById(R.id.editText1);
-		
+		btn_back_c.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View arg0) {
+					ResetActivity.this.finish();
+				}
+		});
 		b1.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {

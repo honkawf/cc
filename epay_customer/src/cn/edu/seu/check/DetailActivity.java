@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.R;
-
 import cn.edu.seu.datadeal.DataDeal;
 import cn.edu.seu.datadeal.PropertyInfo;
 import cn.edu.seu.datatransportation.BluetoothDataTransportation;
@@ -24,7 +23,6 @@ import cn.edu.seu.transfer.TransferActivity;
 import cn.edu.seu.transfer.TransferPriceActivity;
 import cn.edu.seu.xml.Transfer;
 import cn.edu.seu.xml.XML;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -34,6 +32,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,7 +45,7 @@ public class DetailActivity extends Activity{
 	private TextView time;
 	private TextView cash;
 	private TextView cardnum;
-	private Button cashbtn,transmitbtn;
+	private Button cashbtn,transmitbtn,btn_back_c;
 	private String xml;
 	private static final String TAG="DetailActivity";
 	private TimeOutProgressDialog pd;
@@ -68,6 +67,7 @@ public class DetailActivity extends Activity{
 									// TODO Auto-generated method stub
 									/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 									startActivity(intent);*/
+									FlipActivity.id=2;
 									DetailActivity.this.finish();
 									try{
 										TransferActivity.bdt.close();
@@ -97,6 +97,7 @@ public class DetailActivity extends Activity{
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
+							FlipActivity.id=2;
 							DetailActivity.this.finish();
 							/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 							startActivity(intent);*/
@@ -116,6 +117,7 @@ public class DetailActivity extends Activity{
 							// TODO Auto-generated method stub
 							/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 							startActivity(intent);*/
+							FlipActivity.id=2;
 							DetailActivity.this.finish();
 							try{
 								TransferActivity.bdt.close();
@@ -217,6 +219,15 @@ public class DetailActivity extends Activity{
 			}
 			
 		});
+		btn_back_c=(Button)findViewById(R.id.btn_back_c);
+		btn_back_c.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				FlipActivity.id=1;
+				DetailActivity.this.finish();
+			}
+		});
 		transmitbtn.setOnClickListener(new Button.OnClickListener(){
 
 			public void onClick(View arg0) {
@@ -228,5 +239,14 @@ public class DetailActivity extends Activity{
 			}
 			
 		});
+		
+	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	FlipActivity.id=2;
+	    	DetailActivity.this.finish();
+			
+	    }
+		return false;
 	}
 }

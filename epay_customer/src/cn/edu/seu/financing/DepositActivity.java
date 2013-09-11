@@ -214,11 +214,8 @@ public class DepositActivity extends Activity implements OnClickListener, Abstra
 			showSpinWindow(bt_dropdown1);
 			break;
 		case R.id.btn_back:
+			FlipActivity.id=1;
 			this.finish();
-			Intent intent=new Intent();
-			intent.setClass(DepositActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 1);
-			startActivity(intent);
 			break;
 		}
 	}
@@ -245,11 +242,8 @@ public class DepositActivity extends Activity implements OnClickListener, Abstra
     }
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    	DepositActivity.this.finish();
-			Intent intent=new Intent();
-			intent.setClass(DepositActivity.this, FlipActivity.class);
-			intent.putExtra("flag", 1);
-			startActivity(intent);
+			FlipActivity.id=1;
+			this.finish();
 	    }
 		return false;
 	}

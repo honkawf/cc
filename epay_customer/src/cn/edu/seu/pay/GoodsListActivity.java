@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ import android.widget.Toast;
 public class GoodsListActivity extends Activity{
 	public static ArrayList<Map<String,Object>> goodslist;
 	private ListView listview;
-	private Button goon,confirm;
+	private Button goon,confirm,btn_back_g;
 	private MyAdapter adapter;
     private Goods goods=new Goods();
     private TimeOutProgressDialog pd;
@@ -79,6 +80,7 @@ public class GoodsListActivity extends Activity{
 								// TODO Auto-generated method stub
 								/*Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
 								startActivity(intent);*/
+								FlipActivity.id=0;
 								GoodsListActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -106,6 +108,7 @@ public class GoodsListActivity extends Activity{
 				break;
             case 3:
             	Log.i("case","3");
+       	     	GoodsListActivity.this.finish();    
             	Intent confirm=new Intent(GoodsListActivity.this,ConfirmListActivity.class);
 	 			confirm.putExtra("totalprice", totalprice);
 	            startActivity(confirm);
@@ -122,6 +125,7 @@ public class GoodsListActivity extends Activity{
 						// TODO Auto-generated method stub
 						/*Intent intent=new Intent(GoodsListActivity.this,FlipActivity.class);
 						startActivity(intent);*/
+						FlipActivity.id=0;
 						GoodsListActivity.this.finish();
 						FlipActivity.bdt.close();
 						
@@ -164,6 +168,14 @@ public class GoodsListActivity extends Activity{
 			}
         	
         });
+        btn_back_g=(Button)findViewById(R.id.btn_back_g);
+        btn_back_g.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View arg0) {
+				FlipActivity.id=0;
+				GoodsListActivity.this.finish();
+			}
+		});
         confirm=(Button)findViewById(R.id.confirm2);
         Log.d("point","11");
         confirm.setOnClickListener(new Button.OnClickListener(){
@@ -398,5 +410,12 @@ public class GoodsListActivity extends Activity{
 	        }
 	         
 	    }
+	  public boolean onKeyDown(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK) {
+				FlipActivity.id=0;
+				this.finish();
+		    }
+			return false;
+		}
 	
 }

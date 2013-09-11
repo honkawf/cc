@@ -28,13 +28,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class ConfirmPriceActivity extends Activity{
 	private TextView price,receivername;
-	private Button confirm;
+	private Button confirm,btn_back_c;
     private TimeOutProgressDialog pd;
     private byte[] receive;
     private Trade trade;
@@ -84,6 +85,7 @@ public class ConfirmPriceActivity extends Activity{
 						/*// TODO Auto-generated method stub
 						Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
 						startActivity(intent);*/
+						FlipActivity.id=0;
 						ConfirmPriceActivity.this.finish();
 						FlipActivity.bdt.close();
 						
@@ -98,9 +100,10 @@ public class ConfirmPriceActivity extends Activity{
 		    	builder1.setTitle("连接信息").setMessage("连接失败").setCancelable(false).setPositiveButton("确认", new OnClickListener(){
 
 					public void onClick(DialogInterface arg0, int arg1) {
-						// TODO Auto-generated method stub
+						/*// TODO Auto-generated method stub
 						Intent intent=new Intent(ConfirmPriceActivity.this,FlipActivity.class);
-						startActivity(intent);
+						startActivity(intent);*/
+						FlipActivity.id=0;
 						ConfirmPriceActivity.this.finish();
 						FlipActivity.bdt.close();
 						
@@ -130,6 +133,14 @@ public class ConfirmPriceActivity extends Activity{
         trade=info.parseIndividualTradeXML(new ByteArrayInputStream(receive));
         price.setText(trade.getTotalPrice()+"元");
         receivername.setText("收款人:"+trade.getReceiverName());
+        btn_back_c=(Button)findViewById(R.id.btn_back_c);
+        btn_back_c.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View arg0) {
+				FlipActivity.id=0;
+				ConfirmPriceActivity.this.finish();
+				}
+        });
         confirm.setOnClickListener(new Button.OnClickListener(){
 
 			public void onClick(View v) {
@@ -212,4 +223,11 @@ public class ConfirmPriceActivity extends Activity{
         	
         });
 	}
+	  public boolean onKeyDown(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK) {
+				FlipActivity.id=0;
+				this.finish();
+		    }
+			return false;
+		}
 }

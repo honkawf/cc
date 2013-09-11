@@ -264,6 +264,7 @@ public class TransferActivity extends Activity {
          btn_back.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
+				FlipActivity.id=0;
 				TransferActivity.this.finish();
 			}
         	 
@@ -461,6 +462,7 @@ public class TransferActivity extends Activity {
      } 
      public boolean onKeyDown(int keyCode, KeyEvent event) {
  	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+ 	    	FlipActivity.id=0;
  	    	TransferActivity.this.finish();
  	    }
  		return false;

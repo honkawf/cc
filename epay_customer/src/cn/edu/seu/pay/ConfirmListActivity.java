@@ -20,10 +20,10 @@ import cn.edu.seu.record.Recorddh;
 import cn.edu.seu.xml.Goods;
 import cn.edu.seu.xml.Trade;
 import cn.edu.seu.xml.XML;
-
 import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
+
 import com.zxing.activity.CaptureActivity;
 
 import android.app.Activity;
@@ -40,6 +40,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ import android.widget.Toast;
 
 public class ConfirmListActivity extends Activity{
 	private ListView listview;
-	private Button confirm;
+	private Button confirm,btn_back_c;
 	private TextView totalView;
 	private ConfirmAdapter adapter;
 	private String totalprice;
@@ -84,6 +85,7 @@ public class ConfirmListActivity extends Activity{
 								// TODO Auto-generated method stub
 								/*Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
 								startActivity(intent);*/
+								FlipActivity.id=0;
 								ConfirmListActivity.this.finish();
 								FlipActivity.bdt.close();
 								
@@ -157,6 +159,14 @@ public class ConfirmListActivity extends Activity{
         listview=(ListView)findViewById(R.id.listView2); 
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        btn_back_c=(Button)findViewById(R.id.btn_back_c);
+        btn_back_c.setOnClickListener(new Button.OnClickListener(){
+
+			public void onClick(View arg0) {
+				FlipActivity.id=0;
+				ConfirmListActivity.this.finish();
+				}
+        });
         confirm=(Button)findViewById(R.id.confirm3);
         confirm.setOnClickListener(new Button.OnClickListener(){
 
@@ -307,4 +317,11 @@ public class ConfirmListActivity extends Activity{
 	        }
 	         
 	    }
+	  public boolean onKeyDown(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK) {
+				FlipActivity.id=0;
+				this.finish();
+		    }
+			return false;
+		}
 }
