@@ -360,7 +360,7 @@ public class FlipActivity extends Activity implements OnGestureListener{
 
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			Uri uri = Uri.parse("smsto:1565961756");
+			Uri uri = Uri.parse("smsto:15659617567");
             Intent intent = new Intent(Intent.ACTION_SENDTO,uri);
             intent.putExtra("sms_body", "您好");
             startActivity(intent);
