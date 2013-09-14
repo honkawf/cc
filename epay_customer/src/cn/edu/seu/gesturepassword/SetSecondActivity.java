@@ -94,9 +94,8 @@ public class SetSecondActivity extends Activity implements OnClickListener {
 			}
 			else{
 
-        		Intent intent = new Intent();
-            	intent.setClass(SetSecondActivity.this,ExitActivity.class);
-            	startActivityForResult(intent,100);    
+				Intent intent = new Intent(SetSecondActivity.this,ExitActivity.class);
+        		startActivity(intent);    
 			}
 		}
 		return false;

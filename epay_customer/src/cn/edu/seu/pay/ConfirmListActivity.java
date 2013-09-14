@@ -73,7 +73,7 @@ public class ConfirmListActivity extends Activity{
         public void handleMessage(Message msg) {
             switch (msg.what) {
             case 1:
-             	pd=TimeOutProgressDialog.createProgressDialog(ConfirmListActivity.this,50000,new OnTimeOutListener(){
+             	pd=TimeOutProgressDialog.createProgressDialog(ConfirmListActivity.this,40000,new OnTimeOutListener(){
 
 				
 					public void onTimeOut(TimeOutProgressDialog dialog) {
@@ -129,10 +129,15 @@ public class ConfirmListActivity extends Activity{
 
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
-						Intent intent=new Intent(ConfirmListActivity.this,FlipActivity.class);
-						startActivity(intent);
+						
 						ConfirmListActivity.this.finish();
-						FlipActivity.bdt.close();
+						try
+						{
+							FlipActivity.bdt.close();
+						}catch(Exception e)
+						{
+							Log.i(TAG,"断开失败");
+						}
 						
 					}
 		    		
@@ -210,7 +215,9 @@ public class ConfirmListActivity extends Activity{
 							{
 								confirmTrade.addData(map.get("barcode").toString(), map.get("name").toString(), map.get("price").toString(), map.get("quantity").toString());
 							}
+							Log.i(TAG, "1");
 							confirmTrade.setTrade(buyerdevice, username, buyerimei, cardnumber, salerdevice, "receivername", "receiverimei", "receivercardnumber", tradetime, totalprice, cipher);
+							Log.i(TAG, "2");
 							String xml=confirmTrade.produceTradeXML("confirmTrade");
 							Log.d("",xml);
 							if(FlipActivity.bdt.write(xml))

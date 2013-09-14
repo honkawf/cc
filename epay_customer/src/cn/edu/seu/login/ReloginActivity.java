@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import cn.edu.seu.main.ExitActivity;
+import cn.edu.seu.main.FlipActivity;
 import cn.edu.seu.main.R;
 import cn.edu.seu.ciphertext.MD5;
 import cn.edu.seu.datadeal.PropertyInfo;
@@ -63,12 +64,13 @@ public class ReloginActivity extends Activity {
 					String p = password.getText().toString();
 					Log.i("ReloginActivity","1");
 					if(u.equals(x.getUserName()) && md5.encrypt(p).equals(x.getPassword())){
+						FlipActivity.s = true;
 						finish();
 						Log.i("ReloginActivity","2");
 					}
 					else
 					{
-						Toast.makeText(ReloginActivity.this, "用户名或密码不正确", Toast.LENGTH_LONG);
+						Toast.makeText(ReloginActivity.this, "用户名或密码不正确", Toast.LENGTH_LONG).show();
 						Log.i("ReloginActivity","3");
 					}
 

@@ -48,8 +48,11 @@ public class ModifyPwdActivity extends Activity {
 		
 		ischecked = false;
 		password = (EditText)findViewById(R.id.editText1);
+		password.getBackground().setAlpha(0);
 		newpassword1 = (EditText)findViewById(R.id.editText2);
+		newpassword1.getBackground().setAlpha(0);
 		newpassword2 = (EditText)findViewById(R.id.editText3);
+		newpassword2.getBackground().setAlpha(0);
 		newpassword1.setFocusable(false);
 		newpassword2.setFocusable(false);
 		btn_check = (Button)findViewById(R.id.check);
@@ -65,6 +68,8 @@ public class ModifyPwdActivity extends Activity {
 					btn_check.setClickable(false);
 					newpassword1.setFocusable(true);
 					newpassword2.setFocusable(true);
+					newpassword1.setFocusableInTouchMode(true);
+					newpassword2.setFocusableInTouchMode(true);
 					Toast.makeText(ModifyPwdActivity.this, "密码正确", Toast.LENGTH_LONG)
 					.show();
 					ischecked = true;
@@ -80,6 +85,11 @@ public class ModifyPwdActivity extends Activity {
 			public void onClick(View arg0) {
 				if(ischecked){
 					if(newpassword1.getText().toString().equals(newpassword2.getText().toString())){
+						if(newpassword1.getText().toString().length() < 6){
+							Toast.makeText(ModifyPwdActivity.this, "密码不能小于6位", Toast.LENGTH_LONG)
+							.show();
+							return;
+						}
 						pd = new ProgressDialog(ModifyPwdActivity.this);
 						pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 						pd.setCancelable(false);

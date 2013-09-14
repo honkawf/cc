@@ -64,7 +64,7 @@ public class TransferPriceActivity extends Activity {
 	public void handleMessage(Message msg) {
 		switch (msg.what) {
 	         case 1:
-	        	 pd=TimeOutProgressDialog.createProgressDialog(TransferPriceActivity.this,50000,new OnTimeOutListener(){
+	        	 pd=TimeOutProgressDialog.createProgressDialog(TransferPriceActivity.this,20000,new OnTimeOutListener(){
 
 						public void onTimeOut(TimeOutProgressDialog dialog) {
 							// TODO Auto-generated method stub
@@ -146,6 +146,7 @@ public class TransferPriceActivity extends Activity {
 
 						public void onClick(DialogInterface arg0, int arg1) {
 							// TODO Auto-generated method stub
+							btnConfirm.setVisibility(View.VISIBLE);
 							
 							
 						}
@@ -181,6 +182,7 @@ public class TransferPriceActivity extends Activity {
         
         btnConfirm=(Button) findViewById(R.id.btnConfirm);
         editText1=(EditText) findViewById(R.id.editText1);
+        editText1.getBackground().setAlpha(0);
         btn_back_c=(Button) findViewById(R.id.btn_back_c);
         btn_back_c.setOnClickListener(new OnClickListener(){
 

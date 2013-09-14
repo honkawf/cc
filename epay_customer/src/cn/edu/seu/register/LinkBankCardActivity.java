@@ -1,21 +1,17 @@
 package cn.edu.seu.register;
 
+
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.edu.seu.main.R;
-import cn.edu.seu.datadeal.DataDeal;
 import cn.edu.seu.datadeal.PropertyInfo;
-import cn.edu.seu.datatransportation.IDataTransportation;
 import cn.edu.seu.datatransportation.LocalInfo;
 import cn.edu.seu.datatransportation.LocalInfoIO;
+import cn.edu.seu.datatransportation.NetDataTransportation;
 import cn.edu.seu.datatransportation.PersonInfo;
 import cn.edu.seu.login.LoginActivity;
 import cn.edu.seu.login.Mapplication;
@@ -26,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,7 +33,7 @@ import android.widget.TextView;
 
 
 @SuppressLint("HandlerLeak")
-public class LinkBankCardActivity extends Activity implements IDataTransportation{
+public class LinkBankCardActivity extends Activity{
 	private EditText cardNum, cardPwd, phoneNum, idCardNum;
 	private TextView cardNum_label, cardPwd_label, phoneNum_label, idCardNum_label, btn_link_label;
 	private Button btn_link_submit,btn_back;
@@ -54,71 +51,6 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 	private static final String PHONENUM_PATTERN = "^1[0-9]{10}$";
 	private static final String IDCARDNUM_PATTERN = "\\d{17}[0-9a-zA-Z]$";
 
-	public Object connect(String address, int port){
-		Socket socket = null;
-		try{
-			socket = new Socket(address, port);	
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return socket;
-	}
-	
-	public boolean write(String xml){
-		try{
-			OutputStream out = cli_Soc.getOutputStream();
-			out.write(DataDeal.plusHead(xml.length()));
-			out.write(xml.getBytes());
-			Log.i("发送", new String(xml.getBytes()));
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	
-	public byte[] read(){
-		byte[] info = null;
-		try{
-			byte[] buffer = new byte[16];
-			InputStream in = cli_Soc.getInputStream();
-			in.read(buffer);
-			int XML_length = DataDeal.readHead(buffer);
-			info = new byte[XML_length];
-			in.read(info);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return info;
-	}
-	
-	public boolean close(){
-		try{
-			cli_Soc.close();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
 	
 	private Handler handler = new Handler(){
 		@Override
@@ -204,7 +136,6 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 		btn_back.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				
 				LinkBankCardActivity.this.finish();
 			}
 			
@@ -313,12 +244,13 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 								
 								new Thread() {
 									public void run() {
+										String localIMEI = ((TelephonyManager)getSystemService(TELEPHONY_SERVICE)).getDeviceId();
 										Log.i("linkcardrun","12");
 										String event = "linkBankCard";
 										Log.i("linkcardrun","13");
 										XML_Person xmlp = new XML_Person();
 										Log.i("linkcardrun","14");
-										xmlp.addPersonLinkBankCard(userName, cardNum_content, cardPwd_content, phoneNum_content, idCardNum_content, customerName);
+										xmlp.addPersonLinkBankCard(userName, cardNum_content, cardPwd_content, phoneNum_content, idCardNum_content, customerName,localIMEI);
 										Log.i("linkcardrun","15");
 										String resultXML = xmlp.produceLinkBankCardXML(event);
 										Log.i("linkcardrun",resultXML);
@@ -330,12 +262,13 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 										String serverPort=config.getProperty("serverPort" );
 										Log.i("linkcardrun","19");
 										byte[] info = {};
+										NetDataTransportation ndt = new NetDataTransportation();
 										try{
-											cli_Soc = (Socket)connect(serverAddress, Integer.parseInt(serverPort));
+											cli_Soc = (Socket)ndt.connect(serverAddress, Integer.parseInt(serverPort));
 											Log.i("linkcardrun","20");
-											write(resultXML);
+											ndt.write(resultXML);
 											Log.i("linkcardrun","21");
-											info = read();
+											info = ndt.read();
 										}catch(Exception e){
 											handler.sendEmptyMessage(2);
 											return;
@@ -364,7 +297,7 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 											Log.i("chris", "绑定失败");
 											handler.sendEmptyMessage(1);
 										}
-										close();
+										ndt.close();
 									}
 								}.start();
 								
@@ -388,6 +321,5 @@ public class LinkBankCardActivity extends Activity implements IDataTransportatio
 		});
 		
 	}	
-	
 	
 }

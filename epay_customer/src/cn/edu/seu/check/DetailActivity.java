@@ -51,6 +51,7 @@ public class DetailActivity extends Activity{
 	private TimeOutProgressDialog pd;
 	private Thread sendAndReceiveThread;
 	private Properties property;
+	String id;
 	private Handler handler = new Handler() {
 	@Override
 	public void handleMessage(Message msg) {
@@ -101,8 +102,11 @@ public class DetailActivity extends Activity{
 							DetailActivity.this.finish();
 							/*Intent intent=new Intent(DetailActivity.this,FlipActivity.class);
 							startActivity(intent);*/
-							TransferActivity.bdt.close();
-							
+							try{
+								TransferActivity.bdt.close();
+							}catch(Exception e){
+								Log.i(TAG,"连接断开失败");
+							}
 						}
 			    		
 			    	});
@@ -156,6 +160,7 @@ public class DetailActivity extends Activity{
 		time.setText(this.getIntent().getStringExtra("time"));
 		cash.setText(this.getIntent().getStringExtra("cash"));
 		cardnum.setText(this.getIntent().getStringExtra("cardnum"));*/
+		id = this.getIntent().getStringExtra("id");
 		xml=this.getIntent().getStringExtra("xml");
 		cashbtn.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v) {
@@ -193,6 +198,8 @@ public class DetailActivity extends Activity{
                    		 		msg.sendToTarget();
 	                   		 	LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));
 								lio.modifyBalance(parsedresult);
+								Checkdh cdh = new Checkdh(DetailActivity.this , "recorddb" , null , 1);
+								cdh.UpdateIscashed(Integer.parseInt(id));
 								//给交易记录赋值
 								Record record = new Record( 0 ,transfer.getPayerName(),transfer.getPayerDevice(),transfer.getPayerIMEI(),transfer.getReceiverName(),transfer.getReceiverDevice(),transfer.getReceiverIMEI(),Double.parseDouble(transfer.getTotalPrice()),"收款", transfer.getTradeTime());
 								Recorddh rdh = new Recorddh(DetailActivity.this , "recorddb" , null , 1);

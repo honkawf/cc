@@ -47,7 +47,9 @@ public class ModifyPhoActivity extends Activity {
 		setContentView(R.layout.modifyphone);
 		
 		password = (EditText)findViewById(R.id.editText1);
+		password.getBackground().setAlpha(0);
 		newphonenum = (EditText)findViewById(R.id.editText2);
+		newphonenum.getBackground().setAlpha(0);
 		btn_back_m2=(Button) findViewById(R.id.btn_back_m2);
 		btn_back_m2.setOnClickListener(new Button.OnClickListener(){
 
@@ -72,6 +74,7 @@ public class ModifyPhoActivity extends Activity {
 					password.setFocusable(false);
 					btn_check.setClickable(false);
 					newphonenum.setFocusable(true);
+					newphonenum.setFocusableInTouchMode(true);
 					Toast.makeText(ModifyPhoActivity.this, "密码正确", Toast.LENGTH_LONG)
 					.show();
 					ischecked = true;
@@ -86,6 +89,11 @@ public class ModifyPhoActivity extends Activity {
 		btn_confirm.setOnClickListener(new Button.OnClickListener(){
 
 			public void onClick(View arg0) {
+				if(newphonenum.getText().toString().length() != 11){
+					Toast.makeText(ModifyPhoActivity.this, "手机号码必须为11位", Toast.LENGTH_LONG)
+					.show();
+					return;
+				}
 				pd = new ProgressDialog(ModifyPhoActivity.this);
 				pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 				pd.setCancelable(false);

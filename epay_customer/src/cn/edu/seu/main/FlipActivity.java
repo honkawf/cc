@@ -375,6 +375,8 @@ public class FlipActivity extends Activity implements OnGestureListener{
   			Bundle bundle = data.getExtras();
   			scanResult = bundle.getString("result");
   			mac=scanResult.split(";")[1];
+  			mac=mac.substring(0,2)+":"+mac.substring(2,4)+":"+mac.substring(4,6)+":"+mac.substring(6,8)+":"+mac.substring(8,10)+":"+mac.substring(10,12);
+  			Log.i(TAG,mac);
   			try {
   				bdt.connect(mac);
   				Toast.makeText(FlipActivity.this, scanResult, Toast.LENGTH_LONG).show();

@@ -11,14 +11,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
-
 import cn.edu.seu.gesturepassword.LockPatternView.Cell;
 import cn.edu.seu.gesturepassword.LockPatternView.DisplayMode;
 import cn.edu.seu.gesturepassword.LockPatternView.OnPatternListener;
 import cn.edu.seu.login.Mapplication;
 import cn.edu.seu.login.ReloginActivity;
+import cn.edu.seu.main.ExitActivity;
 import cn.edu.seu.main.FlipActivity;
-
 import cn.edu.seu.main.R;
 
 public class LockActivity extends Activity implements OnClickListener {
@@ -56,7 +55,6 @@ public class LockActivity extends Activity implements OnClickListener {
 						wrongnum++;
 						if(wrongnum == 5){
 							wrongnum = 0;
-							FlipActivity.s = true;
 							Intent it = new Intent(LockActivity.this , ReloginActivity.class);
 							startActivity(it);
 							finish();
@@ -89,19 +87,11 @@ public class LockActivity extends Activity implements OnClickListener {
 
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        new AlertDialog.Builder(LockActivity.this)
-	                .setTitle("真的要离开？")
-	                .setMessage("你确定要离开")
-	                .setPositiveButton("确定",
-	                                new DialogInterface.OnClickListener() {
-	                                        public void onClick(DialogInterface dialog,
-	                                                        int which) {
-	                                        	Mapplication.getInstance().exit();
-	                                        }
-	                                }).show();
-
-	    }
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+        		Intent intent = new Intent(LockActivity.this,ExitActivity.class);
+            	startActivity(intent);
+		}
 		return false;
 	}
 
@@ -110,4 +100,5 @@ public class LockActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

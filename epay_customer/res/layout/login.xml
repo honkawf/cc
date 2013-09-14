@@ -85,7 +85,7 @@
         android:layout_alignLeft="@+id/login"
         android:layout_below="@+id/login"
         android:layout_marginLeft="63dip"
-        android:layout_marginTop="140dip"
+        android:layout_marginTop="120dip"
         android:text="注册"
         android:textColor="#2e9aff" />
 

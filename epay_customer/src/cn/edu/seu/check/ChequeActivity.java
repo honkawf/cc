@@ -60,6 +60,7 @@ public class ChequeActivity extends Activity {
 		if(list != null) {
 			for(int i = 0 ; i < list.length ; i++ ){
 				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("id", list[i].getCheckId());
 		        map.put("name", list[i].getPayerName());
 		        map.put("cardnum", list[i].getPayerCardnum());
 		        map.put("price", list[i].getTotalPrice().toString());
@@ -76,6 +77,7 @@ public class ChequeActivity extends Activity {
 				.show();
 				Intent it = new Intent(ChequeActivity.this , DetailActivity.class);
 				HashMap<String, Object> tmap = (HashMap<String, Object>)listItem.get(arg2);
+				it.putExtra("id", String.valueOf(tmap.get("id")));
 				it.putExtra("name", (String)tmap.get("name"));
 				it.putExtra("cardnum", (String)tmap.get("cardnum"));
 				it.putExtra("time", (String)tmap.get("time"));
@@ -83,6 +85,7 @@ public class ChequeActivity extends Activity {
 				it.putExtra("cash", (String)tmap.get("cash"));
 				it.putExtra("xml", (String)tmap.get("xml"));
 				startActivity(it);
+				ChequeActivity.this.finish();
 			}
 		});
 		btn_back_c=(Button) findViewById(R.id.btn_back_c);

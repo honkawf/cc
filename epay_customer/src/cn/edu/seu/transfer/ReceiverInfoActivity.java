@@ -41,7 +41,7 @@ public class ReceiverInfoActivity extends Activity{
                 ReceiverInfoActivity.this.finish();
                 break;
             case 1:
-	        	 pd=TimeOutProgressDialog.createProgressDialog(ReceiverInfoActivity.this,50000,new OnTimeOutListener(){
+	        	 pd=TimeOutProgressDialog.createProgressDialog(ReceiverInfoActivity.this,20000,new OnTimeOutListener(){
 
 						public void onTimeOut(TimeOutProgressDialog dialog) {
 							// TODO Auto-generated method stub

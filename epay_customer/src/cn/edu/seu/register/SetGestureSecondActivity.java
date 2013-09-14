@@ -93,6 +93,11 @@ public class SetGestureSecondActivity extends Activity implements OnClickListene
 					Intent intentToFirst = new Intent();
 					intentToFirst.setClass(SetGestureSecondActivity.this,
 							SetGestureFirstActivity.class);
+					intentToFirst.putExtra("userName", userName);
+					Log.i("second", userName);
+					intentToFirst.putExtra("password", password);
+					Log.i("second", password);
+					intentToFirst.putExtra("customerName", customerName);
 					startActivity(intentToFirst);
 					SetGestureSecondActivity.this.finish();
 				}

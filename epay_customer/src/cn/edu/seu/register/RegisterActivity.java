@@ -57,7 +57,7 @@ public class RegisterActivity extends Activity{
 	
 	@SuppressLint("HandlerLeak")
 	private int XML_length1,XML_length2;
-	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_]{3,15}$";
+	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_]{5,15}$";
 	private static final String REALNAME_PATTERN = "^[\u4e00-\u9fa5]{1,10}$";
 	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9_~]{6,15}$";
 
@@ -316,6 +316,7 @@ public class RegisterActivity extends Activity{
 								pwd2_label.setText("");
 							} else {
 								pwd_correct = false;
+								pwd2_label.setText("两次密码不一致");
 							}
 						} else {
 							pwd2_label.setText("密码只能包含大小写字母、数字和下划线");
@@ -335,7 +336,7 @@ public class RegisterActivity extends Activity{
 				}else{
 					realName_content = realName.getText().toString();
 					if(realName_content.equals(""))
-						realName_label.setText("身份证号码不能为空");
+						realName_label.setText("真实姓名不能为空");
 					else{
 //						if(checkForm(realName_content)){
 //							realName_correct = true;
@@ -361,7 +362,7 @@ public class RegisterActivity extends Activity{
 				} else {	
 					Log.i("register", "000");
 					//checkForm(realName_content,REALNAME_PATTERN
-					if (true) {
+					if (checkForm(realName_content,REALNAME_PATTERN)) {
 						Log.i("register", "001");
 						realName_label.setText("");
 						Log.i("register", "002");

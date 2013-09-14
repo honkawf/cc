@@ -17,6 +17,7 @@ import cn.edu.seu.guide.FirstTimeGuideActivity;
 
 import cn.edu.seu.record.GoodsActivity;
 import cn.edu.seu.register.RegisterActivity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -123,15 +124,17 @@ public class LoginActivity extends Activity {
 			
 		});
 		
-		findback.setOnClickListener(new OnClickListener(){
+	/*	findback.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
-				/*Intent it = new Intent(LoginActivity.this , FlipActivity.class);
-				startActivity(it);
-				finish();*/
+				Uri uri = Uri.parse("honka.xicp.net");  
+				Intent it  = new Intent(Intent.ACTION_VIEW,uri);  
+				startActivity(it); 
+				LoginActivity.this.finish();
+				
 			}
 			
-		});
+		});*/
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

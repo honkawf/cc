@@ -165,7 +165,8 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/btn_register"
         android:layout_below="@+id/btn_register"
-        android:text="" />
+        android:text=""
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/btn_register"

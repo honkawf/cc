@@ -352,13 +352,14 @@ public class XML_Person {
     	person.setBluetoothmac(bluetoothMac);
     }
     
-    public void addPersonLinkBankCard(String userName, String cardNum, String cardpassword, String phoneNum, String idCardNum, String customerName){
+    public void addPersonLinkBankCard(String userName, String cardNum, String cardpassword, String phoneNum, String idCardNum, String customerName, String imei){
     	person.setUsername(userName);
     	person.setCardnum(cardNum);
     	person.setCardpassword(cardpassword);
     	person.setPhonenum(phoneNum);
     	person.setIdentificationcardnum(idCardNum);
     	person.setCustomername(customerName);
+    	person.setImei(imei);
     }
     
     

@@ -46,7 +46,7 @@ public class ConfirmPriceActivity extends Activity{
         public void handleMessage(Message msg) {
             switch (msg.what) {
             case 1:
-            	pd=TimeOutProgressDialog.createProgressDialog(ConfirmPriceActivity.this,50000,new OnTimeOutListener(){
+            	pd=TimeOutProgressDialog.createProgressDialog(ConfirmPriceActivity.this,40000,new OnTimeOutListener(){
 
 					public void onTimeOut(TimeOutProgressDialog dialog) {
 						// TODO Auto-generated method stub
@@ -192,7 +192,8 @@ public class ConfirmPriceActivity extends Activity{
 							sentence=payResult.parseBalanceXML(new ByteArrayInputStream(receive));
 							String balance = sentence;
 							Properties property =PropertyInfo.getProperties();
-							LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));							lio.modifyBalance(balance);
+							LocalInfoIO lio = new LocalInfoIO(property.getProperty("path") , property.getProperty("filename"));	
+							lio.modifyBalance(balance);
 							//给交易记录赋值
 							Record record = new Record( 0 ,trade.getPayerName(),trade.getPayerDevice(),trade.getPayerIMEI(),trade.getReceiverName(),trade.getReceiverDevice(),trade.getReceiverIMEI(),Double.parseDouble(trade.getTotalPrice()),"收款", trade.getTradeTime());
 							Recorddh rdh = new Recorddh(ConfirmPriceActivity.this , "recorddb" , null , 1);

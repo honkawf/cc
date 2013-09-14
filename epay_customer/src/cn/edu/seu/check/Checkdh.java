@@ -51,6 +51,15 @@ public class Checkdh extends SQLiteOpenHelper {
 		}
     }
     
+	public void UpdateIscashed(int id) {
+        try {
+            getWritableDatabase().execSQL("Update checklist set iscashed = '是' where checkid = "+id);
+        } catch (Exception e) {
+            Log.i("err", "update failed");
+        }
+    }
+
+	
     public Check [] query(){
     	//getWritableDatabase().execSQL("drop table checklist");
     	getWritableDatabase().execSQL("create table if not exists checklist(checkid integer primary key autoincrement not null , payername varchar not null , payercardnum varchar not null ,payerimei varchar not null , totalprice varchar not null , transfertime varchar not null , iscashed varchar not null, xml blob not null)"); 

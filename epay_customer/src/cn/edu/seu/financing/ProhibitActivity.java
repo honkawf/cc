@@ -208,11 +208,9 @@ public class ProhibitActivity extends Activity implements OnClickListener, Abstr
                 pd.dismiss();
 				Toast.makeText(ProhibitActivity.this, xh_msg , Toast.LENGTH_LONG)
 				.show(); 
+				FlipActivity.id=1;
 				finish();
-				Intent intent=new Intent();
-				intent.setClass(ProhibitActivity.this, FlipActivity.class);
-				intent.putExtra("flag", 1);
-				startActivity(intent);
+
             }else if(msg.arg1 == 2){
             	CharSequence xh_msg = (CharSequence) msg.obj;
             	interest.setText(xh_msg);

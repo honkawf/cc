@@ -3,6 +3,7 @@ package com.zxing.encoding;
 import java.util.Hashtable;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

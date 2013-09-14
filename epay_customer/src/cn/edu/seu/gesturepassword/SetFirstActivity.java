@@ -75,9 +75,8 @@ public class SetFirstActivity extends Activity implements OnClickListener {
 			}
 			else{
 
-        		Intent intent = new Intent();
-            	intent.setClass(SetFirstActivity.this,ExitActivity.class);
-            	startActivityForResult(intent,100);    
+        		Intent intent = new Intent(SetFirstActivity.this,ExitActivity.class);
+        		startActivity(intent);
 			}
 		}
 		return false;

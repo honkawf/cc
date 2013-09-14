@@ -113,6 +113,7 @@ public class DepositActivity extends Activity implements OnClickListener, Abstra
 			}
     	});
     	edittext = (EditText)findViewById(R.id.editText1);
+    	edittext.getBackground().setAlpha(0);
 		bt_dropdown = (ImageButton) findViewById(R.id.bt_dropdown);
 		bt_dropdown1= (ImageButton) findViewById(R.id.bt_dropdown1);
 		bt_dropdown.setOnClickListener(this);
@@ -232,11 +233,8 @@ public class DepositActivity extends Activity implements OnClickListener, Abstra
                 pd.dismiss();
 				Toast.makeText(DepositActivity.this, xh_msg , Toast.LENGTH_LONG)
 				.show(); 
+				FlipActivity.id=1;
 				finish();
-				Intent intent=new Intent();
-				intent.setClass(DepositActivity.this, FlipActivity.class);
-				intent.putExtra("flag", 1);
-				startActivity(intent);
             }
         }  
     }

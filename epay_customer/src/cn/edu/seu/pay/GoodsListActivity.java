@@ -68,7 +68,7 @@ public class GoodsListActivity extends Activity{
             	pd.dismiss();
             	break;
             case 1:
-            	pd=TimeOutProgressDialog.createProgressDialog(GoodsListActivity.this,50000,new OnTimeOutListener(){
+            	pd=TimeOutProgressDialog.createProgressDialog(GoodsListActivity.this,40000,new OnTimeOutListener(){
 
     				
 					public void onTimeOut(TimeOutProgressDialog dialog) {

@@ -51,7 +51,7 @@ public class ManageInfoActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
             case 1:
-             	pd=TimeOutProgressDialog.createProgressDialog(ManageInfoActivity.this,50000,new OnTimeOutListener(){
+             	pd=TimeOutProgressDialog.createProgressDialog(ManageInfoActivity.this,20000,new OnTimeOutListener(){
              		public void onTimeOut(TimeOutProgressDialog dialog) {
 						// TODO Auto-generated method stub
 						AlertDialog.Builder builder = new Builder(ManageInfoActivity.this);
@@ -88,6 +88,7 @@ public class ManageInfoActivity extends Activity {
 						// TODO Auto-generated method stub
 						/*Intent intent=new Intent(ManageInfoActivity.this,FlipActivity.class);
 						startActivity(intent);*/
+						FlipActivity.id=1;
 						ManageInfoActivity.this.finish();
 						
 					}

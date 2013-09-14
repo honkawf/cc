@@ -47,7 +47,7 @@ public class StoreInfoActivity extends Activity{
        		 	StoreInfoActivity.this.finish();
                 break;
             case 1:
-            	pd=TimeOutProgressDialog.createProgressDialog(StoreInfoActivity.this,50000,new OnTimeOutListener(){
+            	pd=TimeOutProgressDialog.createProgressDialog(StoreInfoActivity.this,40000,new OnTimeOutListener(){
 
 					public void onTimeOut(TimeOutProgressDialog dialog) {
 						// TODO Auto-generated method stub
@@ -92,7 +92,14 @@ public class StoreInfoActivity extends Activity{
 						startActivity(intent);*/
 						FlipActivity.id=0;
 						StoreInfoActivity.this.finish();
-						FlipActivity.bdt.close();
+						try
+						{
+							FlipActivity.bdt.close();
+						}
+						catch(Exception e)
+						{
+							Log.i(TAG,"关闭失败");
+						}
 						
 					}
 		    		
@@ -135,9 +142,11 @@ public class StoreInfoActivity extends Activity{
          String Info[]=new String[3];
          try{
         	 Intent intent=getIntent();
+        	 Log.i(TAG,intent.getStringExtra("scanResult"));
         	 Info=intent.getStringExtra("scanResult").split(";");
         	 storeName=Info[0];
         	 mac=Info[1];
+   			mac=mac.substring(0,2)+":"+mac.substring(2,4)+":"+mac.substring(4,6)+":"+mac.substring(6,8)+":"+mac.substring(8,10)+":"+mac.substring(10,12);
         	 type=Info[2];
         	 tvstorename.setText("店名："+storeName);
         	 tvaddress.setText("蓝牙地址："+mac);
@@ -155,6 +164,7 @@ public class StoreInfoActivity extends Activity{
          }
          catch(Exception e)
          {
+        	 Log.i(TAG,e.getMessage());
         	 Toast.makeText(StoreInfoActivity.this, "扫描失败，请重扫二维码", Toast.LENGTH_LONG).show();
         	 Intent openCameraIntent = new Intent(StoreInfoActivity.this,CaptureActivity.class);
         	 startActivityForResult(openCameraIntent, 0);   

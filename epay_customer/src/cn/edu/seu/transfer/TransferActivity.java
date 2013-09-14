@@ -61,7 +61,7 @@ public class TransferActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 		         case 1:
-		        	 pd=TimeOutProgressDialog.createProgressDialog(TransferActivity.this,50000,new OnTimeOutListener(){
+		        	 pd=TimeOutProgressDialog.createProgressDialog(TransferActivity.this,20000,new OnTimeOutListener(){
 
 							public void onTimeOut(TimeOutProgressDialog dialog) {
 								// TODO Auto-generated method stub

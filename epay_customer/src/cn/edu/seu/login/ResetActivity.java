@@ -48,7 +48,9 @@ public class ResetActivity extends Activity {
         b1=(Button)findViewById(R.id.button3);
         btn_back_c=(Button)findViewById(R.id.btn_back_c);
         cardnumber = (EditText)findViewById(R.id.editText2);
+        cardnumber.getBackground().setAlpha(0);
 		identificationnumber = (EditText)findViewById(R.id.editText1);
+		identificationnumber.getBackground().setAlpha(0);
 		btn_back_c.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View arg0) {
